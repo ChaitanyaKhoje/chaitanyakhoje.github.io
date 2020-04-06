@@ -1,8 +1,8 @@
 ---
 title: 'Hi, my name is'
-name: 'Chaitanya Khoje'
-subtitle: 'I code, optimize and deploy for the AWS.'
+name: 'Brittany Chiang'
+subtitle: 'I build things for the web.'
 contactText: 'Get In Touch'
 ---
 
-I'm a data engineer based in Santa, CA.
+I'm a software engineer based in Boston, MA specializing in building (and occasionally designing) exceptional, high-quality websites and applications.
