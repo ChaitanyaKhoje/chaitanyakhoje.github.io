@@ -2,10 +2,10 @@
   "name": "v4",
   "description": "Personal Website V4",
   "version": "1.0.0",
-  "author": "Chaitanya Khoje <chaitanyakhoje9@gmail.com>",
+  "author": "Brittany Chiang <brittany.chiang@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ChaitanyaKhoje/chaitanyakhoje.github.io"
+    "url": "https://github.com/bchiang7/v4"
   },
   "keywords": [
     "gatsby"
@@ -38,7 +38,6 @@
     "animejs": "^3.1.0",
     "babel-plugin-styled-components": "^1.10.6",
     "gatsby": "^2.18.7",
-    "gatsby-cli": "^2.11.5",
     "gatsby-image": "^2.2.34",
     "gatsby-plugin-google-analytics": "^2.1.29",
     "gatsby-plugin-manifest": "^2.2.31",
@@ -58,7 +57,7 @@
     "lodash": "^4.17.15",
     "prismjs": "^1.17.1",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
+    "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-helmet": "^5.2.1",
     "react-transition-group": "^4.3.0",
@@ -75,7 +74,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0",
     "gatsby-remark-code-titles": "^1.1.0",
-    "gh-pages": "^2.2.0",
     "husky": "^3.1.0",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1"
