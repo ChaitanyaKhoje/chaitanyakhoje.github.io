@@ -1,3 +1,39 @@
 theme: jekyll-theme-minimal
 title: Chaitanya Khoje
-description: Bookmark this to keep an eye on my project updates!
+description: Astrophotography Portfolio
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Collections
+collections:
+  gallery:
+    output: true
+    permalink: /gallery/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "gallery"
+    values:
+      layout: "gallery"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git

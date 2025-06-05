@@ -1,0 +1,29 @@
+andromeda-galaxy:
+  title: "Andromeda Galaxy"
+  description: "The closest spiral galaxy to our Milky Way, captured with a 10-inch telescope"
+  equipment: "Telescope: 10-inch Newtonian, Camera: ZWO ASI2600MM Pro"
+  date: "2023-12-15"
+
+orion-nebula:
+  title: "Orion Nebula"
+  description: "A stellar nursery in the constellation of Orion, showing vibrant colors of ionized gas"
+  equipment: "Telescope: 8-inch Schmidt-Cassegrain, Camera: Canon EOS Ra"
+  date: "2024-01-20"
+
+milky-way:
+  title: "Milky Way Core"
+  description: "The heart of our galaxy, captured from a dark sky location"
+  equipment: "Camera: Sony A7III, Lens: 24mm f/1.4"
+  date: "2023-08-05"
+
+pleiades:
+  title: "Pleiades Star Cluster"
+  description: "The Seven Sisters, an open star cluster in Taurus"
+  equipment: "Telescope: 6-inch Refractor, Camera: ZWO ASI533MC Pro"
+  date: "2024-02-10"
+
+horsehead-nebula:
+  title: "Horsehead Nebula"
+  description: "Dark nebula in Orion, silhouetted against the emission nebula IC 434"
+  equipment: "Telescope: 12-inch Newtonian, Camera: ZWO ASI2600MM Pro"
+  date: "2024-01-15" 

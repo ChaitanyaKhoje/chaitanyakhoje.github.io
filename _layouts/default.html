@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - {{ site.title }}</title>
+    <link rel="stylesheet" href="{{ '/css/main.css' | relative_url }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+    {% seo %}
+</head>
+<body>
+    <div class="site-wrapper">
+        <header class="site-header">
+            <div class="container">
+                <nav class="main-nav">
+                    <a href="{{ '/' | relative_url }}" class="logo">{{ site.title }}</a>
+                    <ul class="nav-links">
+                        <li><a href="{{ '/gallery' | relative_url }}">Gallery</a></li>
+                        <li><a href="{{ '/about' | relative_url }}">About</a></li>
+                        <li><a href="{{ '/contact' | relative_url }}">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="site-content">
+            {{ content }}
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script src="{{ '/js/main.js' | relative_url }}"></script>
+</body>
+</html> 

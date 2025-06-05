@@ -1,0 +1,11 @@
+<div class="gallery-item">
+    <a href="{{ include.url | relative_url }}" class="gallery-link">
+        <img src="{{ include.thumbnail | relative_url }}" alt="{{ include.title }}" loading="lazy">
+        <div class="gallery-item-overlay">
+            <h3>{{ include.title }}</h3>
+            {% if include.description %}
+            <p>{{ include.description }}</p>
+            {% endif %}
+        </div>
+    </a>
+</div> 
