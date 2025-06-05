@@ -1,0 +1,212 @@
+---
+layout: default
+---
+
+<div class="dso-container">
+    <div class="dso-header">
+        <h1>{{ page.title }}</h1>
+        <p class="dso-type">{{ page.type }}</p>
+    </div>
+
+    <div class="dso-content">
+        <div class="dso-image">
+            <img src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+        </div>
+
+        <div class="dso-info">
+            <div class="info-section">
+                <h2>Object Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Constellation</span>
+                        <span class="info-value">{{ page.constellation }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Magnitude</span>
+                        <span class="info-value">{{ page.magnitude }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Distance</span>
+                        <span class="info-value">{{ page.distance }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2>Description</h2>
+                <p>{{ page.description }}</p>
+            </div>
+
+            <div class="info-section">
+                <h2>Equipment Used</h2>
+                <ul class="equipment-list">
+                    {% for item in page.equipment %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h2>Exposure Details</h2>
+                <ul class="exposure-list">
+                    {% for exposure in page.exposure %}
+                    <li>{{ exposure }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h2>Processing Workflow</h2>
+                <div class="workflow-steps">
+                    {% for step in page.processing %}
+                    <div class="workflow-step">
+                        <h3>Step {{ forloop.index }}</h3>
+                        <p>{{ step }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.dso-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.dso-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.dso-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.dso-type {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+}
+
+.dso-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.dso-image {
+    position: sticky;
+    top: 100px;
+}
+
+.dso-image img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.info-section {
+    margin-bottom: 40px;
+}
+
+.info-section h2 {
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.info-item {
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.info-label {
+    display: block;
+    color: #ccc;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.equipment-list, .exposure-list {
+    list-style: none;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.equipment-list li, .exposure-list li {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.equipment-list li:before, .exposure-list li:before {
+    content: "•";
+    color: var(--accent-color);
+    position: absolute;
+    left: 0;
+}
+
+.workflow-steps {
+    counter-reset: step;
+}
+
+.workflow-step {
+    position: relative;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: var(--card-bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
+}
+
+.workflow-step::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--accent-color);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.workflow-step h3 {
+    margin-bottom: 10px;
+    color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    .dso-content {
+        grid-template-columns: 1fr;
+    }
+
+    .dso-image {
+        position: static;
+    }
+}
+</style> 

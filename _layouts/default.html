@@ -16,8 +16,23 @@
                     <a href="{{ '/' | relative_url }}" class="logo">{{ site.title }}</a>
                     <ul class="nav-links">
                         <li><a href="{{ '/gallery' | relative_url }}">Gallery</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle">Catalog</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ '/catalog/dso' | relative_url }}">Deep Sky Objects</a></li>
+                                <li><a href="{{ '/catalog/planets' | relative_url }}">Planets</a></li>
+                                <li><a href="{{ '/catalog/moon' | relative_url }}">Moon</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle">Resources</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ '/resources/processing' | relative_url }}">Processing Workflows</a></li>
+                                <li><a href="{{ '/resources/equipment' | relative_url }}">Equipment Guide</a></li>
+                                <li><a href="{{ '/resources/locations' | relative_url }}">Dark Sky Locations</a></li>
+                            </ul>
+                        </li>
                         <li><a href="{{ '/about' | relative_url }}">About</a></li>
-                        <li><a href="{{ '/contact' | relative_url }}">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -29,7 +44,27 @@
 
         <footer class="site-footer">
             <div class="container">
-                <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="{{ '/gallery' | relative_url }}">Gallery</a></li>
+                            <li><a href="{{ '/catalog/dso' | relative_url }}">DSO Catalog</a></li>
+                            <li><a href="{{ '/resources/processing' | relative_url }}">Processing Guides</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="{{ '/resources/equipment' | relative_url }}">Equipment Guide</a></li>
+                            <li><a href="{{ '/resources/locations' | relative_url }}">Dark Sky Locations</a></li>
+                            <li><a href="{{ '/about' | relative_url }}">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
+                </div>
             </div>
         </footer>
     </div>
