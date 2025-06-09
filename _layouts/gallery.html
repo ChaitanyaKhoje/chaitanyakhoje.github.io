@@ -3,75 +3,145 @@ layout: default
 ---
 
 <div class="gallery-container">
-    <div class="gallery-header">
-        <h1>{{ page.title }}</h1>
-        {% if page.description %}
-        <p class="gallery-description">{{ page.description }}</p>
-        {% endif %}
-    </div>
+    <article class="post">
+        <header class="post-header">
+            <h1 class="post-title">{{ page.title }}</h1>
+        </header>
 
-    <div class="gallery-grid">
-        {% for image in page.images %}
-        <div class="gallery-item">
-            <a href="{{ image.url | relative_url }}" class="gallery-link">
-                <img src="{{ image.thumbnail | relative_url }}" alt="{{ image.title }}" loading="lazy">
-                <div class="gallery-item-overlay">
-                    <h3>{{ image.title }}</h3>
-                    {% if image.description %}
-                    <p>{{ image.description }}</p>
-                    {% endif %}
-                </div>
-            </a>
+        <div class="post-content">
+            {{ content }}
         </div>
-        {% endfor %}
-    </div>
+
+        <div class="gallery-grid">
+            {% for image in page.images %}
+            <div class="gallery-item">
+                <div class="image-container">
+                    <img src="{{ image.path }}" 
+                         alt="{{ image.title }}"
+                         class="gallery-image"
+                         loading="lazy"
+                         onclick="openLightbox(this)">
+                    <div class="image-info">
+                        <h3>{{ image.title }}</h3>
+                        <p>{{ image.description }}</p>
+                        <div class="image-metadata">
+                            <p><strong>Equipment:</strong> {{ image.equipment }}</p>
+                            <p><strong>Location:</strong> {{ image.location }}</p>
+                            <p><strong>Date:</strong> {{ image.date }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </article>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="close-button">&times;</span>
+    <img id="lightbox-image" class="lightbox-content">
 </div>
 
 <style>
-.gallery-container {
-    padding: 20px;
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
 }
 
-.gallery-header {
-    text-align: center;
-    margin-bottom: 40px;
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
 
-.gallery-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+.gallery-item:hover {
+    transform: translateY(-5px);
 }
 
-.gallery-description {
-    font-size: 1.1rem;
-    color: #888;
-    max-width: 600px;
-    margin: 0 auto;
+.image-container {
+    position: relative;
 }
 
-.gallery-item-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-    padding: 20px;
-    color: white;
+.gallery-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    cursor: pointer;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-.gallery-item:hover .gallery-item-overlay {
-    opacity: 1;
+.image-info {
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
 }
 
-.gallery-item-overlay h3 {
-    margin-bottom: 5px;
-    font-size: 1.1rem;
+.gallery-item:hover .image-info {
+    transform: translateY(0);
 }
 
-.gallery-item-overlay p {
+.image-metadata {
     font-size: 0.9rem;
-    opacity: 0.8;
+    margin-top: 0.5rem;
 }
-</style> 
+
+/* Lightbox styles */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 2rem;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90vh;
+    margin: auto;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.close-button {
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+</style>
+
+<script>
+function openLightbox(img) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-image');
+    lightboxImg.src = img.src;
+    lightbox.style.display = 'block';
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+}
+</script>
+
+<script src="{{ '/js/protection.js' | relative_url }}"></script> 
