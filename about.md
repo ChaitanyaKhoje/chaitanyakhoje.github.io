@@ -1,150 +1,157 @@
 ---
 layout: default
-title: About
+title: About Me
+permalink: /about/
 ---
 
-<div class="about-container">
+<div class="container">
     <div class="about-header">
-        <h1>About My Astrophotography</h1>
+        <h1>About Me</h1>
     </div>
 
     <div class="about-content">
-        <section class="about-section">
-            <h2>My Journey</h2>
-            <p>Welcome to my astrophotography portfolio. I've been capturing the wonders of the night sky for several years, combining my passion for astronomy with the art of photography. Each image represents countless hours of planning, capturing, and processing to reveal the hidden beauty of our universe.</p>
-        </section>
+        <div class="about-text">
+            <p>My passion for astrophotography began three years ago when I first pointed my camera toward the night sky. What started as a simple curiosity has evolved into a deep fascination with capturing the cosmos.</p>
+            
+            <p>Through countless nights under dark skies, I've learned that astrophotography is more than just taking pictures—it's about patience, precision, and connecting with the universe on a profound level.</p>
 
-        <section class="about-section">
             <h2>Equipment</h2>
-            <div class="equipment-grid">
-                <div class="equipment-item">
-                    <h3>Telescopes</h3>
+            <ul class="equipment-list">
+                <li>
+                    <strong>Primary Imaging Scope:</strong> 8" Newtonian Reflector
+                </li>
+                <li>
+                    <strong>Secondary Scope:</strong> 6" Refractor
+                </li>
+                <li>
+                    <strong>Cameras:</strong> 
                     <ul>
-                        <li>10-inch Newtonian Reflector</li>
-                        <li>8-inch Schmidt-Cassegrain</li>
-                        <li>6-inch Refractor</li>
+                        <li>ZWO ASI2600MM Pro (Monochrome)</li>
+                        <li>Canon EOS R (Modified)</li>
                     </ul>
-                </div>
-                <div class="equipment-item">
-                    <h3>Cameras</h3>
-                    <ul>
-                        <li>ZWO ASI2600MM Pro</li>
-                        <li>ZWO ASI533MC Pro</li>
-                        <li>Canon EOS Ra</li>
-                    </ul>
-                </div>
-                <div class="equipment-item">
-                    <h3>Mounts</h3>
-                    <ul>
-                        <li>Sky-Watcher EQ6-R Pro</li>
-                        <li>Celestron CGX</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="about-section">
-            <h2>Processing</h2>
-            <p>Each image undergoes careful processing to bring out the details while maintaining scientific accuracy. I use a combination of specialized software including:</p>
-            <ul class="software-list">
-                <li>PixInsight for deep sky processing</li>
-                <li>Adobe Photoshop for final touches</li>
-                <li>DeepSkyStacker for image stacking</li>
-                <li>AstroPixelProcessor for calibration</li>
+                </li>
+                <li>
+                    <strong>Mount:</strong> Sky-Watcher EQ6-R Pro
+                </li>
             </ul>
-        </section>
+
+            <h2>Favorite Imaging Locations</h2>
+            <ul class="location-list">
+                <li>Cherry Springs State Park, PA</li>
+                <li>Death Valley National Park, CA</li>
+                <li>Mauna Kea, HI</li>
+            </ul>
+        </div>
+        
+        <div class="about-image">
+            <img src="/assets/images/profile.jpg" alt="Chaitanya at telescope" class="profile-image">
+        </div>
     </div>
 </div>
 
 <style>
-.about-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
 .about-header {
     text-align: center;
-    margin-bottom: 60px;
+    padding: 4rem 0 2rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 3rem;
 }
 
 .about-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--text-color);
+    font-family: var(--font-mono);
 }
 
-.about-section {
-    margin-bottom: 60px;
+.about-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+    align-items: start;
 }
 
-.about-section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: var(--accent-color);
+.about-text {
+    color: #e0e0e0;
 }
 
-.about-section p {
-    margin-bottom: 20px;
+.about-text p {
+    font-size: 1.1rem;
     line-height: 1.8;
+    margin-bottom: 1.5rem;
 }
 
-.equipment-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
-}
-
-.equipment-item {
-    background: var(--secondary-color);
-    padding: 20px;
-    border-radius: 8px;
-}
-
-.equipment-item h3 {
-    margin-bottom: 15px;
+.about-text h2 {
+    font-size: 1.75rem;
     color: var(--accent-color);
+    margin: 2.5rem 0 1rem;
+    font-family: var(--font-mono);
 }
 
-.equipment-item ul {
+.equipment-list, .location-list {
     list-style: none;
+    padding: 0;
+    margin: 1rem 0 2rem;
 }
 
-.equipment-item li {
-    margin-bottom: 10px;
-    padding-left: 20px;
-    position: relative;
+.equipment-list li, .location-list li {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
 }
 
-.equipment-item li:before {
-    content: "•";
+.equipment-list ul {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.equipment-list strong {
     color: var(--accent-color);
-    position: absolute;
-    left: 0;
+    font-family: var(--font-mono);
+    font-weight: 500;
 }
 
-.software-list {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-top: 20px;
+.about-image {
+    position: sticky;
+    top: 2rem;
 }
 
-.software-list li {
-    background: var(--secondary-color);
-    padding: 15px;
-    border-radius: 5px;
-    text-align: center;
+.profile-image {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 1024px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .about-image {
+        position: static;
+        max-width: 600px;
+        margin: 0 auto;
+    }
 }
 
 @media (max-width: 768px) {
-    .about-header h1 {
-        font-size: 2rem;
+    .about-header {
+        padding: 3rem 0 1.5rem;
+        margin-bottom: 2rem;
     }
-    
-    .equipment-grid {
-        grid-template-columns: 1fr;
+
+    .about-text p {
+        font-size: 1rem;
+    }
+
+    .about-text h2 {
+        font-size: 1.5rem;
+        margin: 2rem 0 1rem;
+    }
+
+    .equipment-list li, .location-list li {
+        font-size: 1rem;
     }
 }
 </style> 

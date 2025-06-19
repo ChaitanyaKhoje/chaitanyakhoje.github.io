@@ -1,8 +1,14 @@
-theme: jekyll-theme-cayman
 title: Chaitanya Khoje
-description: Astrophotography Portfolio
+email: contact@chaitanyakhoje.com
+description: >-
+  Astrophotographer capturing the wonders of the cosmos through telescopes and cameras.
+  Specializing in deep sky objects, galaxies, and nebulae.
 baseurl: ""
-url: ""
+url: "https://chaitanyakhoje.github.io"
+
+# Social media
+github_username: chaitanyakhoje
+instagram_username: chaitanyakhoje
 
 # Build settings
 markdown: kramdown
@@ -15,7 +21,7 @@ plugins:
 collections:
   gallery:
     output: true
-    permalink: /gallery/:title/
+    permalink: /gallery/:path/
 
 # Defaults
 defaults:
@@ -36,4 +42,8 @@ exclude:
   - Gemfile.lock
   - node_modules
   - vendor
-  - .git
+  - .sass-cache
+  - .jekyll-cache
+  - README.md
+  - Rakefile
+  - .github

@@ -3,266 +3,418 @@ layout: default
 title: Home
 ---
 
-<div class="hero-section">
-    <div class="container">
-        <h1 class="fade-in-up">Capturing the Cosmos</h1>
-        <p class="subtitle fade-in-up">Exploring the universe through the lens of astrophotography</p>
-        <div class="hero-cta fade-in-up">
-            <a href="/gallery" class="button">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                    <polyline points="21,15 16,10 5,21"></polyline>
-                </svg>
-                View Gallery
-            </a>
-            <a href="/about" class="button secondary">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                About Me
-            </a>
-        </div>
-    </div>
-</div>
-
 <div class="container">
-    <!-- Stats Section -->
-    <section class="stats-section">
+    <!-- Header with Name and Description -->
+    <header class="content-header">
+        <h1 class="site-title">Chaitanya Khoje</h1>
+        <p class="site-description">Astrophotographer & Space Enthusiast</p>
+    </header>
+
+    <!-- Featured Images Grid - Main Content -->
+    <section class="featured-images">
+        <div class="images-grid">
+            <div class="image-card featured-large">
+                <div class="image-container">
+                    <img src="/assets/images/andromeda-galaxy.jpg" alt="Andromeda Galaxy" loading="lazy">
+                    <div class="image-overlay">
+                        <div class="image-content">
+                            <h3>Andromeda Galaxy</h3>
+                            <p>Our closest galactic neighbor, 2.5 million light-years away</p>
+                            <div class="image-meta">
+                                <span>8" Newtonian • 4 hours • Bortle 4</span>
+                            </div>
+                            <a href="/gallery/andromeda" class="view-details">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-card">
+                <div class="image-container">
+                    <img src="/assets/images/orion-nebula.jpg" alt="Orion Nebula" loading="lazy">
+                    <div class="image-overlay">
+                        <div class="image-content">
+                            <h3>Orion Nebula</h3>
+                            <p>A stellar nursery in our cosmic backyard</p>
+                            <div class="image-meta">
+                                <span>6" Refractor • 3 hours</span>
+                            </div>
+                            <a href="/gallery/orion" class="view-details">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-card">
+                <div class="image-container">
+                    <img src="/assets/images/milky-way-core.jpg" alt="Milky Way Core" loading="lazy">
+                    <div class="image-overlay">
+                        <div class="image-content">
+                            <h3>Milky Way Core</h3>
+                            <p>The heart of our galaxy revealed</p>
+                            <div class="image-meta">
+                                <span>Canon EOS R • 2 hours</span>
+                            </div>
+                            <a href="/gallery/milky-way" class="view-details">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-card">
+                <div class="image-container">
+                    <img src="/assets/images/eagle-nebula.jpg" alt="Eagle Nebula" loading="lazy">
+                    <div class="image-overlay">
+                        <div class="image-content">
+                            <h3>Eagle Nebula</h3>
+                            <p>Home to the Pillars of Creation</p>
+                            <div class="image-meta">
+                                <span>8" Newtonian • 5 hours</span>
+                            </div>
+                            <a href="/gallery/eagle" class="view-details">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-card">
+                <div class="image-container">
+                    <img src="/assets/images/whirlpool-galaxy.jpg" alt="Whirlpool Galaxy" loading="lazy">
+                    <div class="image-overlay">
+                        <div class="image-content">
+                            <h3>Whirlpool Galaxy</h3>
+                            <p>A stunning interacting galaxy pair</p>
+                            <div class="image-meta">
+                                <span>6" Refractor • 3.5 hours</span>
+                            </div>
+                            <a href="/gallery/whirlpool" class="view-details">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-card">
+                <div class="image-container">
+                    <img src="/assets/images/ring-nebula.jpg" alt="Ring Nebula" loading="lazy">
+                    <div class="image-overlay">
+                        <div class="image-content">
+                            <h3>Ring Nebula</h3>
+                            <p>A planetary nebula in Lyra</p>
+                            <div class="image-meta">
+                                <span>4" APO • 2.5 hours</span>
+                            </div>
+                            <a href="/gallery/ring" class="view-details">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Stats - More Relevant -->
+    <section class="image-stats">
         <div class="stats-grid">
             <div class="stat-item">
-                <div class="stat-value">150+</div>
-                <div class="stat-label">Deep Sky Objects</div>
+                <div class="stat-icon">📸</div>
+                <div class="stat-content">
+                    <div class="stat-number">47</div>
+                    <div class="stat-label">Images Captured</div>
+                </div>
             </div>
             <div class="stat-item">
-                <div class="stat-value">500+</div>
-                <div class="stat-label">Hours Under Stars</div>
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-content">
+                    <div class="stat-number">284</div>
+                    <div class="stat-label">Hours of Exposure</div>
+                </div>
             </div>
             <div class="stat-item">
-                <div class="stat-value">25+</div>
-                <div class="stat-label">Dark Sky Locations</div>
+                <div class="stat-icon">🌌</div>
+                <div class="stat-content">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Galaxies Imaged</div>
+                </div>
             </div>
             <div class="stat-item">
-                <div class="stat-value">3</div>
-                <div class="stat-label">Years Experience</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Gallery -->
-    <section class="featured-gallery">
-        <h2>Featured Captures</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <div class="gallery-item-image">
-                    <img src="/assets/images/andromeda-galaxy.jpg" alt="Andromeda Galaxy" loading="lazy">
-                    <div class="gallery-item-overlay">
-                        <h3>Andromeda Galaxy</h3>
-                        <p>Our closest galactic neighbor, captured in stunning detail</p>
-                    </div>
+                <div class="stat-icon">⭐</div>
+                <div class="stat-content">
+                    <div class="stat-number">18</div>
+                    <div class="stat-label">Nebulae Captured</div>
                 </div>
-                <div class="gallery-item-content">
-                    <h3>Andromeda Galaxy</h3>
-                    <p>The closest spiral galaxy to our Milky Way, located 2.5 million light-years away. This image reveals the galaxy's intricate structure and star-forming regions.</p>
-                    <div class="gallery-meta">
-                        <span>📅 2024</span>
-                        <span>🔭 8" Newtonian</span>
-                        <span>⏱️ 4 hours</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="gallery-item">
-                <div class="gallery-item-image">
-                    <img src="/assets/images/orion-nebula.jpg" alt="Orion Nebula" loading="lazy">
-                    <div class="gallery-item-overlay">
-                        <h3>Orion Nebula</h3>
-                        <p>A stellar nursery in our cosmic backyard</p>
-                    </div>
-                </div>
-                <div class="gallery-item-content">
-                    <h3>Orion Nebula</h3>
-                    <p>One of the brightest nebulae visible from Earth, this stellar nursery is where new stars are born. The vibrant colors reveal different elements and temperatures.</p>
-                    <div class="gallery-meta">
-                        <span>📅 2024</span>
-                        <span>🔭 6" Refractor</span>
-                        <span>⏱️ 3 hours</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="gallery-item">
-                <div class="gallery-item-image">
-                    <img src="/assets/images/milky-way-core.jpg" alt="Milky Way Core" loading="lazy">
-                    <div class="gallery-item-overlay">
-                        <h3>Milky Way Core</h3>
-                        <p>The heart of our galaxy revealed</p>
-                    </div>
-                </div>
-                <div class="gallery-item-content">
-                    <h3>Milky Way Core</h3>
-                    <p>The central region of our galaxy, home to a supermassive black hole and dense star clusters. This wide-field view captures the galactic center's majesty.</p>
-                    <div class="gallery-meta">
-                        <span>📅 2024</span>
-                        <span>📷 Canon EOS R</span>
-                        <span>⏱️ 2 hours</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="view-more">
-            <a href="/gallery" class="button">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14"></path>
-                    <path d="M12 5l7 7-7 7"></path>
-                </svg>
-                Explore Full Gallery
-            </a>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about-section">
-        <div class="about-content">
-            <div class="about-text">
-                <h2>About My Journey</h2>
-                <p>My passion for astrophotography began three years ago when I first pointed my camera toward the night sky. What started as a simple curiosity has evolved into a deep fascination with capturing the cosmos.</p>
-                <p>Through countless nights under dark skies, I've learned that astrophotography is more than just taking pictures—it's about patience, precision, and connecting with the universe on a profound level.</p>
-                <p>Each image represents hours of planning, capturing, and processing, but the result is a window into the vastness of space that surrounds us.</p>
-                <a href="/about" class="button secondary">Learn More About Me</a>
-            </div>
-            <div class="about-image">
-                <img src="/assets/images/astrophotographer.jpg" alt="Astrophotographer at work" loading="lazy">
-            </div>
-        </div>
-    </section>
-
-    <!-- Equipment Section -->
-    <section class="equipment-section">
-        <h2>My Equipment</h2>
-        <div class="equipment-grid">
-            <div class="equipment-item">
-                <div class="equipment-icon">🔭</div>
-                <h3>Telescopes</h3>
-                <p>8" Newtonian Reflector<br>6" Refractor<br>4" APO Refractor</p>
-            </div>
-            <div class="equipment-item">
-                <div class="equipment-icon">📷</div>
-                <h3>Cameras</h3>
-                <p>ZWO ASI2600MM Pro<br>Canon EOS R<br>ZWO ASI120MM Mini</p>
-            </div>
-            <div class="equipment-item">
-                <div class="equipment-icon">⚙️</div>
-                <h3>Mounts</h3>
-                <p>Sky-Watcher EQ6-R Pro<br>iOptron CEM40<br>Star Adventurer Pro</p>
-            </div>
-            <div class="equipment-item">
-                <div class="equipment-icon">🔧</div>
-                <h3>Accessories</h3>
-                <p>Filter Wheels<br>Guide Cameras<br>Focusers</p>
             </div>
         </div>
     </section>
 </div>
 
 <style>
-.about-section {
-    padding: 4rem 0;
-    margin: 4rem 0;
-}
-
-.about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.about-text h2 {
+/* Content Header - Integrated with Content */
+.content-header {
+    text-align: center;
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 2rem;
-    background: linear-gradient(135deg, #ffffff 0%, var(--accent-color) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
-.about-text p {
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-    line-height: 1.8;
+.site-title {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+    font-family: var(--font-mono);
 }
 
-.about-image img {
-    width: 100%;
-    border-radius: 16px;
+.site-description {
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    color: var(--accent-color);
+    font-weight: 400;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Featured Images - Main Content */
+.featured-images {
+    padding: 0 0 3rem;
+}
+
+.images-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.image-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--card-bg);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.image-card:hover {
+    transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
 }
 
-.equipment-section {
-    padding: 4rem 0;
-    margin: 4rem 0;
+.image-card.featured-large {
+    grid-column: span 2;
+    grid-row: span 2;
 }
 
-.equipment-section h2 {
-    text-align: center;
-    margin-bottom: 3rem;
-    background: linear-gradient(135deg, #ffffff 0%, var(--accent-color) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.image-container {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
 }
 
-.equipment-grid {
+.image-card.featured-large .image-container {
+    aspect-ratio: 16/9;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.image-card:hover .image-container img {
+    transform: scale(1.05);
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    padding: 2rem 1.5rem 1.5rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.image-card:hover .image-overlay {
+    transform: translateY(0);
+}
+
+.image-content h3 {
+    color: var(--text-color);
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.image-content p {
+    color: #b0b0b0;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.image-meta {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    font-family: var(--font-mono);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.view-details {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--accent-color);
+    color: var(--bg-color);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.view-details:hover {
+    background: #4cd4b0;
+    transform: translateY(-1px);
+}
+
+/* Image Stats - More Relevant */
+.image-stats {
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 2rem;
+}
+
+.stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
+    text-align: center;
 }
 
-.equipment-item {
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
     background: var(--card-bg);
-    padding: 2rem;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: var(--shadow-md);
+    border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
 }
 
-.equipment-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+.stat-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
 }
 
-.equipment-icon {
-    font-size: 3rem;
+.stat-icon {
+    font-size: 2rem;
     margin-bottom: 1rem;
+    opacity: 0.8;
 }
 
-.equipment-item h3 {
+.stat-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--accent-color);
-    margin-bottom: 1rem;
+    font-family: var(--font-mono);
+    line-height: 1;
+    margin-bottom: 0.5rem;
 }
 
-.equipment-item p {
+.stat-label {
+    font-size: 0.85rem;
     color: #b0b0b0;
-    line-height: 1.6;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .images-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .image-card.featured-large {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
 }
 
 @media (max-width: 768px) {
-    .about-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+    .content-header {
+        padding: 2rem 0 1.5rem;
     }
     
-    .equipment-grid {
+    .images-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .stats-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .stat-item {
+        padding: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .stat-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
     }
 }
 
 @media (max-width: 480px) {
-    .equipment-grid {
+    .stats-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .image-overlay {
+        padding: 1.5rem 1rem 1rem;
+    }
+    
+    .image-content h3 {
+        font-size: 1.1rem;
+    }
+    
+    .image-content p {
+        font-size: 0.85rem;
+    }
+    
+    .stat-item {
+        flex-direction: row;
+        text-align: left;
+        gap: 1rem;
+    }
+    
+    .stat-icon {
+        margin-bottom: 0;
+        font-size: 1.25rem;
+    }
+    
+    .stat-content {
+        align-items: flex-start;
     }
 }
 </style> 
