@@ -198,10 +198,13 @@ a:hover {
                 url('/assets/images/hero-bg.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
-    margin: -80px -24px 60px -24px;
+    margin: 0 -24px 60px -24px;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero-section::before {
@@ -211,38 +214,42 @@ a:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, transparent 30%, rgba(100, 255, 218, 0.1) 50%, transparent 70%);
-    animation: shimmer 3s ease-in-out infinite;
+    background: linear-gradient(135deg, rgba(15, 15, 15, 0.8), rgba(26, 26, 26, 0.8));
+    z-index: 1;
 }
 
-@keyframes shimmer {
-    0%, 100% { transform: translateX(-100%); }
-    50% { transform: translateX(100%); }
+.hero-section .container {
+    position: relative;
+    z-index: 2;
 }
 
 .hero-section h1 {
-    font-size: clamp(3rem, 8vw, 5rem);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
     margin-bottom: 1.5rem;
     background: linear-gradient(135deg, #ffffff 0%, var(--accent-color) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 700;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
+    line-height: 1.1;
 }
 
 .hero-section .subtitle {
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
     color: #b0b0b0;
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto 2rem;
     font-weight: 400;
+    line-height: 1.6;
 }
 
 .hero-cta {
     display: inline-flex;
     gap: 1rem;
     margin-top: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 /* Buttons */
@@ -469,7 +476,18 @@ a:hover {
     
     .hero-section {
         padding: 100px 16px 60px;
-        margin: -80px -16px 40px -16px;
+        margin: 0 -16px 40px -16px;
+        min-height: 80vh;
+    }
+    
+    .hero-section h1 {
+        font-size: clamp(2rem, 8vw, 3rem);
+        line-height: 1.2;
+    }
+    
+    .hero-section .subtitle {
+        font-size: clamp(1rem, 4vw, 1.25rem);
+        max-width: 100%;
     }
     
     .gallery-grid {
@@ -484,6 +502,79 @@ a:hover {
     .hero-cta {
         flex-direction: column;
         align-items: center;
+        gap: 1rem;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .equipment-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .featured-gallery h2,
+    .equipment-section h2 {
+        font-size: clamp(1.75rem, 6vw, 2.5rem);
+    }
+    
+    .stats-section {
+        margin: 2rem -16px;
+        padding: 2rem 0;
+    }
+    
+    .stat-value {
+        font-size: 2rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        min-height: 70vh;
+        padding: 80px 16px 40px;
+    }
+    
+    .hero-section h1 {
+        font-size: clamp(1.75rem, 10vw, 2.5rem);
+    }
+    
+    .hero-section .subtitle {
+        font-size: clamp(0.9rem, 4.5vw, 1.1rem);
+    }
+    
+    .equipment-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .stat-item {
+        padding: 1.5rem;
+    }
+    
+    .gallery-item-content {
+        padding: 1rem;
+    }
+    
+    .gallery-item h3 {
+        font-size: 1.1rem;
+    }
+    
+    .gallery-item p {
+        font-size: 0.85rem;
     }
 }
 
