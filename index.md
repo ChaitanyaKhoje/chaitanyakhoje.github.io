@@ -2,42 +2,62 @@
 layout: default
 ---
 
-<div class="hero">
-  <h1>Chaitanya Khoje</h1>
-  <p>Capturing the Cosmos Through My Lens</p>
+<div class="hero-section">
+  <div class="container">
+    <h1>Chaitanya Khoje</h1>
+    <p class="subtitle">Capturing the Cosmos Through My Lens</p>
+    <div class="hero-cta">
+      <a href="/gallery" class="button">View Gallery</a>
+      <a href="/about" class="button secondary">Learn More</a>
+    </div>
+  </div>
 </div>
 
-<div class="featured-work">
-  <h2>Featured Images</h2>
-  <div class="image-grid">
-    {% for item in site.gallery_items limit:6 %}
-    <div class="image-item">
-      <a href="{{ item.url }}">
-        <img src="{{ item.image }}" alt="{{ item.title }}">
-        <div class="overlay">
+<div class="featured-gallery">
+  <div class="container">
+    <h2>Featured Images</h2>
+    <div class="gallery-grid">
+      {% for item in site.gallery_items limit:6 %}
+      <div class="gallery-item">
+        <div class="gallery-item-image">
+          <img src="{{ item.image }}" alt="{{ item.title }}">
+          <div class="gallery-item-overlay">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+          </div>
+        </div>
+        <div class="gallery-item-content">
           <h3>{{ item.title }}</h3>
           <p>{{ item.description }}</p>
+          <div class="gallery-meta">
+            <span>{{ item.exposure_time }}</span>
+            <span>{{ item.date | date: "%B %Y" }}</span>
+          </div>
         </div>
-      </a>
+      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
-  </div>
-  <div class="view-more">
-    <a href="/gallery" class="button">View Full Gallery</a>
+    <div class="view-more">
+      <a href="/gallery" class="button">View Full Gallery</a>
+    </div>
   </div>
 </div>
 
-<div class="stats">
-  <div class="stat-item">
-    <h3>47</h3>
-    <p>Images Captured</p>
-  </div>
-  <div class="stat-item">
-    <h3>284</h3>
-    <p>Hours of Exposure</p>
-  </div>
-  <div class="stat-item">
-    <h3>32</h3>
-    <p>Deep Sky Objects</p>
+<div class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-value">47</div>
+        <div class="stat-label">Images Captured</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">284</div>
+        <div class="stat-label">Hours of Exposure</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">32</div>
+        <div class="stat-label">Deep Sky Objects</div>
+      </div>
+    </div>
   </div>
 </div> 
