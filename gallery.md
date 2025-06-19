@@ -4,47 +4,22 @@ title: Gallery
 permalink: /gallery/
 ---
 
-<div class="container">
-    <div class="gallery-header">
-        <h1>Astrophotography Gallery</h1>
-        <p>A collection of deep sky objects, galaxies, and nebulae captured through my telescope</p>
-    </div>
-
-    <div class="gallery-grid">
-        <div class="gallery-item">
-            <div class="image-container">
-                <img src="/assets/images/andromeda-galaxy.jpg" alt="Andromeda Galaxy" loading="lazy">
-                <div class="image-overlay">
-                    <div class="image-content">
-                        <h3>Andromeda Galaxy</h3>
-                        <p>Our closest galactic neighbor, 2.5 million light-years away</p>
-                        <div class="image-meta">
-                            <span>8" Newtonian • 4 hours • Bortle 4</span>
-                        </div>
-                        <a href="#" class="view-details">View Details</a>
-                    </div>
-                </div>
-            </div>
+<div class="gallery">
+  <h1>Astrophotography Gallery</h1>
+  
+  <div class="gallery-grid">
+    {% for item in site.gallery_items %}
+    <div class="gallery-item">
+      <a href="{{ item.url }}">
+        <img src="{{ item.image }}" alt="{{ item.title }}">
+        <div class="overlay">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
         </div>
-
-        <div class="gallery-item">
-            <div class="image-container">
-                <img src="/assets/images/whirlpool-galaxy.jpg" alt="Whirlpool Galaxy" loading="lazy">
-                <div class="image-overlay">
-                    <div class="image-content">
-                        <h3>Whirlpool Galaxy</h3>
-                        <p>A stunning interacting galaxy pair</p>
-                        <div class="image-meta">
-                            <span>6" Refractor • 3.5 hours</span>
-                        </div>
-                        <a href="#" class="view-details">View Details</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Add more gallery items here -->
+      </a>
     </div>
+    {% endfor %}
+  </div>
 </div>
 
 <style>

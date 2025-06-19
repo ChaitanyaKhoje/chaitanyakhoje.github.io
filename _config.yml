@@ -19,22 +19,17 @@ plugins:
 
 # Collections
 collections:
-  gallery:
+  gallery_items:
     output: true
-    permalink: /gallery/:path/
+    permalink: /gallery/:name/
 
 # Defaults
 defaults:
   - scope:
       path: ""
-      type: "gallery"
+      type: "gallery_items"
     values:
-      layout: "gallery"
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
+      layout: gallery_item
 
 # Exclude from processing
 exclude:
