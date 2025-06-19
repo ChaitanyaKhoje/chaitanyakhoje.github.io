@@ -40,7 +40,7 @@ This catalog showcases my collection of deep sky object photographs, captured th
 <!-- Lightbox -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <span class="close-button">&times;</span>
-    <img id="lightbox-image" class="lightbox-content">
+    <img id="lightbox-image" class="lightbox-content" src="/assets/images/placeholder.svg" alt="Lightbox image">
 </div>
 
 <style>
