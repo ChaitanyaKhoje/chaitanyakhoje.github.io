@@ -1,46 +1,40 @@
 ---
 layout: default
+title: "Deep Sky Objects Catalog"
+permalink: /catalog/dso/
 ---
 
+This catalog showcases my collection of deep sky object photographs, captured through various telescopes and cameras under dark sky conditions.
+
 <div class="gallery-container">
-    <article class="post">
-        <header class="post-header">
-            <h1 class="post-title">{{ page.title }}</h1>
-        </header>
-
-        <div class="post-content">
-            {{ content }}
-        </div>
-
-        <div class="gallery-grid">
-            {% for image in page.images %}
-            <div class="gallery-item">
-                <div class="image-container">
-                    {% if image.path %}
-                    <img src="{{ image.path }}" 
-                         alt="{{ image.title }}"
-                         class="gallery-image"
-                         loading="lazy"
-                         onclick="openLightbox(this)">
-                    {% else %}
-                    <div class="placeholder-image">
-                        <span>Image not available</span>
-                    </div>
-                    {% endif %}
-                    <div class="image-info">
-                        <h3>{{ image.title }}</h3>
-                        <p>{{ image.description }}</p>
-                        <div class="image-metadata">
-                            <p><strong>Equipment:</strong> {{ image.equipment }}</p>
-                            <p><strong>Location:</strong> {{ image.location }}</p>
-                            <p><strong>Date:</strong> {{ image.date }}</p>
-                        </div>
+    <div class="gallery-grid">
+        {% for item in site.data.gallery %}
+        {% assign image = item[1] %}
+        <div class="gallery-item">
+            <div class="image-container">
+                {% if image.path %}
+                <img src="{{ image.path }}" 
+                     alt="{{ image.title }}"
+                     class="gallery-image"
+                     loading="lazy"
+                     onclick="openLightbox(this)">
+                {% else %}
+                <div class="placeholder-image">
+                    <span>Image not available</span>
+                </div>
+                {% endif %}
+                <div class="image-info">
+                    <h3>{{ image.title }}</h3>
+                    <p>{{ image.description }}</p>
+                    <div class="image-metadata">
+                        <p><strong>Equipment:</strong> {{ image.equipment }}</p>
+                        <p><strong>Date:</strong> {{ image.date }}</p>
                     </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
-    </article>
+        {% endfor %}
+    </div>
 </div>
 
 <!-- Lightbox -->
@@ -78,7 +72,6 @@ layout: default
     height: 300px;
     object-fit: cover;
     cursor: pointer;
-    opacity: 0;
     transition: opacity 0.3s ease;
 }
 
@@ -160,6 +153,4 @@ function openLightbox(img) {
 function closeLightbox() {
     document.getElementById('lightbox').style.display = 'none';
 }
-</script>
-
-<script src="{{ '/js/protection.js' | relative_url }}"></script> 
+</script> 
