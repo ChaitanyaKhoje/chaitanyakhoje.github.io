@@ -2,25 +2,22 @@
 layout: default
 ---
 
-<div class="gallery-grid">
+<div class="posts-grid">
   {% for item in site.gallery_items limit:12 %}
-  <div class="gallery-item">
-    <div class="gallery-item-image">
-      <img src="{{ item.image }}" alt="{{ item.title }}">
-      <div class="gallery-item-overlay">
-        <h3>{{ item.title }}</h3>
-        <p>{{ item.description }}</p>
+  <article class="post-card">
+    <a href="{{ item.url | relative_url }}">
+      <div class="post-image">
+        <img src="{{ item.image }}" alt="{{ item.title }}">
       </div>
-    </div>
-    <div class="gallery-item-content">
-      <h3>{{ item.title }}</h3>
-      <p>{{ item.description }}</p>
-      <div class="gallery-meta">
-        <span>{{ item.exposure_time }}</span>
-        <span>{{ item.date | date: "%B %Y" }}</span>
+      <div class="post-content">
+        <h3 class="post-title">{{ item.title }}</h3>
+        <p class="post-excerpt">{{ item.description }}</p>
+        <div class="post-meta">
+          <span class="post-date">{{ item.date | date: "%B %d, %Y" }}</span>
+        </div>
       </div>
-    </div>
-  </div>
+    </a>
+  </article>
   {% endfor %}
 </div>
 
