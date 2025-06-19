@@ -6,10 +6,6 @@ layout: default
   <div class="container">
     <h1>Chaitanya Khoje</h1>
     <p class="subtitle">Capturing the Cosmos Through My Lens</p>
-    <div class="hero-cta">
-      <a href="/gallery" class="button">View Gallery</a>
-      <a href="/about" class="button secondary">Learn More</a>
-    </div>
   </div>
 </div>
 
@@ -36,9 +32,6 @@ layout: default
         </div>
       </div>
       {% endfor %}
-    </div>
-    <div class="view-more">
-      <a href="/gallery" class="button">View Full Gallery</a>
     </div>
   </div>
 </div>
