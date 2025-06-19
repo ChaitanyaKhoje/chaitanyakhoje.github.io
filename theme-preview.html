@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonzo Theme Preview - Astrophotography Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --text-color: #ffffff;
+            --accent-color: #64ffda;
+            --secondary-color: #1a1a1a;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.7;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        h4 { font-size: 1.5rem; }
+        h5 { font-size: 1.25rem; }
+        h6 { font-size: 1rem; }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #e0e0e0;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #4cd4b0;
+        }
+
+        /* Header Styles */
+        .site-header {
+            padding: 1rem 0;
+            background-color: rgba(15, 15, 15, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            font-family: var(--font-mono);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 120px 20px 80px;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.9), rgba(26, 26, 26, 0.9)), 
+                        url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=1200&h=800&fit=crop&crop=center');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: -80px -24px 60px -24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(100, 255, 218, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        .hero-section h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        .hero-section .subtitle {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Buttons */
+        .button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            color: white;
+        }
+
+        .button.secondary {
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .button.secondary:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--secondary-color);
+            padding: 4rem 0;
+            margin: 4rem -24px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2rem;
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            font-family: var(--font-mono);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .gallery-item {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .gallery-item-image {
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+
+        .gallery-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-item-image img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 2rem 1.5rem 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-item-content {
+            padding: 1.5rem;
+        }
+
+        .gallery-item h3 {
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+            font-size: 1.25rem;
+        }
+
+        .gallery-item p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .gallery-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: #888;
+            font-family: var(--font-mono);
+        }
+
+        /* Featured Section */
+        .featured-gallery {
+            padding: 4rem 0;
+        }
+
+        .featured-gallery h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .view-more {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 4rem 0;
+            margin: 4rem 0;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Equipment Section */
+        .equipment-section {
+            padding: 4rem 0;
+            margin: 4rem 0;
+        }
+
+        .equipment-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .equipment-item {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .equipment-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .equipment-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .equipment-item h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .equipment-item p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--secondary-color);
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-section {
+                padding: 100px 16px 60px;
+                margin: -80px -16px 40px -16px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .equipment-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4cd4b0;
+        }
+    </style>
+</head>
+<body>
+    <div class="site-wrapper">
+        <header class="site-header">
+            <div class="container">
+                <nav class="main-nav">
+                    <a href="#" class="logo">Chaitanya Khoje</a>
+                    <ul class="nav-links">
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#catalog">Catalog</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="site-content">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="container">
+                    <h1 class="fade-in-up">Capturing the Cosmos</h1>
+                    <p class="subtitle fade-in-up">Exploring the universe through the lens of astrophotography</p>
+                    <div class="hero-cta fade-in-up">
+                        <a href="#gallery" class="button">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21,15 16,10 5,21"></polyline>
+                            </svg>
+                            View Gallery
+                        </a>
+                        <a href="#about" class="button secondary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            About Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <!-- Stats Section -->
+                <section class="stats-section">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">150+</div>
+                            <div class="stat-label">Deep Sky Objects</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">500+</div>
+                            <div class="stat-label">Hours Under Stars</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">25+</div>
+                            <div class="stat-label">Dark Sky Locations</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Featured Gallery -->
+                <section class="featured-gallery" id="gallery">
+                    <h2>Featured Captures</h2>
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <div class="gallery-item-image">
+                                <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800&h=600&fit=crop&crop=center" alt="Andromeda Galaxy" loading="lazy">
+                                <div class="gallery-item-overlay">
+                                    <h3>Andromeda Galaxy</h3>
+                                    <p>Our closest galactic neighbor, captured in stunning detail</p>
+                                </div>
+                            </div>
+                            <div class="gallery-item-content">
+                                <h3>Andromeda Galaxy</h3>
+                                <p>The closest spiral galaxy to our Milky Way, located 2.5 million light-years away. This image reveals the galaxy's intricate structure and star-forming regions.</p>
+                                <div class="gallery-meta">
+                                    <span>📅 2024</span>
+                                    <span>🔭 8" Newtonian</span>
+                                    <span>⏱️ 4 hours</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item">
+                            <div class="gallery-item-image">
+                                <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&h=600&fit=crop&crop=center" alt="Orion Nebula" loading="lazy">
+                                <div class="gallery-item-overlay">
+                                    <h3>Orion Nebula</h3>
+                                    <p>A stellar nursery in our cosmic backyard</p>
+                                </div>
+                            </div>
+                            <div class="gallery-item-content">
+                                <h3>Orion Nebula</h3>
+                                <p>One of the brightest nebulae visible from Earth, this stellar nursery is where new stars are born. The vibrant colors reveal different elements and temperatures.</p>
+                                <div class="gallery-meta">
+                                    <span>📅 2024</span>
+                                    <span>🔭 6" Refractor</span>
+                                    <span>⏱️ 3 hours</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item">
+                            <div class="gallery-item-image">
+                                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&crop=center" alt="Milky Way Core" loading="lazy">
+                                <div class="gallery-item-overlay">
+                                    <h3>Milky Way Core</h3>
+                                    <p>The heart of our galaxy revealed</p>
+                                </div>
+                            </div>
+                            <div class="gallery-item-content">
+                                <h3>Milky Way Core</h3>
+                                <p>The central region of our galaxy, home to a supermassive black hole and dense star clusters. This wide-field view captures the galactic center's majesty.</p>
+                                <div class="gallery-meta">
+                                    <span>📅 2024</span>
+                                    <span>📷 Canon EOS R</span>
+                                    <span>⏱️ 2 hours</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="view-more">
+                        <a href="#gallery" class="button">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14"></path>
+                                <path d="M12 5l7 7-7 7"></path>
+                            </svg>
+                            Explore Full Gallery
+                        </a>
+                    </div>
+                </section>
+
+                <!-- About Section -->
+                <section class="about-section" id="about">
+                    <div class="about-content">
+                        <div class="about-text">
+                            <h2>About My Journey</h2>
+                            <p>My passion for astrophotography began three years ago when I first pointed my camera toward the night sky. What started as a simple curiosity has evolved into a deep fascination with capturing the cosmos.</p>
+                            <p>Through countless nights under dark skies, I've learned that astrophotography is more than just taking pictures—it's about patience, precision, and connecting with the universe on a profound level.</p>
+                            <p>Each image represents hours of planning, capturing, and processing, but the result is a window into the vastness of space that surrounds us.</p>
+                            <a href="#about" class="button secondary">Learn More About Me</a>
+                        </div>
+                        <div class="about-image">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&crop=center" alt="Astrophotographer at work" loading="lazy">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Equipment Section -->
+                <section class="equipment-section">
+                    <h2>My Equipment</h2>
+                    <div class="equipment-grid">
+                        <div class="equipment-item">
+                            <div class="equipment-icon">🔭</div>
+                            <h3>Telescopes</h3>
+                            <p>8" Newtonian Reflector<br>6" Refractor<br>4" APO Refractor</p>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon">📷</div>
+                            <h3>Cameras</h3>
+                            <p>ZWO ASI2600MM Pro<br>Canon EOS R<br>ZWO ASI120MM Mini</p>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon">⚙️</div>
+                            <h3>Mounts</h3>
+                            <p>Sky-Watcher EQ6-R Pro<br>iOptron CEM40<br>Star Adventurer Pro</p>
+                        </div>
+                        <div class="equipment-item">
+                            <div class="equipment-icon">🔧</div>
+                            <h3>Accessories</h3>
+                            <p>Filter Wheels<br>Guide Cameras<br>Focusers</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="#gallery">Gallery</a></li>
+                            <li><a href="#catalog">DSO Catalog</a></li>
+                            <li><a href="#resources">Processing Guides</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="#equipment">Equipment Guide</a></li>
+                            <li><a href="#locations">Dark Sky Locations</a></li>
+                            <li><a href="#about">About</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Connect</h3>
+                        <ul>
+                            <li><a href="https://github.com/chaitanyakhoje" target="_blank">GitHub</a></li>
+                            <li><a href="https://instagram.com/chaitanyakhoje" target="_blank">Instagram</a></li>
+                            <li><a href="mailto:contact@chaitanyakhoje.com">Email</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Chaitanya Khoje. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Simple JavaScript for smooth scrolling and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Animated stats counter
+            const statValues = document.querySelectorAll('.stat-value');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            statValues.forEach(stat => {
+                observer.observe(stat);
+            });
+
+            function animateCounter(element) {
+                const text = element.textContent;
+                const number = parseInt(text.replace(/\D/g, ''));
+                const suffix = text.replace(/\d/g, '');
+                
+                let current = 0;
+                const increment = number / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= number) {
+                        current = number;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.floor(current) + suffix;
+                }, 30);
+            }
+
+            // Header scroll effect
+            const header = document.querySelector('.site-header');
+            let lastScrollY = window.scrollY;
+            
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                
+                if (currentScrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                    header.style.transform = 'translateY(-100%)';
+                } else {
+                    header.style.transform = 'translateY(0)';
+                }
+                
+                lastScrollY = currentScrollY;
+            });
+        });
+    </script>
+</body>
+</html> 
