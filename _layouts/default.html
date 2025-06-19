@@ -14,28 +14,23 @@
     {% seo %}
 </head>
 <body>
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-    </button>
-
-    <!-- Left Sidebar Navigation -->
-    <nav class="sidebar-nav">
-        <a href="{{ '/' | relative_url }}" class="logo">CK</a>
-        <ul class="nav-links">
-            <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a></li>
-            <li><a href="{{ '/gallery' | relative_url }}" {% if page.url contains '/gallery' %}class="active"{% endif %}>Gallery</a></li>
-            <li><a href="{{ '/about' | relative_url }}" {% if page.url contains '/about' %}class="active"{% endif %}>About</a></li>
-            <li><a href="{{ '/contact' | relative_url }}" {% if page.url contains '/contact' %}class="active"{% endif %}>Contact</a></li>
-        </ul>
-    </nav>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav">
+                <a href="{{ '/' | relative_url }}" class="logo">CK</a>
+                <ul class="nav-links">
+                    <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a></li>
+                    <li><a href="{{ '/gallery' | relative_url }}" {% if page.url contains '/gallery' %}class="active"{% endif %}>Gallery</a></li>
+                    <li><a href="{{ '/about' | relative_url }}" {% if page.url contains '/about' %}class="active"{% endif %}>About</a></li>
+                    <li><a href="{{ '/contact' | relative_url }}" {% if page.url contains '/contact' %}class="active"{% endif %}>Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main>
         {{ content }}
     </main>
 
@@ -67,24 +62,5 @@
         </div>
     </footer>
     {% endif %}
-
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar-nav');
-            sidebar.classList.toggle('open');
-        }
-
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', function(event) {
-            const sidebar = document.querySelector('.sidebar-nav');
-            const toggle = document.querySelector('.mobile-menu-toggle');
-            
-            if (window.innerWidth <= 768 && 
-                !sidebar.contains(event.target) && 
-                !toggle.contains(event.target)) {
-                sidebar.classList.remove('open');
-            }
-        });
-    </script>
 </body>
 </html> 
