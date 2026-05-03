@@ -31,12 +31,6 @@ end
 
 parser.parse!
 
-title = ARGV.join(" ").strip
-if title.empty?
-  warn parser
-  exit 1
-end
-
 def slugify(value)
   value
     .downcase
@@ -46,6 +40,35 @@ end
 
 def yaml_quote(value)
   %("#{value.gsub("\\", "\\\\\\").gsub('"', '\"')}")
+end
+
+def prompt(label, required: false)
+  loop do
+    $stdout.print "#{label}: "
+    $stdout.flush
+    value = $stdin.gets&.strip || ""
+    return value unless required && value.empty?
+    warn "  (required)"
+  end
+end
+
+def open_in_editor(path)
+  editor = ENV["EDITOR"]
+  editor ||= %w[code cursor vim].find { |e| system("which #{e} > /dev/null 2>&1") }
+  return unless editor
+  system("#{editor} #{path}")
+end
+
+title = ARGV.join(" ").strip
+
+if title.empty?
+  # Interactive mode
+  puts ""
+  title = prompt("Title", required: true)
+  options[:description] = prompt("Description (optional)")
+  raw_tags = prompt("Tags, comma-separated (optional)")
+  options[:tags] = raw_tags.split(",").map { |t| t.strip.downcase }.reject(&:empty?)
+  puts ""
 end
 
 slug = slugify(title)
@@ -78,13 +101,19 @@ front_matter = [
 
 body = <<~MARKDOWN
 
-  Write the opening paragraph here.
+  Write the opening paragraph here — the hook that makes someone keep reading.
 
-  ## Notes
+  ## Background
 
-  - Capture the core idea.
-  - Add examples, code, or links as needed.
+  ## The Problem
+
+  ## Solution
+
+  ## Takeaways
+
+  -
 MARKDOWN
 
 File.write(path, "#{front_matter.join("\n")}#{body}")
 puts "created #{path}"
+open_in_editor(path)
