@@ -1,6 +1,6 @@
-# Field Notes
+# Chaitanya Khoje Blog
 
-Field Notes is a Jekyll-powered personal engineering blog published via GitHub Pages.
+This is Chaitanya Khoje's Jekyll-powered personal engineering blog, published via GitHub Pages.
 
 ## Local development
 

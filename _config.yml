@@ -1,11 +1,11 @@
-title: "Field Notes"
+title: "Chaitanya Khoje Blog"
 tagline: "Engineering, written down."
 author:
   name: "Chaitanya Khoje"
   email: "chaitanyakhoje9@gmail.com"
   github: "chaitanyakhoje"
 description: >-
-  Field Notes by Chaitanya Khoje. Software engineering observations —
+  Chaitanya Khoje's personal engineering blog. Software engineering observations —
   performance, databases, Rust, Go, craft.
 baseurl: ""
 url: "https://chaitanyakhoje.github.io"
