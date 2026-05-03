@@ -5,7 +5,7 @@ layout: default
 <div class="progress-bar" id="progress-bar"></div>
 
 <div class="post-wrap">
-  <a class="back-link" href="{{ '/' | relative_url }}">← All posts</a>
+  <a class="back-link" href="{{ '/' | relative_url }}">← Portfolio</a>
 
   <header class="post-header">
     {% assign reading_time = content | number_of_words | divided_by: 230 | plus: 1 %}
@@ -33,64 +33,6 @@ layout: default
   <div class="prose">
     {{ content }}
   </div>
-
-  <footer class="post-footer">
-    <div>
-      <p class="post-footer-title">Liked this?</p>
-      <p class="post-footer-sub">Cross-post it everywhere — same words, three audiences.</p>
-    </div>
-    <div class="post-footer-actions">
-      <button class="btn btn-primary" onclick="openPublish()">Publish elsewhere →</button>
-    </div>
-  </footer>
-</div>
-
-<!-- Publish modal -->
-<div class="modal-overlay" id="publish-modal"
-     role="dialog" aria-modal="true" aria-labelledby="modal-heading">
-  <div class="modal-box">
-    <div class="modal-header">
-      <div>
-        <p class="modal-title" id="modal-heading">{{ page.title | truncate: 60 }}</p>
-        <p class="modal-sub">Set a canonical URL, then publish to each platform.</p>
-      </div>
-      <button class="modal-close" onclick="closePublish()" aria-label="Close publish dialog">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="canonical-row">
-        <p class="canonical-label">Canonical URL</p>
-        <input class="canonical-input" id="canonical-url" type="url"
-               value="{{ site.url }}{{ page.url }}" />
-      </div>
-      <div class="platform-row">
-        <div class="platform-icon" style="background:#111;color:#fff;border:1px solid #333">D</div>
-        <div class="platform-info">
-          <p class="platform-info-name">dev.to</p>
-          <p class="platform-info-url">dev.to/chaitanyakhoje</p>
-        </div>
-        <button class="platform-btn" onclick="simulatePublish(this)">Publish</button>
-      </div>
-      <div class="platform-row">
-        <div class="platform-icon" style="background:#1a8917;color:#fff">M</div>
-        <div class="platform-info">
-          <p class="platform-info-name">Medium</p>
-          <p class="platform-info-url">medium.com/@chaitanyakhoje</p>
-        </div>
-        <button class="platform-btn" onclick="simulatePublish(this)">Publish</button>
-      </div>
-      <div class="platform-row">
-        <div class="platform-icon" style="background:#ff6719;color:#fff">S</div>
-        <div class="platform-info">
-          <p class="platform-info-name">Substack</p>
-          <p class="platform-info-url">chaitanyakhoje.substack.com</p>
-        </div>
-        <button class="platform-btn" onclick="simulatePublish(this)">Publish</button>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closePublish()">Done</button>
-    </div>
-  </div>
 </div>
 
 <script>
@@ -105,34 +47,4 @@ layout: default
     bar.style.width = (scrolled / total * 100) + '%';
   }, { passive: true });
 })();
-
-function openPublish() {
-  document.querySelectorAll('.platform-btn').forEach(function(btn) {
-    btn.textContent = 'Publish';
-    btn.className = 'platform-btn';
-  });
-  document.getElementById('publish-modal').classList.add('open');
-  document.querySelector('.modal-close').focus();
-}
-
-function closePublish() {
-  document.getElementById('publish-modal').classList.remove('open');
-}
-
-document.getElementById('publish-modal').addEventListener('click', function(e) {
-  if (e.target === this) closePublish();
-});
-
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closePublish();
-});
-
-function simulatePublish(btn) {
-  btn.textContent = 'Publishing…';
-  btn.className = 'platform-btn publishing';
-  setTimeout(function() {
-    btn.textContent = '✓ Published';
-    btn.className = 'platform-btn done';
-  }, 1400 + Math.random() * 600);
-}
 </script>
