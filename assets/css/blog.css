@@ -274,7 +274,12 @@ body {
   letter-spacing: -0.6px;
   line-height: 1.15;
   text-wrap: balance;
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
+
+.post-title--featured { font-size: 30px; }
 
 .post-dek { color: var(--ink-soft); font-size: 14px; text-wrap: pretty; }
 

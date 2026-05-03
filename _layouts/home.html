@@ -40,10 +40,10 @@ layout: default
 
   <!-- Tag filter -->
   <div class="tag-filters fade-in fade-in-3" id="tag-filters">
-    <button class="tag-pill active" data-filter="all" onclick="filterTag('all', this)">All posts</button>
+    <button class="tag-pill active" data-filter="all" onclick="filterTag(this.dataset.filter, this)">All posts</button>
     {% assign all_tags = site.posts | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
     {% for tag in all_tags %}
-    <button class="tag-pill" data-filter="{{ tag }}" onclick="filterTag('{{ tag }}', this)">#{{ tag }}</button>
+    <button class="tag-pill" data-filter="{{ tag }}" onclick="filterTag(this.dataset.filter, this)">#{{ tag }}</button>
     {% endfor %}
   </div>
 
@@ -62,7 +62,7 @@ layout: default
         <span>{{ reading_time }} min</span>
         {% if forloop.first %}<span class="latest-badge">● Latest</span>{% endif %}
       </div>
-      <a class="post-title" style="font-size:{% if forloop.first %}30px{% else %}19px{% endif %};text-decoration:none;color:inherit;display:block;" href="{{ post.url | relative_url }}">
+      <a class="post-title{% if forloop.first %} post-title--featured{% endif %}" href="{{ post.url | relative_url }}">
         {{ post.title }}
       </a>
       <p class="post-dek">{{ post.description | default: post.excerpt | strip_html | truncate: 160 }}</p>
@@ -88,6 +88,14 @@ function filterTag(tag, el) {
     card.classList.remove('featured');
   });
   const visible = Array.from(document.querySelectorAll('.post-card')).filter(c => c.style.display !== 'none');
-  if (visible.length) visible[0].classList.add('featured');
+  if (visible.length) {
+    const first = visible[0];
+    first.classList.add('featured');
+    if (!first.querySelector('.post-card-glow')) {
+      const glow = document.createElement('div');
+      glow.className = 'post-card-glow';
+      first.insertBefore(glow, first.firstChild);
+    }
+  }
 }
 </script>

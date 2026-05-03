@@ -46,20 +46,21 @@ layout: default
 </div>
 
 <!-- Publish modal -->
-<div class="modal-overlay" id="publish-modal">
+<div class="modal-overlay" id="publish-modal"
+     role="dialog" aria-modal="true" aria-labelledby="modal-heading">
   <div class="modal-box">
     <div class="modal-header">
       <div>
-        <p class="modal-title">{{ page.title | truncate: 60 }}</p>
+        <p class="modal-title" id="modal-heading">{{ page.title | truncate: 60 }}</p>
         <p class="modal-sub">Set a canonical URL, then publish to each platform.</p>
       </div>
-      <button class="modal-close" onclick="closePublish()">✕</button>
+      <button class="modal-close" onclick="closePublish()" aria-label="Close publish dialog">✕</button>
     </div>
     <div class="modal-body">
       <div class="canonical-row">
         <p class="canonical-label">Canonical URL</p>
         <input class="canonical-input" id="canonical-url" type="url"
-               value="https://chaitanyakhoje.github.io{{ page.url }}" />
+               value="{{ site.url }}{{ page.url }}" />
       </div>
       <div class="platform-row">
         <div class="platform-icon" style="background:#111;color:#fff;border:1px solid #333">D</div>
@@ -99,14 +100,19 @@ layout: default
   if (!bar || !prose) return;
   window.addEventListener('scroll', function() {
     var rect = prose.getBoundingClientRect();
-    var total = prose.offsetHeight;
+    var total = Math.max(prose.offsetHeight - window.innerHeight, 1);
     var scrolled = Math.min(Math.max(-rect.top, 0), total);
     bar.style.width = (scrolled / total * 100) + '%';
   }, { passive: true });
 })();
 
 function openPublish() {
+  document.querySelectorAll('.platform-btn').forEach(function(btn) {
+    btn.textContent = 'Publish';
+    btn.className = 'platform-btn';
+  });
   document.getElementById('publish-modal').classList.add('open');
+  document.querySelector('.modal-close').focus();
 }
 
 function closePublish() {
@@ -115,6 +121,10 @@ function closePublish() {
 
 document.getElementById('publish-modal').addEventListener('click', function(e) {
   if (e.target === this) closePublish();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closePublish();
 });
 
 function simulatePublish(btn) {
