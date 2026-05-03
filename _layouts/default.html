@@ -57,9 +57,15 @@
         }
       }
 
-      // Sync icon with current theme on load
+      // Sync icon with current theme on load (don't write localStorage here)
       var current = document.documentElement.getAttribute('data-theme') || 'dark';
-      applyTheme(current);
+      if (current === 'light') {
+        sun.style.display = 'block';
+        moon.style.display = 'none';
+      } else {
+        sun.style.display = 'none';
+        moon.style.display = 'block';
+      }
 
       btn.addEventListener('click', function() {
         var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
