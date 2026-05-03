@@ -1,12 +1,12 @@
 title: "Chaitanya Khoje Blog"
-tagline: "Engineering, written down."
+tagline: "Senior software engineer focused on data platforms, AI systems, and production efficiency."
 author:
   name: "Chaitanya Khoje"
   email: "chaitanyakhoje9@gmail.com"
   github: "chaitanyakhoje"
 description: >-
-  Chaitanya Khoje's personal engineering blog. Software engineering observations —
-  performance, databases, Rust, Go, craft.
+  Chaitanya Khoje's personal site and engineering blog. Senior software engineer
+  focused on data platforms, AI systems, measurement pipelines, and production efficiency.
 baseurl: ""
 url: "https://chaitanyakhoje.github.io"
 
