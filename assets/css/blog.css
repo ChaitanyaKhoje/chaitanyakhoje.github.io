@@ -108,6 +108,21 @@ body {
 .nav-link:hover { background: var(--surface); color: var(--ink); }
 .nav-link.active { background: var(--surface); color: var(--ink); }
 
+.theme-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-soft);
+  padding: 6px 8px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.12s, color 0.12s;
+}
+
+.theme-toggle:hover { background: var(--surface); color: var(--ink); }
+.theme-toggle svg { display: block; }
+
 /* ── Home hero ────────────────────────────────────────── */
 .home-wrap {
   max-width: 1100px;
@@ -787,4 +802,23 @@ body {
   .status-dot { animation: none; }
   .fade-in, .fade-in-1, .fade-in-2, .fade-in-3, .fade-in-4 { animation: none; }
   .modal-box { animation: none; }
+}
+
+/* ── Light theme (warm paper) ─────────────────────────── */
+[data-theme="light"] {
+  --bg:        #faf9f7;
+  --surface:   #f5f3ef;
+  --elev:      #ffffff;
+  --ink:       #1c1917;
+  --ink-soft:  #57534e;
+  --ink-faint: #a8a29e;
+  --rule:      #e7e5e4;
+}
+
+[data-theme="light"] .topbar {
+  background: rgba(250,249,247,0.88);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #c7c4c1;
 }
