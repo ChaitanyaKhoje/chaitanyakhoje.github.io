@@ -1,6 +1,6 @@
-# Chaitanya Khoje Blog
+# Chaitanya Khoje Portfolio
 
-This is Chaitanya Khoje's Jekyll-powered personal engineering blog, published via GitHub Pages.
+This is Chaitanya Khoje's Jekyll-powered personal portfolio, published via GitHub Pages.
 
 ## Local development
 
@@ -20,9 +20,9 @@ bundle exec jekyll serve
 
 Open `http://localhost:4000`.
 
-## New posts
+## Post scaffolding
 
-Create a post scaffold:
+The repository still includes a post scaffold utility for future writing, but the current public homepage is a resume-based portfolio. Create a post scaffold:
 
 ```bash
 bin/new-post "My Post Title" \
@@ -50,11 +50,10 @@ The Rake task builds `_site/` and runs `html-proofer` against the generated outp
 
 ## Repository layout
 
-- `_posts/` contains published posts in Jekyll post format.
+- `_posts/` contains published posts in Jekyll post format when writing is enabled.
 - `_layouts/` contains the site layouts for the home page and post pages.
 - `bin/new-post` creates correctly named post drafts.
-- `assets/css/blog.css` contains the shared site styles.
-- `assets/images/` contains blog and social imagery used by the site.
+- `assets/css/portfolio.css` contains the shared site styles.
 - `_config.yml` contains site metadata, plugins, and permalink settings.
 
 ## Deployment

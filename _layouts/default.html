@@ -15,7 +15,7 @@
       document.documentElement.setAttribute('data-theme', preferred);
     })();
   </script>
-  <link rel="stylesheet" href="{{ '/assets/css/blog.css' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/assets/css/portfolio.css' | relative_url }}" />
   {% seo %}
 </head>
 <body>
@@ -24,10 +24,12 @@
     <div class="nav-inner">
       <a class="nav-logo" href="{{ '/' | relative_url }}">
         <div class="nav-logo-mark">C</div>
-        <span class="nav-logo-text">chaitanya / blog</span>
+        <span class="nav-logo-text">Chaitanya Khoje</span>
       </a>
       <div class="nav-links">
-        <a class="nav-link {% if page.url == '/' %}active{% endif %}" href="{{ '/' | relative_url }}">Posts</a>
+        <a class="nav-link {% if page.url == '/' %}active{% endif %}" href="{{ '/' | relative_url }}#profile">Profile</a>
+        <a class="nav-link" href="{{ '/' | relative_url }}#experience">Experience</a>
+        <a class="nav-link" href="{{ '/' | relative_url }}#technologies">Tech</a>
         <a class="nav-link" href="https://github.com/chaitanyakhoje" target="_blank" rel="noopener">GitHub</a>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle theme">
           <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
