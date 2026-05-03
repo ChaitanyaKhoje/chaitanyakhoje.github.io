@@ -1,37 +1,32 @@
-title: Chaitanya Khoje
-email: contact@chaitanyakhoje.com
+title: "Field Notes"
+tagline: "Engineering, written down."
+author:
+  name: "Chaitanya Khoje"
+  email: "chaitanyakhoje9@gmail.com"
+  github: "chaitanyakhoje"
 description: >-
-  Astrophotographer capturing the wonders of the cosmos through telescopes and cameras.
-  Specializing in deep sky objects, galaxies, and nebulae.
+  Field Notes by Chaitanya Khoje. Software engineering observations —
+  performance, databases, Rust, Go, craft.
 baseurl: ""
 url: "https://chaitanyakhoje.github.io"
 
-# Social media
-github_username: chaitanyakhoje
-instagram_username: chaitanyakhoje
+# Permalinks
+permalink: /posts/:slug/
 
-# Build settings
+# Build
 markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
 
-# Collections
-collections:
-  gallery_items:
-    output: true
-    permalink: /gallery/:name/
-
-# Defaults
-defaults:
-  - scope:
-      path: ""
-      type: "gallery_items"
-    values:
-      layout: gallery_item
-
-# Exclude from processing
+# Exclude
 exclude:
   - Gemfile
   - Gemfile.lock
@@ -42,3 +37,4 @@ exclude:
   - README.md
   - Rakefile
   - .github
+  - docs/
