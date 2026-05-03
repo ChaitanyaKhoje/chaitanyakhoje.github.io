@@ -803,3 +803,22 @@ body {
   .fade-in, .fade-in-1, .fade-in-2, .fade-in-3, .fade-in-4 { animation: none; }
   .modal-box { animation: none; }
 }
+
+/* ── Light theme (warm paper) ─────────────────────────── */
+[data-theme="light"] {
+  --bg:        #faf9f7;
+  --surface:   #f5f3ef;
+  --elev:      #ffffff;
+  --ink:       #1c1917;
+  --ink-soft:  #57534e;
+  --ink-faint: #a8a29e;
+  --rule:      #e7e5e4;
+}
+
+[data-theme="light"] .topbar {
+  background: rgba(250,249,247,0.88);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #c7c4c1;
+}
