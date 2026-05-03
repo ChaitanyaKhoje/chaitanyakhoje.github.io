@@ -108,6 +108,21 @@ body {
 .nav-link:hover { background: var(--surface); color: var(--ink); }
 .nav-link.active { background: var(--surface); color: var(--ink); }
 
+.theme-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-soft);
+  padding: 6px 8px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.12s, color 0.12s;
+}
+
+.theme-toggle:hover { background: var(--surface); color: var(--ink); }
+.theme-toggle svg { display: block; }
+
 /* ── Home hero ────────────────────────────────────────── */
 .home-wrap {
   max-width: 1100px;
