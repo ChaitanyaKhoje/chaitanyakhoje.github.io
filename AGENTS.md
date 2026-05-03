@@ -7,6 +7,7 @@ This repository is a Jekyll blog, not a general app workspace. Keep production c
 ## Build, Test, and Development Commands
 
 - `bundle install`: install Ruby gems from `Gemfile`.
+- `bin/new-post "Post Title" --description "Summary" --tags "tag1,tag2"`: create a correctly named post scaffold in `_posts/`.
 - `bundle exec jekyll serve`: run the site locally at `http://localhost:4000`.
 - `bundle exec jekyll build`: generate the production site into `_site/`.
 - `bundle exec rake` or `bundle exec rake test`: build the site and run `html-proofer` checks against `_site/`.
@@ -27,4 +28,4 @@ Recent history uses short conventional commit subjects like `feat:`, `fix:`, and
 
 ## Content & Repo Hygiene
 
-Posts and pages should keep concise front matter with fields the layouts already use, such as `layout`, `title`, `description`, `date`, and `tags`. Do not commit `_site/`; it is generated output from `bundle exec jekyll build`. Also keep local editor settings, planning artifacts, and agent-specific workspace files out of the repository.
+Use `bin/new-post` for new posts so filenames and front matter stay consistent. Posts and pages should keep concise front matter with fields the layouts already use, such as `layout`, `title`, `description`, `date`, and `tags`. Do not commit `_site/`; it is generated output from `bundle exec jekyll build`. Also keep local editor settings, planning artifacts, and agent-specific workspace files out of the repository.

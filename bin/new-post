@@ -1,0 +1,90 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "date"
+require "optparse"
+
+options = {
+  date: Date.today.iso8601,
+  description: "",
+  tags: []
+}
+
+parser = OptionParser.new do |opts|
+  opts.banner = "Usage: bin/new-post \"Post Title\" [options]"
+
+  opts.on("--date DATE", "Post date in YYYY-MM-DD format") do |date|
+    options[:date] = Date.iso8601(date).iso8601
+  rescue Date::Error
+    warn "error: --date must use YYYY-MM-DD"
+    exit 1
+  end
+
+  opts.on("--description TEXT", "Short post summary for cards and SEO") do |description|
+    options[:description] = description.strip
+  end
+
+  opts.on("--tags TAGS", "Comma-separated tags, e.g. ruby,jekyll") do |tags|
+    options[:tags] = tags.split(",").map { |tag| tag.strip.downcase }.reject(&:empty?)
+  end
+end
+
+parser.parse!
+
+title = ARGV.join(" ").strip
+if title.empty?
+  warn parser
+  exit 1
+end
+
+def slugify(value)
+  value
+    .downcase
+    .gsub(/[^a-z0-9]+/, "-")
+    .gsub(/\A-|-+\z/, "")
+end
+
+def yaml_quote(value)
+  %("#{value.gsub("\\", "\\\\\\").gsub('"', '\"')}")
+end
+
+slug = slugify(title)
+if slug.empty?
+  warn "error: title must contain at least one letter or number"
+  exit 1
+end
+
+posts_dir = File.join(Dir.pwd, "_posts")
+unless Dir.exist?(posts_dir)
+  warn "error: _posts directory not found; run from the repository root"
+  exit 1
+end
+
+path = File.join(posts_dir, "#{options[:date]}-#{slug}.md")
+if File.exist?(path)
+  warn "error: #{path} already exists"
+  exit 1
+end
+
+front_matter = [
+  "---",
+  "layout: post",
+  "title: #{yaml_quote(title)}",
+  "description: #{yaml_quote(options[:description])}",
+  "tags: [#{options[:tags].join(", ")}]",
+  "date: #{options[:date]}",
+  "---"
+]
+
+body = <<~MARKDOWN
+
+  Write the opening paragraph here.
+
+  ## Notes
+
+  - Capture the core idea.
+  - Add examples, code, or links as needed.
+MARKDOWN
+
+File.write(path, "#{front_matter.join("\n")}#{body}")
+puts "created #{path}"

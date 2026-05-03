@@ -1,6 +1,7 @@
 require 'html-proofer'
 
 task :test do
+  sh "ruby -Itest test/new_post_test.rb"
   sh "bundle exec jekyll build"
   HTMLProofer.check_directory("./_site", {
     assume_extension:    true,
