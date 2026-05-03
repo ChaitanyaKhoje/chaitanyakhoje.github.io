@@ -1,66 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ '/css/main.css' | relative_url }}">
-    {% if page.custom_css %}
-    <link rel="stylesheet" href="{{ page.custom_css | relative_url }}">
-    {% endif %}
-    {% seo %}
+  <meta charset="utf-8" />
+  <title>{% if page.title and page.title != "" %}{{ page.title }} — {% endif %}{{ site.title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ '/assets/css/blog.css' | relative_url }}" />
+  {% seo %}
 </head>
 <body>
-    <!-- Header -->
-    <header class="site-header">
-        <div class="container">
-            <nav class="main-nav">
-                <a href="{{ '/' | relative_url }}" class="logo">CK</a>
-                <ul class="nav-links">
-                    <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a></li>
-                    <li><a href="{{ '/gallery' | relative_url }}" {% if page.url contains '/gallery' %}class="active"{% endif %}>Gallery</a></li>
-                    <li><a href="{{ '/about' | relative_url }}" {% if page.url contains '/about' %}class="active"{% endif %}>About</a></li>
-                    <li><a href="{{ '/contact' | relative_url }}" {% if page.url contains '/contact' %}class="active"{% endif %}>Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Main Content -->
-    <main>
-        {{ content }}
-    </main>
+  <nav class="topbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="{{ '/' | relative_url }}">
+        <div class="nav-logo-mark">C</div>
+        <span class="nav-logo-text">chaitanya / field notes</span>
+      </a>
+      <div class="nav-links">
+        <a class="nav-link {% if page.url == '/' %}active{% endif %}" href="{{ '/' | relative_url }}">Posts</a>
+        <a class="nav-link" href="https://github.com/chaitanyakhoje" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </nav>
 
-    {% if page.url != '/' %}
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="{{ '/gallery' | relative_url }}">Gallery</a></li>
-                        <li><a href="{{ '/about' | relative_url }}">About</a></li>
-                        <li><a href="{{ '/contact' | relative_url }}">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Connect</h3>
-                    <ul class="social-links">
-                        <li><a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub</a></li>
-                        <li><a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" rel="noopener">Instagram</a></li>
-                        <li><a href="mailto:{{ site.email }}">Email</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-    {% endif %}
+  {{ content }}
+
 </body>
-</html> 
+</html>

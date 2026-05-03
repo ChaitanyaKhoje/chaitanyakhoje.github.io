@@ -1,0 +1,101 @@
+---
+layout: default
+---
+
+<div class="home-wrap">
+
+  <!-- Hero -->
+  <section class="home-hero">
+    <div>
+      <div class="hero-status fade-in">
+        <span class="status-dot"></span>
+        <span class="hero-status-text">Writing regularly · since 2024</span>
+      </div>
+      <h1 class="hero-title fade-in fade-in-1">Engineering,<br>written down.</h1>
+      <p class="hero-bio fade-in fade-in-2">
+        Software engineer. I write about the parts of building software that nobody puts in the changelog.
+      </p>
+    </div>
+    <div class="hero-card fade-in fade-in-2">
+      <p class="hero-card-label">↳ Cross-posted to</p>
+      <ul class="platform-list">
+        <li class="platform-item">
+          <span class="platform-dot" style="background:#0a0a0a;border:1px solid #555"></span>
+          <span class="platform-name">dev.to/chaitanyakhoje</span>
+          <span class="platform-arrow">↗</span>
+        </li>
+        <li class="platform-item">
+          <span class="platform-dot" style="background:#1a8917"></span>
+          <span class="platform-name">medium.com/@chaitanyakhoje</span>
+          <span class="platform-arrow">↗</span>
+        </li>
+        <li class="platform-item">
+          <span class="platform-dot" style="background:#ff6719"></span>
+          <span class="platform-name">chaitanyakhoje.substack.com</span>
+          <span class="platform-arrow">↗</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Tag filter -->
+  <div class="tag-filters fade-in fade-in-3" id="tag-filters">
+    <button class="tag-pill active" data-filter="all" onclick="filterTag(this.dataset.filter, this)">All posts</button>
+    {% assign all_tags = site.posts | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
+    {% for tag in all_tags %}
+    <button class="tag-pill" data-filter="{{ tag }}" onclick="filterTag(this.dataset.filter, this)">#{{ tag }}</button>
+    {% endfor %}
+  </div>
+
+  <!-- Post grid -->
+  <div class="post-grid fade-in fade-in-4" id="post-grid">
+    {% for post in site.posts %}
+    {% assign reading_time = post.content | number_of_words | divided_by: 230 | plus: 1 %}
+    <article
+      class="post-card{% if forloop.first %} featured{% endif %}"
+      data-tags="{{ post.tags | join: ',' }}"
+    >
+      {% if forloop.first %}<div class="post-card-glow"></div>{% endif %}
+      <div class="post-meta">
+        <span>{{ post.date | date: "%b %-d, %Y" }}</span>
+        <span>·</span>
+        <span>{{ reading_time }} min</span>
+        {% if forloop.first %}<span class="latest-badge">● Latest</span>{% endif %}
+      </div>
+      <a class="post-title{% if forloop.first %} post-title--featured{% endif %}" href="{{ post.url | relative_url }}">
+        {{ post.title }}
+      </a>
+      <p class="post-dek">{{ post.description | default: post.excerpt | strip_html | truncate: 160 }}</p>
+      <div class="post-tags">
+        {% for tag in post.tags limit:3 %}
+        <span class="post-tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+</div>
+
+<script>
+function filterTag(tag, el) {
+  document.querySelectorAll('.tag-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.post-card').forEach((card, i) => {
+    const tags = card.dataset.tags ? card.dataset.tags.split(',') : [];
+    const show = tag === 'all' || tags.includes(tag);
+    card.style.display = show ? '' : 'none';
+    card.classList.remove('featured');
+  });
+  const visible = Array.from(document.querySelectorAll('.post-card')).filter(c => c.style.display !== 'none');
+  if (visible.length) {
+    const first = visible[0];
+    first.classList.add('featured');
+    if (!first.querySelector('.post-card-glow')) {
+      const glow = document.createElement('div');
+      glow.className = 'post-card-glow';
+      first.insertBefore(glow, first.firstChild);
+    }
+  }
+}
+</script>
