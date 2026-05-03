@@ -20,6 +20,18 @@ bundle exec jekyll serve
 
 Open `http://localhost:4000`.
 
+## New posts
+
+Create a post scaffold:
+
+```bash
+bin/new-post "My Post Title" \
+  --description "Short summary for cards and SEO." \
+  --tags "ruby,jekyll,writing"
+```
+
+The command creates `_posts/YYYY-MM-DD-my-post-title.md` with front matter that matches the current layouts. Use `--date YYYY-MM-DD` to backdate or schedule a post.
+
 ## Verification
 
 Build the site:
@@ -40,6 +52,7 @@ The Rake task builds `_site/` and runs `html-proofer` against the generated outp
 
 - `_posts/` contains published posts in Jekyll post format.
 - `_layouts/` contains the site layouts for the home page and post pages.
+- `bin/new-post` creates correctly named post drafts.
 - `assets/css/blog.css` contains the shared site styles.
 - `assets/images/` contains blog and social imagery used by the site.
 - `_config.yml` contains site metadata, plugins, and permalink settings.
