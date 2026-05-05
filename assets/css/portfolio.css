@@ -151,15 +151,12 @@ body {
 }
 
 .home-hero {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 60px;
-  align-items: end;
+  max-width: 760px;
   margin-bottom: 56px;
 }
 
 @media (max-width: 720px) {
-  .home-hero { grid-template-columns: 1fr; gap: 32px; }
+  .home-hero { margin-bottom: 40px; }
 }
 
 .hero-status {
@@ -211,43 +208,16 @@ body {
   flex-wrap: wrap;
 }
 
-.hero-card {
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 12px;
-  padding: 18px;
-}
-
-.hero-card-label {
-  font-size: 12px;
-  color: var(--ink-soft);
-  margin-bottom: 12px;
-  font-family: var(--mono);
-}
-
-.hero-card-title {
-  font-size: 20px;
-  line-height: 1.2;
-  font-weight: 600;
-  letter-spacing: 0;
-  margin-bottom: 10px;
-}
-
-.hero-card-copy {
-  color: var(--ink-soft);
-  font-size: 14px;
-}
-
 /* ── Profile sections ─────────────────────────────────── */
 .impact-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: minmax(0, 260px);
   gap: 12px;
   margin-bottom: 48px;
 }
 
 @media (max-width: 860px) {
-  .impact-grid { grid-template-columns: repeat(2, 1fr); }
+  .impact-grid { grid-template-columns: minmax(0, 260px); }
 }
 
 @media (max-width: 520px) {
@@ -283,7 +253,7 @@ body {
 
 .profile-grid {
   display: grid;
-  grid-template-columns: 1.35fr 1fr;
+  grid-template-columns: 1fr;
   gap: 14px;
   margin-bottom: 52px;
 }
@@ -405,7 +375,7 @@ body {
 
 .credential-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 18px;
 }
 
