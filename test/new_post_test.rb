@@ -41,7 +41,10 @@ class NewPostTest < Minitest::Test
     assert_includes content, 'description: "A short post summary."'
     assert_includes content, "tags: [ruby, jekyll, writing]"
     assert_includes content, "date: 2026-05-03"
-    assert_includes content, "## Notes"
+    assert_includes content, "## Background"
+    assert_includes content, "## The Problem"
+    assert_includes content, "## Solution"
+    assert_includes content, "## Takeaways"
   end
 
   def test_refuses_to_overwrite_existing_post
