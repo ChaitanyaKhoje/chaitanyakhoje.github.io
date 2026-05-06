@@ -10,30 +10,27 @@ layout: default
 
       <!-- Hero -->
       <section class="hero" id="work">
+        <p class="hero-role">Senior Software Engineer · Sunnyvale CA</p>
         <h1 class="hero-title">Building with intent.<br><em>Operating with discipline.</em><br>Scaling with care.</h1>
         <p class="hero-bio">6+ years building reliable software across data platforms, inference workflows, and production systems where clarity, resilience, and execution matter.</p>
-        <div class="hero-ctas">
-          <a class="btn-primary" href="mailto:chaitanyakhoje9@gmail.com">Email me</a>
-          <a class="btn-ghost" href="https://www.linkedin.com/in/chaitanyakhoje/" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="btn-ghost" href="https://github.com/ChaitanyaKhoje" target="_blank" rel="noopener">GitHub</a>
+      </section>
+
+      <section class="stack-section">
+        <div class="tech-strip">
+          <span class="tech-strip-label">Stack</span>
+          <div class="tech-groups">
+            <span class="tech-group"><span class="tech-group-label">Languages</span> Python · SQL · Java · TypeScript · Bash</span>
+            <span class="tech-group"><span class="tech-group-label">Data</span> Apache Airflow · dbt · Snowflake · BigQuery · Kafka · Looker · Debezium</span>
+            <span class="tech-group"><span class="tech-group-label">Cloud</span> GCP · GKE · AWS · S3 · Lambda · Docker · Kubernetes</span>
+            <span class="tech-group"><span class="tech-group-label">AI/Search</span> OpenSearch · Vertex AI · LLM integration · Seldon Core · Ollama</span>
+            <span class="tech-group"><span class="tech-group-label">Ops</span> GitHub Actions · ArgoCD · Datadog · PagerDuty</span>
+          </div>
         </div>
       </section>
 
-      <!-- Tech strip -->
-      <div class="tech-strip">
-        <span class="tech-strip-label">Stack</span>
-        <div class="tech-groups">
-          <span class="tech-group"><span class="tech-group-label">Languages</span> Python · SQL · Java · TypeScript · Bash</span>
-          <span class="tech-group"><span class="tech-group-label">Data</span> Apache Airflow · dbt · Snowflake · BigQuery · Kafka · Looker · Debezium</span>
-          <span class="tech-group"><span class="tech-group-label">Cloud</span> GCP · GKE · AWS · S3 · Lambda · Docker · Kubernetes</span>
-          <span class="tech-group"><span class="tech-group-label">AI/Search</span> OpenSearch · Vertex AI · LLM integration · Seldon Core · Ollama</span>
-          <span class="tech-group"><span class="tech-group-label">Ops</span> GitHub Actions · ArgoCD · Datadog · PagerDuty</span>
-        </div>
-      </div>
-
-      <!-- Writing -->
-      <section class="writing-section" id="writing">
-        <p class="section-label">Latest Writing</p>
+      <!-- Projects -->
+      <section class="writing-section" id="projects">
+        <p class="section-label">Latest Projects</p>
         {% for post in site.posts %}
         <div class="post-row">
           <div class="post-row-body">
@@ -51,19 +48,19 @@ layout: default
     <aside class="home-sidebar">
       <p class="sidebar-label">Experience</p>
 
-      <div class="exp-item">
+      <button class="exp-item exp-link" type="button" data-experience-open="zefr">
         <div class="exp-co">Zefr</div>
         <div class="exp-role">Senior Software Engineer</div>
         <div class="exp-date">2021 – Present</div>
-        <div class="exp-desc">Ad measurement pipelines across video, social, and short-form. Batch LLM inference on Vertex AI. Sev0 data-integrity recovery.</div>
-      </div>
+        <div class="exp-desc">Production ad measurement across four platforms. Batch LLM inference on Vertex AI. Sev0 recovery and pipeline optimization.</div>
+      </button>
 
-      <div class="exp-item">
+      <button class="exp-item exp-link" type="button" data-experience-open="realtor">
         <div class="exp-co">realtor.com</div>
         <div class="exp-role">Data Engineer</div>
         <div class="exp-date">2020 – 2021</div>
-        <div class="exp-desc">AWS data pipelines, CloudFormation, CI/CD automation. EMR rightsizing.</div>
-      </div>
+        <div class="exp-desc">AWS data pipelines, EMR cost reduction, and CI/CD automation across multiple environments.</div>
+      </button>
 
       <div class="edu">
         <div class="edu-degree">M.S. Computer Science</div>
@@ -73,3 +70,151 @@ layout: default
 
   </div>
 </div>
+
+<div class="experience-modal" id="experience-modal" aria-hidden="true" hidden>
+  <div class="experience-modal-backdrop" data-experience-close></div>
+  <div class="experience-modal-panel" role="dialog" aria-modal="true" aria-labelledby="experience-modal-title" tabindex="-1">
+    <div class="experience-modal-shell">
+      <div class="experience-modal-head">
+        <div>
+          <p class="experience-modal-label">Experience</p>
+          <h2 class="experience-modal-title" id="experience-modal-title"></h2>
+        </div>
+        <button class="experience-modal-close" type="button" aria-label="Close experience dialog" data-experience-close>×</button>
+      </div>
+      <div class="prose experience-prose" id="experience-modal-body"></div>
+    </div>
+  </div>
+</div>
+
+<template id="experience-template-summary">
+  <section class="experience-block">
+    <h2>Summary</h2>
+    <p class="experience-meta">Senior Software Engineer · Data Engineering · Measurement Systems</p>
+    <p>Senior software engineer with 6+ years in data engineering, focused on large-scale measurement pipelines, performance and cost optimization, and multi-platform integration across four major ad platforms.</p>
+    <p>Consistently delivers large efficiency wins on production systems, ships new platform integrations under compressed timelines with executive and external partner alignment, and has built production LLM inference and AI-driven incident tooling within the organization.</p>
+  </section>
+</template>
+
+<template id="experience-template-zefr">
+  <section class="experience-block">
+    <h2>Zefr Inc.</h2>
+    <p class="experience-meta">Los Angeles, CA (Remote) · Nov 2021 – Present · Senior Software Engineer</p>
+    <h3>Role</h3>
+    <p>Promoted from Software Engineer III in Jan 2025. Own production measurement pipelines across four major ad platforms, spanning ingestion, transformation, warehouse modeling, and BI exposure.</p>
+    <h3>Highlights</h3>
+    <ul>
+      <li>Designed and shipped the company’s first production LLM-based batch inference system on Vertex AI for ad content classification.</li>
+      <li>Built and production rolled out an AI-powered Slack agent for on-call incident triage, winning two company-wide awards including People’s Choice first prize.</li>
+      <li>Reduced compute footprint of a multi-DAG ingestion system by 98.5% and cut end-to-end fetch latency by 95% through ad set download batching redesign.</li>
+      <li>Rebuilt large Airflow XCOM handling in discovery pipelines, reducing task runtime from 1.5 hours to 10 minutes and eliminating Kubernetes pod decode errors.</li>
+      <li>Eliminated recurring deadlocks and redundant DAG failures in Snowflake ingestion by replacing DDL transaction patterns with a transient table strategy.</li>
+      <li>Onboarded a new ad platform into the measurement stack end to end in two weeks, and shipped a new placement type pipeline in three days against a one-week deadline.</li>
+      <li>Led architecture and migration of the core brand safety measurement platform onto Airflow 2, including the external reporting submission API and entities API migration.</li>
+      <li>Expanded the measurement surface with a new regulated content risk category and led invalid traffic metrics design for the reporting pipeline.</li>
+      <li>Resolved a Sev0 in a regulated content classification path, restored data integrity, and reduced daily on-call load by fixing recurring Airflow zombie task failures.</li>
+      <li>Delivered 280 merged pull requests across 27 repositories in the last year and served as a regular technical interviewer.</li>
+    </ul>
+  </section>
+</template>
+
+<template id="experience-template-realtor">
+  <section class="experience-block">
+    <h2>realtor.com (Move Inc.)</h2>
+    <p class="experience-meta">Santa Clara, CA · Feb 2020 – Oct 2021 · Data Engineer</p>
+    <h3>Highlights</h3>
+    <ul>
+      <li>Cut EMR cluster spend by 74% through rightsizing and job consolidation across production workloads.</li>
+      <li>Automated EC2 rightsizing and unused EBS volume cleanup via Python tooling, saving $384/month across multiple AWS environments.</li>
+      <li>Built production Airflow DAGs on AWS Batch and standardized AWS resource provisioning with CloudFormation templates.</li>
+      <li>Built Jenkins CI/CD pipelines for AWS S3 and Lambda deployments and contributed schema validation to an internal Python library.</li>
+    </ul>
+  </section>
+</template>
+
+<script>
+(function() {
+  var modal = document.getElementById('experience-modal');
+  if (!modal) return;
+  var panel = modal.querySelector('.experience-modal-panel');
+  var body = modal.querySelector('#experience-modal-body');
+  var title = modal.querySelector('#experience-modal-title');
+  var openers = document.querySelectorAll('[data-experience-open]');
+  var closers = modal.querySelectorAll('[data-experience-close]');
+  var pageBody = document.body;
+  var closeTimer = null;
+  var templates = {
+    summary: document.getElementById('experience-template-summary'),
+    zefr: document.getElementById('experience-template-zefr'),
+    realtor: document.getElementById('experience-template-realtor')
+  };
+  var labels = {
+    summary: 'Experience',
+    zefr: 'Zefr',
+    realtor: 'realtor.com'
+  };
+
+  modal.hidden = true;
+  modal.classList.remove('is-open');
+  modal.setAttribute('aria-hidden', 'true');
+  modal.style.pointerEvents = 'none';
+  modal.querySelector('#experience-modal-body').innerHTML = '';
+  pageBody.classList.remove('modal-open');
+
+  function renderSection(name) {
+    if (!body) return;
+    var template = templates[name] || templates.summary;
+    if (!template) return;
+    if (title) title.textContent = labels[name] || 'Experience';
+    body.innerHTML = '';
+    body.appendChild(template.content.cloneNode(true));
+    if (panel) panel.scrollTop = 0;
+  }
+
+  function openModal(name) {
+    if (closeTimer) {
+      clearTimeout(closeTimer);
+      closeTimer = null;
+    }
+    renderSection(name);
+    modal.hidden = false;
+    requestAnimationFrame(function() {
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      modal.style.pointerEvents = 'auto';
+      pageBody.classList.add('modal-open');
+      if (panel) panel.focus();
+    });
+  }
+
+  function closeModal() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    modal.style.pointerEvents = 'none';
+    pageBody.classList.remove('modal-open');
+    closeTimer = setTimeout(function() {
+      modal.hidden = true;
+    }, 220);
+  }
+
+  openers.forEach(function(button) {
+    button.addEventListener('click', function() {
+      openModal(button.getAttribute('data-experience-open'));
+    });
+  });
+
+  closers.forEach(function(button) {
+    button.addEventListener('click', closeModal);
+  });
+
+  modal.addEventListener('click', function(event) {
+    if (event.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+      closeModal();
+    }
+  });
+})();
+</script>

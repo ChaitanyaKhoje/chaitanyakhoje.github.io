@@ -1,0 +1,25 @@
+<script>
+(function() {
+  if (!window.anime || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var scene = document.querySelector('.astro-scene');
+  var image = document.querySelector('.astro-scene-image');
+  var article = document.querySelector('.astro-page .article-shell');
+  if (!scene || !image || !article) return;
+
+  var animate = window.anime.animate;
+
+  animate(scene, {
+    opacity: [0, 1],
+    ease: 'out(3)',
+    duration: 900
+  });
+
+  animate(article, {
+    opacity: [0, 1],
+    y: [18, 0],
+    ease: 'out(3)',
+    duration: 900
+  });
+})();
+</script>
