@@ -3,141 +3,68 @@ layout: default
 ---
 
 <div class="home-wrap">
+  <div class="home-layout">
 
-  <section class="home-hero" id="profile">
-    <div>
-      <div class="hero-status fade-in">
-        <span class="status-dot"></span>
-        <span class="hero-status-text">Senior Software Engineer · Sunnyvale, CA</span>
+    <!-- ── Main column ── -->
+    <main class="home-main">
+
+      <!-- Hero -->
+      <section class="hero" id="work">
+        <p class="hero-kicker">Senior Software Engineer · Sunnyvale CA</p>
+        <h1 class="hero-title">Data platforms,<br><em>AI systems,</em><br>production scale.</h1>
+        <p class="hero-bio">6+ years building large-scale measurement pipelines, batch inference systems, and multi-platform integrations across video, social, and short-form ad platforms.</p>
+        <div class="hero-ctas">
+          <a class="btn-primary" href="mailto:chaitanyakhoje9@gmail.com">Email me</a>
+          <a class="btn-ghost" href="https://www.linkedin.com/in/chaitanyakhoje/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn-ghost" href="https://github.com/ChaitanyaKhoje" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </section>
+
+      <!-- Tech strip -->
+      <div class="tech-strip">
+        <span class="tech-strip-label">Stack</span>
+        <span class="tech-strip-items">Python · SQL · Java · TypeScript · Bash · Apache Airflow · dbt · Snowflake · BigQuery · Kafka · Looker · Debezium · GCP · GKE · AWS · S3 · Lambda · Docker · Kubernetes · OpenSearch · Vertex AI · LLM integration · Seldon Core · Ollama · LiteLLM · GitHub Actions · ArgoCD · Datadog · Sentry · PagerDuty</span>
       </div>
-      <h1 class="hero-title fade-in fade-in-1">Data platforms,<br>AI systems, production scale.</h1>
-      <p class="hero-bio fade-in fade-in-2">
-        Senior Software Engineer with 6+ years in data engineering, focused on large-scale measurement pipelines, performance and cost optimization, and multi-platform integrations across major ad platforms.
-      </p>
-      <div class="hero-actions fade-in fade-in-3">
-        <a class="btn btn-primary" href="mailto:chaitanyakhoje9@gmail.com">Email</a>
-        <a class="btn" href="https://www.linkedin.com/in/chaitanyakhoje/" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn" href="https://github.com/ChaitanyaKhoje" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </div>
-  </section>
 
-  <section class="impact-grid fade-in fade-in-3" aria-label="Resume highlights">
-    <div class="impact-item">
-      <span class="impact-value">6+</span>
-      <span class="impact-label">years in data engineering and platforms</span>
-    </div>
-  </section>
-
-  <section class="summary-grid fade-in fade-in-4" id="work">
-    <article class="profile-panel">
-      <p class="section-kicker">Work Summary</p>
-      <h2 class="section-title">Measurement platforms, AI systems, and reliability work in production.</h2>
-      <ul class="summary-list">
-        <li>Built and operated large-scale ad measurement pipelines across video, social, and short-form platforms.</li>
-        <li>Designed production batch inference and LLM-powered incident triage tooling for engineering workflows.</li>
-        <li>Reduced compute, latency, runtime, logging cost, and recurring pipeline failures across high-volume workloads.</li>
-        <li>Delivered new platform integrations, reporting surfaces, API migrations, and regulated-content measurement capabilities under tight timelines.</li>
-        <li>Handled production reliability work including Sev0 data-integrity recovery, API deprecation readiness, and on-call load reduction.</li>
-      </ul>
-    </article>
-  </section>
-
-  <section class="profile-grid fade-in fade-in-4" id="experience">
-    <article class="profile-panel">
-      <p class="section-kicker">Experience</p>
-      <h2 class="section-title">Production data systems with measurable business impact.</h2>
-      <div class="timeline-list">
-        <div class="timeline-item">
-          <span class="timeline-date">2021 - Present</span>
-          <div>
-            <h3>Zefr · Senior Software Engineer</h3>
-            <p>Leads measurement platform work across ingestion, transformation, warehouse modeling, BI, reporting APIs, platform integrations, AI inference, and operational automation.</p>
+      <!-- Writing -->
+      <section class="writing-section" id="writing">
+        <p class="section-label">Latest Writing</p>
+        {% for post in site.posts %}
+        <div class="post-row">
+          <div class="post-row-body">
+            <a class="post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            {% if post.description %}<p class="post-desc">{{ post.description }}</p>{% endif %}
           </div>
+          <span class="post-date">{{ post.date | date: "%b %Y" }}</span>
         </div>
-        <div class="timeline-item">
-          <span class="timeline-date">2020 - 2021</span>
-          <div>
-            <h3>realtor.com · Data Engineer</h3>
-            <p>Built AWS data pipelines, CloudFormation workflows, and CI/CD automation while cutting EMR spend by 74% through rightsizing and consolidation.</p>
-          </div>
-        </div>
-      </div>
-    </article>
-  </section>
+        {% endfor %}
+      </section>
 
-  <section class="profile-panel fade-in fade-in-4" id="technologies">
-    <p class="section-kicker">Technologies</p>
-    <h2 class="section-title">Tools selected from current production experience.</h2>
-    <div class="tech-grid">
-      <div>
-        <h3>Languages</h3>
-        <div class="skill-cloud">
-          <span>Python</span>
-          <span>SQL</span>
-          <span>Java</span>
-          <span>Bash</span>
-          <span>TypeScript</span>
-        </div>
-      </div>
-      <div>
-        <h3>Data & Pipelines</h3>
-        <div class="skill-cloud">
-          <span>Apache Airflow</span>
-          <span>dbt</span>
-          <span>Snowflake</span>
-          <span>BigQuery</span>
-          <span>Snowpipe</span>
-          <span>Looker</span>
-          <span>Kafka</span>
-          <span>Debezium</span>
-        </div>
-      </div>
-      <div>
-        <h3>Cloud & Infra</h3>
-        <div class="skill-cloud">
-          <span>GCP</span>
-          <span>GKE</span>
-          <span>Vertex AI</span>
-          <span>AWS</span>
-          <span>S3</span>
-          <span>Lambda</span>
-          <span>EMR</span>
-          <span>EC2</span>
-          <span>CloudFormation</span>
-          <span>Docker</span>
-          <span>Kubernetes</span>
-          <span>OpenSearch</span>
-        </div>
-      </div>
-      <div>
-        <h3>AI / ML & Operations</h3>
-        <div class="skill-cloud">
-          <span>Vertex AI batch inference</span>
-          <span>LLM integration</span>
-          <span>Seldon Core</span>
-          <span>Ollama</span>
-          <span>LiteLLM</span>
-          <span>GitHub Actions</span>
-          <span>ArgoCD</span>
-          <span>Spinnaker</span>
-          <span>Jenkins</span>
-          <span>Datadog</span>
-          <span>Sentry</span>
-          <span>PagerDuty</span>
-        </div>
-      </div>
-    </div>
-  </section>
+    </main>
 
-  <section class="profile-panel education-panel fade-in fade-in-4">
-    <p class="section-kicker">Education</p>
-    <div class="credential-list">
-      <div>
-        <h3>M.S., Computer Science</h3>
-        <p>SUNY Binghamton University, NY · 2019</p>
-      </div>
-    </div>
-  </section>
+    <!-- ── Sidebar ── -->
+    <aside class="home-sidebar">
+      <p class="sidebar-label">Experience</p>
 
+      <div class="exp-item">
+        <div class="exp-co">Zefr</div>
+        <div class="exp-role">Senior Software Engineer</div>
+        <div class="exp-date">2021 – Present</div>
+        <div class="exp-desc">Ad measurement pipelines across video, social, and short-form. Batch LLM inference on Vertex AI. Sev0 data-integrity recovery.</div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-co">realtor.com</div>
+        <div class="exp-role">Data Engineer</div>
+        <div class="exp-date">2020 – 2021</div>
+        <div class="exp-desc">AWS data pipelines, CloudFormation, CI/CD automation. EMR rightsizing.</div>
+      </div>
+
+      <div class="edu">
+        <div class="edu-degree">M.S. Computer Science</div>
+        <div class="edu-school">SUNY Binghamton · 2019</div>
+      </div>
+    </aside>
+
+  </div>
 </div>
