@@ -10,15 +10,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
   <script>
     (function() {
+      var forced = {% if page.theme %}{{ page.theme | jsonify }}{% else %}null{% endif %};
       var saved = localStorage.getItem('theme');
-      var preferred = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      var preferred = forced || saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.documentElement.setAttribute('data-theme', preferred);
     })();
   </script>
   <link rel="stylesheet" href="{{ '/assets/css/portfolio.css' | relative_url }}" />
   {% seo %}
 </head>
-<body>
+<body class="{{ page.body_class | default: '' }}">
 
   <nav class="topbar">
     <div class="nav-inner">
@@ -27,10 +28,12 @@
       <div class="nav-right">
         <a class="nav-link" href="{{ '/' | relative_url }}#writing">Writing</a>
         <a class="nav-link" href="{{ '/astrophotography/' | relative_url }}">Astrophotography</a>
+        {% unless page.hide_theme_toggle %}
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle theme">
           <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
           <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
+        {% endunless %}
       </div>
     </div>
   </nav>
@@ -40,6 +43,7 @@
   <script>
     (function() {
       var btn = document.getElementById('theme-toggle');
+      if (!btn) return;
       var sun = document.getElementById('icon-sun');
       var moon = document.getElementById('icon-moon');
 

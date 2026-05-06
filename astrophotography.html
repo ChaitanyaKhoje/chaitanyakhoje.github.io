@@ -3,7 +3,14 @@ layout: default
 title: Astrophotography
 description: Astrophotography work by Chaitanya Khoje.
 permalink: /astrophotography/
+theme: dark
+hide_theme_toggle: true
+body_class: astro-page
 ---
+
+<div class="astro-scene" aria-hidden="true">
+  <div class="astro-scene-image" style="background-image: url('{{ '/assets/images/soulnebula.jpg' | relative_url }}');"></div>
+</div>
 
 <div class="article-shell">
   <article class="post-wrap astro-wrap">
@@ -16,22 +23,6 @@ permalink: /astrophotography/
       <h1 class="post-h1">Astrophotography</h1>
       <p class="post-subtitle">A quiet space for night-sky images, observing notes, and the technical side of capturing faint light.</p>
     </header>
-
-    <figure class="astro-hero" aria-label="Soul Nebula image">
-      <div class="astro-hero-frame">
-        <img
-          class="astro-hero-image"
-          src="{{ '/assets/images/soulnebula.jpg' | relative_url }}"
-          alt="Soul Nebula"
-          loading="eager"
-          decoding="async"
-        >
-      </div>
-      <figcaption class="astro-hero-caption">
-        <span class="astro-hero-caption-label">Featured capture</span>
-        <span class="astro-hero-caption-text">Soul Nebula</span>
-      </figcaption>
-    </figure>
 
     <div class="prose">
       <p>This page is being shaped into a gallery and field log for astrophotography work.</p>

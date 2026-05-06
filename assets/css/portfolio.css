@@ -44,6 +44,53 @@ body {
   overscroll-behavior-y: none;
 }
 
+body.astro-page {
+  background: #05060a;
+  color: #f1ede5;
+}
+
+body.astro-page .topbar {
+  background: color-mix(in srgb, #05060a 88%, transparent);
+}
+
+body.astro-page .article-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.astro-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(92, 109, 255, 0.16), transparent 32%),
+    radial-gradient(circle at 78% 36%, rgba(255, 121, 59, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(5, 6, 10, 0.56), rgba(5, 6, 10, 0.84));
+}
+
+.astro-scene-image {
+  position: absolute;
+  inset: -8%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: scale(1.12);
+  filter: saturate(0.95) contrast(1.04) brightness(0.42);
+  opacity: 0.9;
+  will-change: transform, opacity;
+}
+
+.astro-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(5, 6, 10, 0.38) 0%, rgba(5, 6, 10, 0.6) 22%, rgba(5, 6, 10, 0.86) 100%),
+    radial-gradient(circle at 50% 18%, transparent 0%, rgba(5, 6, 10, 0.05) 55%, rgba(5, 6, 10, 0.22) 100%);
+}
+
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 999px; }
 ::-webkit-scrollbar-track { background: transparent; }
@@ -481,6 +528,7 @@ body {
 /* ── Reduced motion ─────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   body { transition: none; }
+  .astro-scene-image { transform: scale(1.06); }
 
   .nav-link,
   .theme-toggle,
@@ -655,71 +703,6 @@ body {
   color: var(--ink-soft);
   line-height: 1.5;
   text-wrap: pretty;
-}
-
-.astro-hero {
-  margin: 0 0 40px;
-}
-
-.astro-hero-frame {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 16 / 10;
-  border: 1px solid var(--rule);
-  border-radius: 8px;
-  background: var(--bg-sub);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--ink) 10%, transparent),
-    0 18px 54px color-mix(in srgb, var(--ink) 14%, transparent);
-  transform: translateY(0) scale(1);
-  transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
-}
-
-.astro-hero-frame:hover {
-  border-color: color-mix(in srgb, var(--ink-soft) 55%, var(--rule));
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--ink) 16%, transparent),
-    0 26px 72px color-mix(in srgb, var(--ink) 18%, transparent);
-  transform: translateY(-2px) scale(1.005);
-}
-
-.astro-hero-frame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--bg) 6%, transparent), transparent 28%, color-mix(in srgb, var(--bg) 42%, transparent));
-  pointer-events: none;
-  z-index: 1;
-}
-
-.astro-hero-image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform-origin: center center;
-  will-change: transform, opacity;
-}
-
-.astro-hero-caption {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  padding-top: 14px;
-  color: var(--ink-faint);
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.astro-hero-caption-text {
-  color: var(--ink-soft);
-}
-
-.astro-hero-caption-label {
-  flex: 0 0 auto;
 }
 
 .post-header-tags {

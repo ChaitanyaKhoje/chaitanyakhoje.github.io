@@ -2,32 +2,36 @@
 (function() {
   if (!window.anime || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  var hero = document.querySelector('.astro-hero');
-  var frame = document.querySelector('.astro-hero-frame');
-  var image = document.querySelector('.astro-hero-image');
-  if (!hero || !frame || !image) return;
+  var scene = document.querySelector('.astro-scene');
+  var image = document.querySelector('.astro-scene-image');
+  var article = document.querySelector('.astro-page .article-shell');
+  if (!scene || !image || !article) return;
 
   var animate = window.anime.animate;
 
-  animate(hero, {
+  animate(scene, {
+    opacity: [0, 1],
+    ease: 'out(3)',
+    duration: 900
+  });
+
+  animate(article, {
     opacity: [0, 1],
     y: [18, 0],
     ease: 'out(3)',
     duration: 900
   });
 
-  animate(frame, {
-    scale: [0.985, 1],
-    ease: 'out(3)',
-    duration: 900
-  });
-
   animate(image, {
     scale: [
-      { to: 1.06, ease: 'out(3)', duration: 1100 },
-      { to: 1.03, ease: 'inOutSine', duration: 5400 }
+      { to: 1.08, ease: 'out(3)', duration: 1100 },
+      { to: 1.04, ease: 'inOutSine', duration: 5400 }
     ],
     y: [
+      { to: 0, ease: 'out(3)', duration: 1100 },
+      { to: -14, ease: 'inOutSine', duration: 5400 }
+    ],
+    x: [
       { to: 0, ease: 'out(3)', duration: 1100 },
       { to: -10, ease: 'inOutSine', duration: 5400 }
     ],
