@@ -222,6 +222,15 @@ body.astro-page .article-shell {
   border-bottom: 1px solid var(--rule);
 }
 
+.hero-role {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: color-mix(in srgb, var(--accent) 82%, var(--ink));
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
 .hero-title {
   font-family: var(--serif);
   font-size: clamp(48px, 6.4vw, 76px);
@@ -245,14 +254,6 @@ body.astro-page .article-shell {
   max-width: none;
   margin-bottom: 0;
   text-wrap: pretty;
-}
-
-.hero-summary-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 36px;
-  align-items: start;
-  margin-bottom: 30px;
 }
 
 .stack-section {
@@ -590,6 +591,7 @@ body.astro-page .article-shell {
   font-size: 34px;
   line-height: 1.08;
   letter-spacing: -0.8px;
+  min-height: 1em;
 }
 
 .experience-modal-close {
@@ -688,23 +690,6 @@ body.modal-open {
   margin-bottom: 0.45em;
 }
 
-.experience-inline-link {
-  margin-top: 1.4em;
-}
-
-.experience-inline-link a {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  text-decoration: none;
-}
-
-.experience-inline-link a:hover {
-  color: var(--ink);
-}
-
 /* ── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .nav-inner,
@@ -729,11 +714,6 @@ body.modal-open {
 
   .hero {
     padding-top: 56px;
-  }
-
-  .hero-summary-row {
-    grid-template-columns: 1fr;
-    gap: 18px;
   }
 
   .hero-title {

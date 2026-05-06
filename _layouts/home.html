@@ -10,10 +10,9 @@ layout: default
 
       <!-- Hero -->
       <section class="hero" id="work">
+        <p class="hero-role">Senior Software Engineer · Sunnyvale CA</p>
         <h1 class="hero-title">Building with intent.<br><em>Operating with discipline.</em><br>Scaling with care.</h1>
-      <div class="hero-summary-row">
         <p class="hero-bio">6+ years building reliable software across data platforms, inference workflows, and production systems where clarity, resilience, and execution matter.</p>
-      </div>
         <div class="hero-ctas">
           <a class="btn-primary" href="mailto:chaitanyakhoje9@gmail.com">Email me</a>
           <a class="btn-ghost" href="https://www.linkedin.com/in/chaitanyakhoje/" target="_blank" rel="noopener">LinkedIn</a>
@@ -68,8 +67,6 @@ layout: default
         <div class="exp-desc">AWS data pipelines, EMR cost reduction, and CI/CD automation across multiple environments.</div>
       </button>
 
-      <button class="sidebar-more" type="button" data-experience-open="summary">More experience</button>
-
       <div class="edu">
         <div class="edu-degree">M.S. Computer Science</div>
         <div class="edu-school">SUNY Binghamton · 2019</div>
@@ -86,7 +83,7 @@ layout: default
       <div class="experience-modal-head">
         <div>
           <p class="experience-modal-label">Experience</p>
-          <h2 class="experience-modal-title" id="experience-modal-title">Detailed work history</h2>
+          <h2 class="experience-modal-title" id="experience-modal-title"></h2>
         </div>
         <button class="experience-modal-close" type="button" aria-label="Close experience dialog" data-experience-close>×</button>
       </div>
@@ -101,7 +98,6 @@ layout: default
     <p class="experience-meta">Senior Software Engineer · Data Engineering · Measurement Systems</p>
     <p>Senior software engineer with 6+ years in data engineering, focused on large-scale measurement pipelines, performance and cost optimization, and multi-platform integration across four major ad platforms.</p>
     <p>Consistently delivers large efficiency wins on production systems, ships new platform integrations under compressed timelines with executive and external partner alignment, and has built production LLM inference and AI-driven incident tooling within the organization.</p>
-    <p class="experience-inline-link"><a href="{{ '/experience/' | relative_url }}">Open full experience page</a></p>
   </section>
 </template>
 
@@ -147,6 +143,7 @@ layout: default
   if (!modal) return;
   var panel = modal.querySelector('.experience-modal-panel');
   var body = modal.querySelector('#experience-modal-body');
+  var title = modal.querySelector('#experience-modal-title');
   var openers = document.querySelectorAll('[data-experience-open]');
   var closers = modal.querySelectorAll('[data-experience-close]');
   var pageBody = document.body;
@@ -156,11 +153,17 @@ layout: default
     zefr: document.getElementById('experience-template-zefr'),
     realtor: document.getElementById('experience-template-realtor')
   };
+  var labels = {
+    summary: 'Experience',
+    zefr: 'Zefr',
+    realtor: 'realtor.com'
+  };
 
   function renderSection(name) {
     if (!body) return;
     var template = templates[name] || templates.summary;
     if (!template) return;
+    if (title) title.textContent = labels[name] || 'Experience';
     body.innerHTML = '';
     body.appendChild(template.content.cloneNode(true));
     if (panel) panel.scrollTop = 0;
