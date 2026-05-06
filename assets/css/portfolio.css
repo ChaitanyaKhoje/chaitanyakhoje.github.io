@@ -82,8 +82,12 @@ body {
 }
 
 .nav-name {
-  font-family: var(--serif);
-  font-size: 20px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2.4px;
+  line-height: 1.2;
+  text-transform: uppercase;
   color: var(--ink);
   text-decoration: none;
   justify-self: center;
