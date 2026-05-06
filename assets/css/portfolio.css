@@ -261,63 +261,27 @@ body.astro-page .article-shell {
   border-bottom: 1px solid var(--rule);
 }
 
-.hero-ctas {
+.hero-links {
   display: flex;
-  gap: 12px;
+  gap: 20px;
   flex-wrap: wrap;
-}
-
-.hero-ctas-top {
   margin-bottom: 24px;
 }
 
-.btn-primary {
+.hero-link {
   font-family: var(--mono);
-  font-size: 13px;
-  padding: 11px 24px;
-  background: transparent;
-  color: var(--ink-soft);
-  border: 1px solid var(--rule);
-  border-radius: 0;
-  cursor: pointer;
+  font-size: 12px;
+  color: var(--ink-faint);
   text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  box-shadow: 0 0 0 color-mix(in srgb, var(--ink) 0%, transparent);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
   transform: translateY(0) scale(1);
-  transition: border-color 0.16s, box-shadow 0.16s, color 0.16s, transform 0.16s;
+  transition: color 0.16s, transform 0.16s;
 }
-.btn-primary:hover {
-  border-color: var(--ink-soft);
+.hero-link:hover {
   color: var(--ink);
-  box-shadow: 0 18px 36px color-mix(in srgb, var(--ink) 10%, transparent);
-  transform: translateY(-4px) scale(1.025);
+  transform: translateY(-2px);
 }
-.btn-primary:active { transform: translateY(-1px) scale(0.98); }
-
-.btn-ghost {
-  font-family: var(--mono);
-  font-size: 13px;
-  padding: 11px 22px;
-  background: transparent;
-  color: var(--ink-soft);
-  border: 1px solid var(--rule);
-  border-radius: 0;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  box-shadow: 0 0 0 color-mix(in srgb, var(--ink) 0%, transparent);
-  transform: translateY(0) scale(1);
-  transition: border-color 0.16s, box-shadow 0.16s, color 0.16s, transform 0.16s;
-}
-.btn-ghost:hover {
-  border-color: var(--ink-soft);
-  color: var(--ink);
-  box-shadow: 0 18px 36px color-mix(in srgb, var(--ink) 10%, transparent);
-  transform: translateY(-4px) scale(1.025);
-}
-.btn-ghost:active { transform: translateY(-1px) scale(0.98); }
 
 /* ── Tech strip ─────────────────────────────────────────── */
 .tech-strip {
@@ -761,8 +725,7 @@ body.modal-open {
 
   .nav-link,
   .theme-toggle,
-  .btn-primary,
-  .btn-ghost,
+  .hero-link,
   .back-link,
   .post-header-tag,
   .to-top-button,
