@@ -495,6 +495,104 @@ body.astro-page .article-shell {
   transform: translateY(-1px);
 }
 
+.experience-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.experience-modal.is-open {
+  opacity: 1;
+}
+
+.experience-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.experience-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: min(1080px, calc(100vw - 48px));
+  max-height: min(84vh, 920px);
+  overflow: auto;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  box-shadow: 0 30px 90px color-mix(in srgb, #000 48%, transparent);
+  transform: scale(0.96) translateY(12px);
+  opacity: 0;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+
+.experience-modal.is-open .experience-modal-panel {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.experience-modal-shell {
+  padding: 28px 30px 36px;
+}
+
+.experience-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.experience-modal-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-faint);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.experience-modal-title {
+  font-family: var(--serif);
+  font-size: 34px;
+  line-height: 1.08;
+  letter-spacing: -0.8px;
+}
+
+.experience-modal-close {
+  appearance: none;
+  border: 1px solid var(--rule);
+  background: var(--bg-sub);
+  color: var(--ink-soft);
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 0 0 color-mix(in srgb, var(--ink) 0%, transparent);
+  transition: border-color 0.16s, color 0.16s, box-shadow 0.16s, transform 0.16s;
+}
+
+.experience-modal-close:hover {
+  border-color: var(--ink-soft);
+  color: var(--ink);
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--ink) 10%, transparent);
+  transform: translateY(-2px);
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
 .edu {
   margin-top: 24px;
   padding-top: 20px;

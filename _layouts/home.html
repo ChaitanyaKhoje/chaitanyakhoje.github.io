@@ -54,21 +54,21 @@ layout: default
     <aside class="home-sidebar">
       <p class="sidebar-label">Experience</p>
 
-      <a class="exp-item exp-link" href="{{ '/experience/' | relative_url }}#zefr">
+      <button class="exp-item exp-link" type="button" data-experience-open="zefr">
         <div class="exp-co">Zefr</div>
         <div class="exp-role">Senior Software Engineer</div>
         <div class="exp-date">2021 – Present</div>
         <div class="exp-desc">Production ad measurement across four platforms. Batch LLM inference on Vertex AI. Sev0 recovery and pipeline optimization.</div>
-      </a>
+      </button>
 
-      <a class="exp-item exp-link" href="{{ '/experience/' | relative_url }}#realtor">
+      <button class="exp-item exp-link" type="button" data-experience-open="realtor">
         <div class="exp-co">realtor.com</div>
         <div class="exp-role">Data Engineer</div>
         <div class="exp-date">2020 – 2021</div>
         <div class="exp-desc">AWS data pipelines, EMR cost reduction, and CI/CD automation across multiple environments.</div>
-      </a>
+      </button>
 
-      <a class="sidebar-more" href="{{ '/experience/' | relative_url }}">More experience</a>
+      <button class="sidebar-more" type="button" data-experience-open="summary">More experience</button>
 
       <div class="edu">
         <div class="edu-degree">M.S. Computer Science</div>
@@ -78,3 +78,86 @@ layout: default
 
   </div>
 </div>
+
+<div class="experience-modal" id="experience-modal" aria-hidden="true" hidden>
+  <div class="experience-modal-backdrop" data-experience-close></div>
+  <div class="experience-modal-panel" role="dialog" aria-modal="true" aria-labelledby="experience-modal-title" tabindex="-1">
+    <div class="experience-modal-shell">
+      <div class="experience-modal-head">
+        <div>
+          <p class="experience-modal-label">Experience</p>
+          <h2 class="experience-modal-title" id="experience-modal-title">Detailed work history</h2>
+        </div>
+        <button class="experience-modal-close" type="button" aria-label="Close experience dialog" data-experience-close>×</button>
+      </div>
+      <div class="prose experience-prose">
+        {% include experience_sections.html %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var modal = document.getElementById('experience-modal');
+  if (!modal) return;
+  var panel = modal.querySelector('.experience-modal-panel');
+  var openers = document.querySelectorAll('[data-experience-open]');
+  var closers = modal.querySelectorAll('[data-experience-close]');
+  var body = document.body;
+  var closeTimer = null;
+
+  function focusSection(name) {
+    if (!name) return;
+    var target = modal.querySelector('#' + name);
+    if (target && panel) {
+      panel.scrollTop = 0;
+      requestAnimationFrame(function() {
+        target.scrollIntoView({ block: 'start' });
+      });
+    }
+  }
+
+  function openModal(name) {
+    if (closeTimer) {
+      clearTimeout(closeTimer);
+      closeTimer = null;
+    }
+    modal.hidden = false;
+    requestAnimationFrame(function() {
+      modal.classList.add('is-open');
+      body.classList.add('modal-open');
+      if (panel) panel.focus();
+      focusSection(name);
+    });
+  }
+
+  function closeModal() {
+    modal.classList.remove('is-open');
+    body.classList.remove('modal-open');
+    closeTimer = setTimeout(function() {
+      modal.hidden = true;
+    }, 220);
+  }
+
+  openers.forEach(function(button) {
+    button.addEventListener('click', function() {
+      openModal(button.getAttribute('data-experience-open'));
+    });
+  });
+
+  closers.forEach(function(button) {
+    button.addEventListener('click', closeModal);
+  });
+
+  modal.addEventListener('click', function(event) {
+    if (event.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+      closeModal();
+    }
+  });
+})();
+</script>
