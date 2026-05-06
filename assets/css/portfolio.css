@@ -552,7 +552,7 @@ body.astro-page .article-shell {
   box-shadow: 0 30px 90px color-mix(in srgb, #000 48%, transparent);
   transform: scale(0.96) translateY(12px);
   opacity: 0;
-  transition: transform 0.22s ease, opacity 0.22s ease;
+  transition: transform 0.42s ease, opacity 0.42s ease;
 }
 
 .experience-modal.is-open .experience-modal-panel {
@@ -562,6 +562,10 @@ body.astro-page .article-shell {
 
 .experience-modal-shell {
   padding: 28px 30px 36px;
+}
+
+#experience-modal-body {
+  min-height: 240px;
 }
 
 .experience-modal-head {
@@ -682,6 +686,23 @@ body.modal-open {
 
 .experience-block li {
   margin-bottom: 0.45em;
+}
+
+.experience-inline-link {
+  margin-top: 1.4em;
+}
+
+.experience-inline-link a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-decoration: none;
+}
+
+.experience-inline-link a:hover {
+  color: var(--ink);
 }
 
 /* ── Mobile ─────────────────────────────────────────────── */
