@@ -36,7 +36,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   transition: background 0.2s, color 0.2s;
@@ -127,7 +127,7 @@ body.astro-page .article-shell {
   justify-self: start;
   min-width: 0;
   color: color-mix(in srgb, var(--accent) 82%, var(--ink));
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 2.4px;
   line-height: 1.2;
@@ -143,7 +143,7 @@ body.astro-page .article-shell {
 
 .nav-name {
   font-family: var(--mono);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 2.4px;
   line-height: 1.2;
@@ -163,7 +163,7 @@ body.astro-page .article-shell {
 
 .nav-link {
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-faint);
   text-decoration: none;
   padding: 7px 10px;
@@ -186,6 +186,7 @@ body.astro-page .article-shell {
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+  font-size: 13px;
 }
 
 .nav-link-inline:hover {
@@ -249,7 +250,7 @@ body.astro-page .article-shell {
 
 .hero-role {
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 13px;
   color: color-mix(in srgb, var(--accent) 82%, var(--ink));
   letter-spacing: 2.5px;
   text-transform: uppercase;
@@ -272,7 +273,7 @@ body.astro-page .article-shell {
 }
 
 .hero-bio {
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 300;
   color: var(--ink-soft);
   line-height: 1.65;
@@ -297,7 +298,7 @@ body.astro-page .article-shell {
 
 .tech-strip-label {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--ink-faint);
   letter-spacing: 2.5px;
   text-transform: uppercase;
@@ -310,7 +311,7 @@ body.astro-page .article-shell {
 
 .tech-groups {
   font-family: var(--mono);
-  font-size: 14px;
+  font-size: 15px;
   color: var(--ink-soft);
   line-height: 1.9;
   display: grid;
@@ -335,7 +336,7 @@ body.astro-page .article-shell {
 
 .section-label {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--ink-faint);
   letter-spacing: 2.5px;
   text-transform: uppercase;
@@ -357,7 +358,7 @@ body.astro-page .article-shell {
 
 .post-title {
   font-family: var(--serif);
-  font-size: 22px;
+  font-size: 24px;
   color: var(--ink);
   line-height: 1.25;
   letter-spacing: -0.3px;
@@ -369,14 +370,14 @@ body.astro-page .article-shell {
 .post-title:hover { color: var(--accent); }
 
 .post-desc {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--ink-soft);
   line-height: 1.5;
 }
 
 .post-date {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--ink-faint);
   white-space: nowrap;
   padding-top: 3px;
@@ -393,7 +394,7 @@ body.astro-page .article-shell {
 
 .sidebar-label {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--ink-faint);
   letter-spacing: 2.5px;
   text-transform: uppercase;
@@ -434,7 +435,7 @@ body.astro-page .article-shell {
 .exp-item:last-of-type { border-bottom: none; margin-bottom: 0; }
 
 .exp-co {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--ink);
   margin-bottom: 2px;
@@ -442,20 +443,20 @@ body.astro-page .article-shell {
 
 .exp-role {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--accent);
   margin-bottom: 2px;
 }
 
 .exp-date {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--ink-faint);
   margin-bottom: 5px;
 }
 
 .exp-desc {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--ink-soft);
   line-height: 1.5;
 }
@@ -470,7 +471,7 @@ body.astro-page .article-shell {
   appearance: none;
   margin: 4px 0 22px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 1.8px;
   text-transform: uppercase;
   color: var(--ink-faint);
@@ -553,7 +554,7 @@ body.astro-page .article-shell {
 
 .experience-modal-label {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--ink-faint);
   letter-spacing: 2.5px;
   text-transform: uppercase;
@@ -562,7 +563,7 @@ body.astro-page .article-shell {
 
 .experience-modal-title {
   font-family: var(--serif);
-  font-size: 34px;
+  font-size: 36px;
   line-height: 1.08;
   letter-spacing: -0.8px;
   min-height: 1em;
@@ -601,7 +602,7 @@ body.modal-open {
 }
 
 .edu-degree {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--ink);
   margin-bottom: 2px;
@@ -609,7 +610,7 @@ body.modal-open {
 
 .edu-school {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--ink-faint);
 }
 
@@ -635,7 +636,7 @@ body.modal-open {
 
 .experience-block h2 {
   font-family: var(--serif);
-  font-size: 32px;
+  font-size: 34px;
   line-height: 1.1;
   letter-spacing: -0.7px;
   margin: 0 0 8px;
@@ -643,7 +644,7 @@ body.modal-open {
 
 .experience-meta {
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-faint);
   letter-spacing: 1.8px;
   text-transform: uppercase;
@@ -651,7 +652,7 @@ body.modal-open {
 }
 
 .experience-block h3 {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
   margin: 1.4em 0 0.45em;
 }
@@ -781,7 +782,7 @@ body.modal-open {
 
 .article-toc-label {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--ink-faint);
   letter-spacing: 2.4px;
   text-transform: uppercase;
@@ -795,7 +796,7 @@ body.modal-open {
 
 .article-toc-link {
   color: var(--ink-faint);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.35;
   text-decoration: none;
   transform-origin: left center;
@@ -814,7 +815,7 @@ body.modal-open {
 
 .article-toc-h3 {
   padding-left: 12px;
-  font-size: 12px;
+  font-size: 13px;
   opacity: 0.82;
 }
 
@@ -831,7 +832,7 @@ body.modal-open {
   border-radius: 999px;
   cursor: pointer;
   font-family: var(--mono);
-  font-size: 18px;
+  font-size: 19px;
   line-height: 1;
   opacity: 0;
   pointer-events: none;
@@ -860,7 +861,7 @@ body.modal-open {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--ink-soft);
   text-decoration: none;
   margin-bottom: 28px;
@@ -879,7 +880,7 @@ body.modal-open {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 13px;
+  font-size: 14px;
   font-family: var(--mono);
   color: var(--ink-faint);
   margin-bottom: 16px;
@@ -889,7 +890,7 @@ body.modal-open {
 .post-h1 {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: clamp(40px, 5.4vw, 58px);
+  font-size: clamp(42px, 5.4vw, 58px);
   line-height: 1.05;
   letter-spacing: -1.4px;
   margin-bottom: 16px;
@@ -897,7 +898,7 @@ body.modal-open {
 }
 
 .post-subtitle {
-  font-size: 21px;
+  font-size: 23px;
   color: var(--ink-soft);
   line-height: 1.5;
   text-wrap: pretty;
@@ -911,7 +912,7 @@ body.modal-open {
 }
 
 .post-header-tag {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--ink-soft);
   padding: 3px 10px;
   background: var(--bg-sub);
@@ -930,12 +931,12 @@ body.modal-open {
 .post-header-tag:active { transform: translateY(0) scale(0.98); }
 
 /* Prose */
-.prose { font-size: 18px; line-height: 1.75; }
+.prose { font-size: 19px; line-height: 1.75; }
 .prose p { margin-bottom: 1.4em; }
 
 .prose h2 {
   font-family: var(--serif);
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
   letter-spacing: -0.5px;
   margin: 2.2em 0 0.7em;
@@ -943,7 +944,7 @@ body.modal-open {
 }
 
 .prose h3 {
-  font-size: 21px;
+  font-size: 23px;
   font-weight: 600;
   margin: 1.8em 0 0.5em;
   scroll-margin-top: calc(var(--nav-h) + 24px);
@@ -963,7 +964,7 @@ body.modal-open {
 
 .prose code {
   font-family: var(--code);
-  font-size: 0.88em;
+  font-size: 0.9em;
   background: var(--bg-sub);
   border: 1px solid var(--rule);
   padding: 1px 6px;
@@ -978,7 +979,7 @@ body.modal-open {
   margin: 1.8em 0;
   overflow-x: auto;
   font-family: var(--code);
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.65;
 }
 
@@ -986,7 +987,7 @@ body.modal-open {
   background: none;
   border: none;
   padding: 0;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .prose blockquote {
@@ -1066,11 +1067,11 @@ body.modal-open {
   }
 
   .post-h1 {
-    font-size: clamp(36px, 11vw, 48px);
+    font-size: clamp(38px, 11vw, 50px);
   }
 
   .prose {
-    font-size: 17px;
+    font-size: 18px;
   }
 
   .to-top-button {
