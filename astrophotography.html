@@ -5,18 +5,42 @@ description: Astrophotography work by Chaitanya Khoje.
 permalink: /astrophotography/
 ---
 
-<div class="post-wrap astro-wrap">
-  <a class="back-link" href="{{ '/' | relative_url }}">← Portfolio</a>
+<div class="article-shell">
+  <article class="post-wrap astro-wrap">
+    <a class="back-link" href="{{ '/' | relative_url }}">← Portfolio</a>
 
-  <header class="post-header">
-    <div class="post-header-meta">
-      <span>Astrophotography</span>
+    <header class="post-header">
+      <div class="post-header-meta">
+        <span>Astrophotography</span>
+      </div>
+      <h1 class="post-h1">Astrophotography</h1>
+      <p class="post-subtitle">A quiet space for night-sky images, observing notes, and the technical side of capturing faint light.</p>
+    </header>
+
+    <div class="prose">
+      <p>This page is being shaped into a gallery and field log for astrophotography work.</p>
+
+      <h2>Gallery</h2>
+      <p>Future entries here will collect finished night-sky images with short notes on target choice, capture conditions, and processing decisions.</p>
+
+      <h2>Field Notes</h2>
+      <p>This section will hold observing context: location, sky quality, weather, moon phase, and what made a target worth attempting on a given night.</p>
+
+      <h2>Process</h2>
+      <p>The technical notes will cover acquisition, calibration, stacking, post-processing, and the practical lessons that only show up after a long night outside.</p>
     </div>
-    <h1 class="post-h1">Astrophotography</h1>
-    <p class="post-subtitle">A quiet space for night-sky images, observing notes, and the technical side of capturing faint light.</p>
-  </header>
+  </article>
 
-  <div class="prose">
-    <p>This page is being shaped into a gallery and field log for astrophotography work.</p>
-  </div>
+  <aside class="article-toc" aria-label="Table of contents">
+    <div class="article-toc-inner">
+      <p class="article-toc-label">On this page</p>
+      <nav class="article-toc-list" id="article-toc-list"></nav>
+    </div>
+  </aside>
 </div>
+
+<button class="to-top-button" id="to-top-button" type="button" aria-label="Back to top" title="Back to top">
+  ↑
+</button>
+
+{% include article_toc_script.html %}

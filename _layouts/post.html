@@ -4,47 +4,48 @@ layout: default
 
 <div class="progress-bar" id="progress-bar"></div>
 
-<div class="post-wrap">
-  <a class="back-link" href="{{ '/' | relative_url }}">← Portfolio</a>
+<div class="article-shell">
+  <article class="post-wrap">
+    <a class="back-link" href="{{ '/' | relative_url }}">← Portfolio</a>
 
-  <header class="post-header">
-    {% assign reading_time = content | number_of_words | divided_by: 230 | plus: 1 %}
-    {% assign word_count = content | number_of_words %}
-    <div class="post-header-meta">
-      <span>{{ page.date | date: "%b %-d, %Y" }}</span>
-      <span>·</span>
-      <span>{{ reading_time }} min read</span>
-      <span>·</span>
-      <span>{{ word_count }} words</span>
-    </div>
-    <h1 class="post-h1">{{ page.title }}</h1>
-    {% if page.description %}
-    <p class="post-subtitle">{{ page.description }}</p>
-    {% endif %}
-    {% if page.tags %}
-    <div class="post-header-tags">
-      {% for tag in page.tags %}
-      <a class="post-header-tag" href="{{ '/' | relative_url }}">#{{ tag }}</a>
-      {% endfor %}
-    </div>
-    {% endif %}
-  </header>
+    <header class="post-header">
+      {% assign reading_time = content | number_of_words | divided_by: 230 | plus: 1 %}
+      {% assign word_count = content | number_of_words %}
+      <div class="post-header-meta">
+        <span>{{ page.date | date: "%b %-d, %Y" }}</span>
+        <span>·</span>
+        <span>{{ reading_time }} min read</span>
+        <span>·</span>
+        <span>{{ word_count }} words</span>
+      </div>
+      <h1 class="post-h1">{{ page.title }}</h1>
+      {% if page.description %}
+      <p class="post-subtitle">{{ page.description }}</p>
+      {% endif %}
+      {% if page.tags %}
+      <div class="post-header-tags">
+        {% for tag in page.tags %}
+        <a class="post-header-tag" href="{{ '/' | relative_url }}">#{{ tag }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </header>
 
-  <div class="prose">
-    {{ content }}
-  </div>
+    <div class="prose">
+      {{ content }}
+    </div>
+  </article>
+
+  <aside class="article-toc" aria-label="Table of contents">
+    <div class="article-toc-inner">
+      <p class="article-toc-label">On this page</p>
+      <nav class="article-toc-list" id="article-toc-list"></nav>
+    </div>
+  </aside>
 </div>
 
-<script>
-(function() {
-  var bar = document.getElementById('progress-bar');
-  var prose = document.querySelector('.prose');
-  if (!bar || !prose) return;
-  window.addEventListener('scroll', function() {
-    var rect = prose.getBoundingClientRect();
-    var total = Math.max(prose.offsetHeight - window.innerHeight, 1);
-    var scrolled = Math.min(Math.max(-rect.top, 0), total);
-    bar.style.width = (scrolled / total * 100) + '%';
-  }, { passive: true });
-})();
-</script>
+<button class="to-top-button" id="to-top-button" type="button" aria-label="Back to top" title="Back to top">
+  ↑
+</button>
+
+{% include article_toc_script.html %}
