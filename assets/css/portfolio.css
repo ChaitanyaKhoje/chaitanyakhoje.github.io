@@ -8,12 +8,12 @@
   --bg-sub:    #fafafa;
   --rule:      #eeeeee;
   --ink:       #111111;
-  --ink-soft:  #777777;
-  --ink-faint: #bbbbbb;
+  --ink-soft:  #5f6368;
+  --ink-faint: #8a8f98;
   --accent:    #e8632a;
-  --sans:      'Space Grotesk', system-ui, sans-serif;
+  --sans:      -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
   --serif:     'Playfair Display', Georgia, serif;
-  --mono:      'DM Mono', ui-monospace, monospace;
+  --mono:      'SFMono-Regular', 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
   --nav-h:     60px;
 }
 
@@ -22,8 +22,8 @@
   --bg-sub:    #111111;
   --rule:      #1e1e1e;
   --ink:       #f0ece4;
-  --ink-soft:  #6a6a6a;
-  --ink-faint: #333333;
+  --ink-soft:  #aaa39a;
+  --ink-faint: #7a746d;
 }
 
 html { scroll-behavior: smooth; }
