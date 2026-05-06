@@ -7,7 +7,7 @@
   <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
   <script>
     (function() {
       var saved = localStorage.getItem('theme');
@@ -22,18 +22,14 @@
 
   <nav class="topbar">
     <div class="nav-inner">
-      <a class="nav-logo" href="{{ '/' | relative_url }}">
-        <div class="nav-logo-mark">C</div>
-        <span class="nav-logo-text">Chaitanya Khoje</span>
-      </a>
-      <div class="nav-links">
-        <a class="nav-link {% if page.url == '/' %}active{% endif %}" href="{{ '/' | relative_url }}#profile">Profile</a>
-        <a class="nav-link" href="{{ '/' | relative_url }}#experience">Experience</a>
-        <a class="nav-link" href="{{ '/' | relative_url }}#technologies">Tech</a>
-        <a class="nav-link" href="https://github.com/chaitanyakhoje" target="_blank" rel="noopener">GitHub</a>
+      <div class="nav-left">Senior Software Engineer · Sunnyvale CA</div>
+      <a class="nav-name" href="{{ '/' | relative_url }}">Chaitanya Khoje</a>
+      <div class="nav-right">
+        <a class="nav-link" href="{{ '/' | relative_url }}#writing">Writing</a>
+        <a class="nav-link" href="{{ '/astrophotography/' | relative_url }}">Astrophotography</a>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle theme">
-          <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-          <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
       </div>
     </div>
