@@ -17,6 +17,22 @@ permalink: /astrophotography/
       <p class="post-subtitle">A quiet space for night-sky images, observing notes, and the technical side of capturing faint light.</p>
     </header>
 
+    <figure class="astro-hero" aria-label="Soul Nebula image">
+      <div class="astro-hero-frame">
+        <img
+          class="astro-hero-image"
+          src="{{ '/assets/images/soulnebula.jpg' | relative_url }}"
+          alt="Soul Nebula"
+          loading="eager"
+          decoding="async"
+        >
+      </div>
+      <figcaption class="astro-hero-caption">
+        <span class="astro-hero-caption-label">Featured capture</span>
+        <span class="astro-hero-caption-text">Soul Nebula</span>
+      </figcaption>
+    </figure>
+
     <div class="prose">
       <p>This page is being shaped into a gallery and field log for astrophotography work.</p>
 
@@ -43,4 +59,6 @@ permalink: /astrophotography/
   ↑
 </button>
 
+<script src="https://cdn.jsdelivr.net/npm/animejs/dist/bundles/anime.umd.min.js"></script>
 {% include article_toc_script.html %}
+{% include astrophotography_motion.html %}
