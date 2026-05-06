@@ -69,7 +69,17 @@ body {
   align-items: center;
 }
 
-.nav-left { /* intentionally blank */ }
+.nav-left {
+  justify-self: start;
+  min-width: 0;
+  color: color-mix(in srgb, var(--accent) 82%, var(--ink));
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2.4px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
 
 .nav-name {
   font-family: var(--serif);
@@ -145,15 +155,6 @@ body {
 .hero {
   padding: 72px 56px 48px 0;
   border-bottom: 1px solid var(--rule);
-}
-
-.hero-kicker {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: color-mix(in srgb, var(--accent) 82%, var(--ink));
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 22px;
 }
 
 .hero-title {
