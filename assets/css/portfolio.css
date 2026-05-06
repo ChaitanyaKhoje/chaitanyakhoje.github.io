@@ -122,7 +122,14 @@ body {
 .home-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
-  align-items: start;
+  align-items: stretch;
+  background: linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(100% - 280px),
+    var(--bg-sub) calc(100% - 280px),
+    var(--bg-sub) 100%
+  );
 }
 
 .home-main {
@@ -294,7 +301,6 @@ body {
 /* ── Sidebar ────────────────────────────────────────────── */
 .home-sidebar {
   padding: 36px 0 36px 32px;
-  background: var(--bg-sub);
   position: sticky;
   top: var(--nav-h);
   align-self: start;
@@ -372,6 +378,7 @@ body {
 
   .home-layout {
     grid-template-columns: 1fr;
+    background: transparent;
   }
 
   .home-main {
@@ -403,7 +410,6 @@ body {
 
   .home-sidebar {
     padding: 28px 0 0;
-    background: transparent;
     position: static;
     border-top: 1px solid var(--rule);
   }
