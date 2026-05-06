@@ -242,9 +242,17 @@ body.astro-page .article-shell {
   font-weight: 300;
   color: var(--ink-soft);
   line-height: 1.65;
-  max-width: 560px;
-  margin-bottom: 30px;
+  max-width: none;
+  margin-bottom: 0;
   text-wrap: pretty;
+}
+
+.hero-summary-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 36px;
+  align-items: start;
+  margin-bottom: 30px;
 }
 
 .hero-ctas {
@@ -303,12 +311,11 @@ body.astro-page .article-shell {
 
 /* ── Tech strip ─────────────────────────────────────────── */
 .tech-strip {
-  padding: 20px 56px 20px 0;
-  border-bottom: 1px solid var(--rule);
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 20px;
+  padding: 2px 0 0;
+  display: grid;
+  gap: 12px;
+  justify-content: start;
+  align-items: start;
 }
 
 .tech-strip-label {
@@ -317,11 +324,11 @@ body.astro-page .article-shell {
   color: var(--ink-faint);
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  margin-left: 20px;
+  margin-left: 0;
   white-space: nowrap;
   flex-shrink: 0;
   padding-top: 1px;
-  text-align: right;
+  text-align: left;
 }
 
 .tech-groups {
@@ -487,7 +494,6 @@ body.astro-page .article-shell {
   }
 
   .hero,
-  .tech-strip,
   .writing-section {
     padding-right: 0;
   }
@@ -496,18 +502,17 @@ body.astro-page .article-shell {
     padding-top: 56px;
   }
 
+  .hero-summary-row {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
   .hero-title {
     font-size: clamp(42px, 11vw, 64px);
   }
 
-  .tech-strip {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .tech-strip-label {
-    margin-left: 0;
-    text-align: left;
+  .tech-groups {
+    gap: 5px;
   }
 
   .home-sidebar {
