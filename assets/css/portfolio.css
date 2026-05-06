@@ -13,7 +13,8 @@
   --accent:    #e8632a;
   --sans:      -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
   --serif:     'Playfair Display', Georgia, serif;
-  --mono:      'SFMono-Regular', 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+  --mono:      var(--sans);
+  --code:      'SFMono-Regular', 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
   --nav-h:     60px;
 }
 
@@ -530,7 +531,7 @@ body {
 }
 
 .prose code {
-  font-family: var(--mono);
+  font-family: var(--code);
   font-size: 0.88em;
   background: var(--bg-sub);
   border: 1px solid var(--rule);
@@ -545,7 +546,7 @@ body {
   padding: 20px 22px;
   margin: 1.8em 0;
   overflow-x: auto;
-  font-family: var(--mono);
+  font-family: var(--code);
   font-size: 14px;
   line-height: 1.65;
 }
