@@ -267,6 +267,10 @@ body.astro-page .article-shell {
   flex-wrap: wrap;
 }
 
+.hero-ctas-top {
+  margin-bottom: 24px;
+}
+
 .btn-primary {
   font-family: var(--mono);
   font-size: 13px;
@@ -521,15 +525,18 @@ body.astro-page .article-shell {
   padding: 24px;
   opacity: 0;
   transition: opacity 0.2s ease;
+  pointer-events: none;
 }
 
 .experience-modal.is-open {
   display: grid;
   opacity: 1;
+  pointer-events: auto;
 }
 
 .experience-modal[hidden] {
   display: none;
+  pointer-events: none;
 }
 
 .experience-modal-backdrop {
