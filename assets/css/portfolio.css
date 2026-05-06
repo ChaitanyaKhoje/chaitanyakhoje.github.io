@@ -76,10 +76,17 @@ body.astro-page .article-shell {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  transform: scale(1.12);
+  transform: scale(1.06);
+  transform-origin: center center;
+  animation: astro-zoom 18s ease-in-out infinite alternate;
   filter: saturate(0.95) contrast(1.04) brightness(0.42);
   opacity: 0.9;
   will-change: transform, opacity;
+}
+
+@keyframes astro-zoom {
+  from { transform: scale(1.06); }
+  to { transform: scale(1.12); }
 }
 
 .astro-scene::after {
@@ -717,7 +724,10 @@ body.modal-open {
 /* ── Reduced motion ─────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   body { transition: none; }
-  .astro-scene-image { transform: scale(1.06); }
+  .astro-scene-image {
+    transform: scale(1.06);
+    animation: none;
+  }
 
   .nav-link,
   .theme-toggle,
