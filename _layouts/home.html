@@ -21,7 +21,6 @@ layout: default
 
       <!-- Tech strip -->
       <div class="tech-strip">
-        <span class="tech-strip-label">Stack</span>
         <div class="tech-groups">
           <span class="tech-group"><span class="tech-group-label">Languages</span> Python · SQL · Java · TypeScript · Bash</span>
           <span class="tech-group"><span class="tech-group-label">Data</span> Apache Airflow · dbt · Snowflake · BigQuery · Kafka · Looker · Debezium</span>
@@ -29,11 +28,12 @@ layout: default
           <span class="tech-group"><span class="tech-group-label">AI/Search</span> OpenSearch · Vertex AI · LLM integration · Seldon Core · Ollama</span>
           <span class="tech-group"><span class="tech-group-label">Ops</span> GitHub Actions · ArgoCD · Datadog · PagerDuty</span>
         </div>
+        <span class="tech-strip-label">Stack</span>
       </div>
 
-      <!-- Writing -->
-      <section class="writing-section" id="writing">
-        <p class="section-label">Latest Writing</p>
+      <!-- Projects -->
+      <section class="writing-section" id="projects">
+        <p class="section-label">Latest Projects</p>
         {% for post in site.posts %}
         <div class="post-row">
           <div class="post-row-body">
