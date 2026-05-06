@@ -24,7 +24,15 @@
 
   <nav class="topbar">
     <div class="nav-inner">
-      <div class="nav-left">Senior Software Engineer · Sunnyvale CA</div>
+      <div class="nav-left">
+        {% if page.url == '/' %}
+        <a class="nav-link nav-link-inline" href="mailto:chaitanyakhoje9@gmail.com">Email me</a>
+        <a class="nav-link nav-link-inline" href="https://www.linkedin.com/in/chaitanyakhoje/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="nav-link nav-link-inline" href="https://github.com/ChaitanyaKhoje" target="_blank" rel="noopener">GitHub</a>
+        {% else %}
+        Senior Software Engineer · Sunnyvale CA
+        {% endif %}
+      </div>
       <a class="nav-name" href="{{ '/' | relative_url }}">Chaitanya Khoje</a>
       <div class="nav-right">
         <a class="nav-link" href="{{ '/' | relative_url }}#projects">Projects</a>
