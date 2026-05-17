@@ -1,0 +1,451 @@
+---
+layout: default
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" />
+
+<div class="nb-wrap">
+
+  <!-- Graph-paper / starfield background -->
+  <div class="nb-grid-bg" aria-hidden="true"></div>
+
+  <!-- ── TOP HEADER BAR ── -->
+  <header class="nb-topbar">
+    <span class="nb-topbar-diamond">◆</span>
+    <span class="nb-topbar-title">Field Notes</span>
+    <span>{{ page.date | date: "%-d %b %Y" }}</span>
+    {% if page.target %}<span>{{ page.target }}</span>{% endif %}
+    <div class="nb-topbar-spacer"></div>
+    {% if page.capture and page.capture.location %}<span>{{ page.capture.location }}</span>{% endif %}
+  </header>
+
+  <!-- ── HERO ── -->
+  <section class="nb-hero" data-sec="hero">
+    <div class="nb-hero-grid">
+      <div class="nb-hero-left">
+        <div class="nb-stamp">Entry · Deep-Sky Logbook</div>
+        <h1 class="nb-h1">{{ page.title }}</h1>
+        {% if page.description %}
+        <p class="nb-subtitle">{{ page.description }}</p>
+        {% endif %}
+
+        <!-- Field-data card -->
+        <div class="nb-field-card">
+          {% if page.target %}
+          <div class="nb-field-item">
+            <div class="nb-field-label">Target</div>
+            <div class="nb-field-value">{{ page.target }}</div>
+          </div>
+          {% endif %}
+          {% if page.object_type %}
+          <div class="nb-field-item">
+            <div class="nb-field-label">Type</div>
+            <div class="nb-field-value">{{ page.object_type }}</div>
+          </div>
+          {% endif %}
+          {% if page.constellation %}
+          <div class="nb-field-item">
+            <div class="nb-field-label">Constellation</div>
+            <div class="nb-field-value">{{ page.constellation }}</div>
+          </div>
+          {% endif %}
+          {% if page.capture and page.capture.date %}
+          <div class="nb-field-item">
+            <div class="nb-field-label">Dates</div>
+            <div class="nb-field-value">{{ page.capture.date }}</div>
+          </div>
+          {% endif %}
+          {% if page.capture and page.capture.integration %}
+          <div class="nb-field-item">
+            <div class="nb-field-label">Integration</div>
+            <div class="nb-field-value">{{ page.capture.integration }}</div>
+          </div>
+          {% endif %}
+          {% if page.capture and page.capture.location %}
+          <div class="nb-field-item">
+            <div class="nb-field-label">Location</div>
+            <div class="nb-field-value">{{ page.capture.location }}</div>
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Badges -->
+        {% if page.tags %}
+        <div class="nb-badges">
+          {% assign accent_cycle = "a1,a2,a3,a1,a2,a3,a1,a2" | split: "," %}
+          {% for tag in page.tags %}
+          <span class="nb-badge nb-badge--{{ accent_cycle[forloop.index0] }}">#{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Margin note -->
+      <aside class="nb-marginalia">
+        <div class="nb-marginalia-label">// margin notes</div>
+        {% if page.margin_note %}
+        <p class="nb-marginalia-quote">"{{ page.margin_note }}"</p>
+        {% else %}
+        <p class="nb-marginalia-quote">"The sky doesn't care about your schedule. You learn to work around it."</p>
+        {% endif %}
+        {% if page.margin_note_date %}<div class="nb-marginalia-attr">— {{ page.margin_note_date }}</div>{% endif %}
+      </aside>
+    </div>
+  </section>
+
+  <!-- ── HERO IMAGE ── -->
+  {% if page.hero_image %}
+  <section class="nb-hero-image-wrap">
+    <div class="nb-image-frame">
+      <div class="nb-crosshairs" aria-hidden="true"></div>
+      <img src="{{ page.hero_image | relative_url }}" alt="{{ page.title }}" class="nb-hero-img" />
+      <div class="nb-image-caption">
+        <span>{{ page.hero_image_caption | default: "Final processed image" }}</span>
+        <span class="nb-image-caption-right">plate-solved · CC-BY-NC 4.0</span>
+      </div>
+    </div>
+    <div class="nb-image-tabs" id="nb-image-tabs">
+      <button class="nb-tab nb-tab--active" data-variant="final">Final</button>
+      <button class="nb-tab" data-variant="starless">Starless</button>
+      <button class="nb-tab" data-variant="annotated">Annotated</button>
+      <button class="nb-tab" data-variant="linear">Linear stretch</button>
+    </div>
+    <div class="nb-image-actions">
+      <div class="nb-image-links">
+        <a class="nb-image-link" href="{{ page.hero_image | relative_url }}" target="_blank">↗ Fullscreen</a>
+        {% if page.download_url %}<a class="nb-image-link" href="{{ page.download_url | relative_url }}">↓ Download</a>{% endif %}
+      </div>
+      <div class="nb-image-copy">© {{ page.date | date: "%Y" }}</div>
+    </div>
+  </section>
+  {% else %}
+  <!-- Deep-space SVG placeholder when no real image is provided -->
+  <section class="nb-hero-image-wrap">
+    <div class="nb-image-frame">
+      <div class="nb-crosshairs" aria-hidden="true"></div>
+      <div class="nb-hero-placeholder" id="nb-hero-placeholder"></div>
+      <div class="nb-image-caption">
+        <span>FITS · OSC · debayered VNG</span>
+        <span class="nb-image-caption-right">plate-solved · CC-BY-NC 4.0</span>
+      </div>
+    </div>
+    <div class="nb-image-actions">
+      <div></div>
+      <div class="nb-image-copy">© {{ page.date | date: "%Y" }}</div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- ── BODY GRID ── -->
+  <div class="nb-body">
+
+    <!-- Sidebar -->
+    <aside class="nb-sidebar" id="nb-sidebar">
+
+      <!-- TOC -->
+      <div class="nb-stamp nb-stamp--sidebar">Table of Contents</div>
+      <ol class="nb-toc-list" id="nb-toc-list"></ol>
+
+      <!-- Quick Stats from front matter -->
+      {% if page.capture %}
+      <div class="nb-stamp nb-stamp--sidebar nb-stamp--mt">Quick Stats</div>
+      <div class="nb-quick-stats">
+        {% if page.capture.frames %}<div class="nb-stat-row"><span class="nb-stat-key">SUBS</span><span class="nb-stat-val">{{ page.capture.frames }}</span></div>{% endif %}
+        {% if page.capture.exposure %}<div class="nb-stat-row"><span class="nb-stat-key">EXP</span><span class="nb-stat-val">{{ page.capture.exposure }}</span></div>{% endif %}
+        {% if page.capture.integration %}<div class="nb-stat-row"><span class="nb-stat-key">TOTAL</span><span class="nb-stat-val">{{ page.capture.integration }}</span></div>{% endif %}
+        {% if page.capture.gain %}<div class="nb-stat-row"><span class="nb-stat-key">GAIN</span><span class="nb-stat-val">{{ page.capture.gain }}</span></div>{% endif %}
+        {% if page.capture.bortle %}<div class="nb-stat-row"><span class="nb-stat-key">BORTLE</span><span class="nb-stat-val">{{ page.capture.bortle }}</span></div>{% endif %}
+      </div>
+      {% endif %}
+
+      <!-- Gear card -->
+      {% if page.gear %}
+      <div class="nb-stamp nb-stamp--sidebar nb-stamp--mt">Gear · The Bench</div>
+      <div class="nb-gear-card">
+        {% assign gear_items = "" | split: "" %}
+        {% if page.gear.telescope %}
+        <div class="nb-gear-row">
+          <span class="nb-gear-num">01</span>
+          <div class="nb-gear-detail">
+            <div class="nb-gear-sublabel">Telescope</div>
+            <div class="nb-gear-name">{{ page.gear.telescope }}</div>
+          </div>
+        </div>
+        {% endif %}
+        {% if page.gear.camera %}
+        <div class="nb-gear-row">
+          <span class="nb-gear-num">02</span>
+          <div class="nb-gear-detail">
+            <div class="nb-gear-sublabel">Camera</div>
+            <div class="nb-gear-name">{{ page.gear.camera }}</div>
+          </div>
+        </div>
+        {% endif %}
+        {% if page.gear.mount %}
+        <div class="nb-gear-row">
+          <span class="nb-gear-num">03</span>
+          <div class="nb-gear-detail">
+            <div class="nb-gear-sublabel">Mount</div>
+            <div class="nb-gear-name">{{ page.gear.mount }}</div>
+          </div>
+        </div>
+        {% endif %}
+        {% if page.gear.filter %}
+        <div class="nb-gear-row">
+          <span class="nb-gear-num">04</span>
+          <div class="nb-gear-detail">
+            <div class="nb-gear-sublabel">Filter</div>
+            <div class="nb-gear-name">{{ page.gear.filter }}</div>
+          </div>
+        </div>
+        {% endif %}
+        {% if page.gear.software %}
+        <div class="nb-gear-row nb-gear-row--last">
+          <span class="nb-gear-num">05</span>
+          <div class="nb-gear-detail">
+            <div class="nb-gear-sublabel">Software</div>
+            <div class="nb-gear-name">{{ page.gear.software }}</div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+    </aside>
+
+    <!-- Main content column -->
+    <main class="nb-main">
+
+      <!-- Inject front-matter acquisition table if present in page data -->
+      {% if page.acquisition_table %}
+      <section class="nb-section" data-sec="acquisition">
+        <div class="nb-sec-header">
+          <span class="nb-sec-num">§ 01</span>
+          <h2 class="nb-sec-title">Acquisition log</h2>
+          <span class="nb-sec-sub">Per-filter capture summary</span>
+        </div>
+        <table class="nb-table">
+          <thead>
+            <tr>
+              <th>Filter</th><th>Subs</th><th>Exposure</th><th>Gain</th><th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in page.acquisition_table %}
+            <tr>
+              <td><span class="nb-acq-dot">●</span>{{ row.filter }}</td>
+              <td>{{ row.subs }}</td>
+              <td>{{ row.exposure }}</td>
+              <td>{{ row.gain }}</td>
+              <td class="nb-acq-total">{{ row.total }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+      {% endif %}
+
+      <!-- Post markdown content -->
+      <div class="nb-prose" id="nb-prose">
+        {{ content }}
+      </div>
+
+      <!-- Before/After slider — only rendered if page has before/after images -->
+      {% if page.before_image and page.after_image %}
+      <section class="nb-section" data-sec="compare">
+        <div class="nb-sec-header">
+          <span class="nb-sec-num">§</span>
+          <h2 class="nb-sec-title">Before / after</h2>
+          <span class="nb-sec-sub">Drag the divider — raw stack vs. final</span>
+        </div>
+        <div class="nb-ba-container" id="nb-ba">
+          <div class="nb-ba-after"><img src="{{ page.after_image | relative_url }}" alt="Final" /></div>
+          <div class="nb-ba-before" id="nb-ba-before"><img src="{{ page.before_image | relative_url }}" alt="Raw stack" /></div>
+          <div class="nb-ba-label nb-ba-label--left">Raw stack</div>
+          <div class="nb-ba-label nb-ba-label--right">Final</div>
+          <div class="nb-ba-divider" id="nb-ba-divider">
+            <div class="nb-ba-handle">‹ ›</div>
+          </div>
+        </div>
+        <div class="nb-ba-stages">
+          <div class="nb-ba-stage nb-ba-stage--ha">
+            <div class="nb-stamp">Stage A · Raw stack</div>
+            <div class="nb-ba-stage-desc">Linear · WBPP output · no cosmetics</div>
+          </div>
+          <div class="nb-ba-stage nb-ba-stage--blue">
+            <div class="nb-stamp">Stage B · Linear stretch</div>
+            <div class="nb-ba-stage-desc">STF auto-stretch preview · BXT applied</div>
+          </div>
+          <div class="nb-ba-stage nb-ba-stage--teal">
+            <div class="nb-stamp">Stage C · Final</div>
+            <div class="nb-ba-stage-desc">Non-linear · HDR core · stars recombined</div>
+          </div>
+        </div>
+      </section>
+      {% endif %}
+
+      <!-- Footer -->
+      <footer class="nb-footer">
+        <span>End of entry</span>
+        <span class="nb-footer-date">{{ page.date | date: "%b %-d, %Y" }}</span>
+        <span>archived · cc-by-nc 4.0</span>
+      </footer>
+
+    </main>
+  </div>
+</div>
+
+<button class="to-top-button" id="to-top-button" type="button" aria-label="Back to top" title="Back to top">↑</button>
+
+<script>
+(function() {
+  // ── SCROLL-SPY TOC ──────────────────────────────────────────────────
+  const tocList = document.getElementById('nb-toc-list');
+  const main = document.getElementById('nb-prose');
+  const body = document.querySelector('.nb-main');
+
+  function buildToc() {
+    if (!tocList || !main) return;
+    const headings = main.querySelectorAll('h2, h3');
+    if (!headings.length) return;
+
+    // Also include data-sec sections outside prose
+    const allSecs = Array.from(document.querySelectorAll('[data-sec]'))
+      .filter(el => !el.closest('.nb-hero'));
+
+    let items = [];
+    headings.forEach((h, i) => {
+      if (!h.id) h.id = 'nb-h-' + i;
+      items.push({ el: h, label: h.textContent.trim(), level: h.tagName });
+    });
+
+    let counter = 1;
+    items.forEach(({ el, label, level }) => {
+      const li = document.createElement('li');
+      li.className = 'nb-toc-item';
+      const btn = document.createElement('button');
+      btn.className = 'nb-toc-btn' + (level === 'H3' ? ' nb-toc-btn--h3' : '');
+      btn.innerHTML = `<span class="nb-toc-num">${String(counter++).padStart(2,'0')}</span><span class="nb-toc-label">${label}</span>`;
+      btn.addEventListener('click', () => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      li.appendChild(btn);
+      tocList.appendChild(li);
+    });
+
+    // Scroll-spy
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        const id = e.target.id;
+        const btn = tocList.querySelector(`[data-target="${id}"]`);
+        if (!btn) return;
+        if (e.isIntersecting) {
+          tocList.querySelectorAll('.nb-toc-btn').forEach(b => b.classList.remove('nb-toc-btn--active'));
+          btn.classList.add('nb-toc-btn--active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    items.forEach(({ el }, i) => {
+      tocList.querySelectorAll('.nb-toc-btn')[i].setAttribute('data-target', el.id);
+      obs.observe(el);
+    });
+  }
+
+  // ── BEFORE/AFTER SLIDER ─────────────────────────────────────────────
+  function initBeforeAfter() {
+    const track = document.getElementById('nb-ba');
+    if (!track) return;
+    const before = document.getElementById('nb-ba-before');
+    const divider = document.getElementById('nb-ba-divider');
+    let dragging = false;
+
+    function setPos(clientX) {
+      const r = track.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(100, ((clientX - r.left) / r.width) * 100));
+      before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+      divider.style.left = pct + '%';
+    }
+
+    divider.addEventListener('mousedown', e => { dragging = true; e.preventDefault(); });
+    track.addEventListener('mousedown', e => { dragging = true; setPos(e.clientX); });
+    window.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
+    window.addEventListener('mouseup', () => { dragging = false; });
+    divider.addEventListener('touchstart', e => { dragging = true; }, { passive: true });
+    window.addEventListener('touchmove', e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+    window.addEventListener('touchend', () => { dragging = false; });
+
+    setPos(track.getBoundingClientRect().left + track.getBoundingClientRect().width * 0.5);
+  }
+
+  // ── TO-TOP BUTTON ───────────────────────────────────────────────────
+  function initToTop() {
+    const btn = document.getElementById('to-top-button');
+    if (!btn) return;
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('is-visible', window.scrollY > 400);
+    }, { passive: true });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
+  // ── DEEP-SPACE SVG PLACEHOLDER ──────────────────────────────────────
+  function renderPlaceholder() {
+    const el = document.getElementById('nb-hero-placeholder');
+    if (!el) return;
+    el.innerHTML = `<svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"
+      style="width:100%;height:100%;display:block;">
+      <defs>
+        <radialGradient id="nb-core" cx="50%" cy="48%" r="22%">
+          <stop offset="0%" stop-color="#fff6e8" stop-opacity="1"/>
+          <stop offset="18%" stop-color="#ffd9a0" stop-opacity="0.95"/>
+          <stop offset="45%" stop-color="#ff9560" stop-opacity="0.7"/>
+          <stop offset="75%" stop-color="#c4485a" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#3a1530" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="nb-ha" cx="50%" cy="50%" r="62%">
+          <stop offset="0%" stop-color="#e85a4f" stop-opacity="0"/>
+          <stop offset="35%" stop-color="#c84a55" stop-opacity="0.55"/>
+          <stop offset="65%" stop-color="#8a3360" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#1a0a20" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="nb-oiii" cx="62%" cy="28%" r="22%">
+          <stop offset="0%" stop-color="#9ee9e5" stop-opacity="0.85"/>
+          <stop offset="50%" stop-color="#5ec5c1" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#1f4a55" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="nb-dust" cx="36%" cy="62%" r="26%">
+          <stop offset="0%" stop-color="#070310" stop-opacity="0.85"/>
+          <stop offset="60%" stop-color="#0a0414" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="nb-sky" cx="50%" cy="50%" r="80%">
+          <stop offset="0%" stop-color="#0a1226"/>
+          <stop offset="60%" stop-color="#06091a"/>
+          <stop offset="100%" stop-color="#02030a"/>
+        </radialGradient>
+        <filter id="nb-blur"><feGaussianBlur stdDeviation="0.6"/></filter>
+      </defs>
+      <rect width="1600" height="900" fill="url(#nb-sky)"/>
+      <ellipse cx="800" cy="450" rx="780" ry="430" fill="url(#nb-ha)" opacity="0.85"/>
+      <ellipse cx="990" cy="260" rx="280" ry="180" fill="url(#nb-oiii)"/>
+      <ellipse cx="580" cy="560" rx="380" ry="240" fill="url(#nb-dust)"/>
+      <ellipse cx="800" cy="432" rx="320" ry="220" fill="url(#nb-core)"/>
+      <circle cx="792" cy="425" r="7.5" fill="#fff6e8" opacity="0.35" filter="url(#nb-blur)"/>
+      <circle cx="792" cy="425" r="3.4" fill="#fff"/>
+      <circle cx="810" cy="431" r="6" fill="#fff6e8" opacity="0.35" filter="url(#nb-blur)"/>
+      <circle cx="810" cy="431" r="2.8" fill="#fff"/>
+      <circle cx="806" cy="418" r="5.3" fill="#fff6e8" opacity="0.35" filter="url(#nb-blur)"/>
+      <circle cx="806" cy="418" r="2.4" fill="#fff"/>
+    </svg>`;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    buildToc();
+    initBeforeAfter();
+    initToTop();
+    renderPlaceholder();
+  });
+})();
+</script>
