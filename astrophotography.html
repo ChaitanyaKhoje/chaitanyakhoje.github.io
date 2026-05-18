@@ -25,16 +25,21 @@ body_class: astro-page
     </header>
 
     <div class="prose">
-      <p>This page is being shaped into a gallery and field log for astrophotography work.</p>
+      <p>Workflow logs and processed images from nights behind the telescope. Each entry covers the full pipeline — acquisition, stacking, and post-processing.</p>
 
-      <h2>Gallery</h2>
-      <p>Future entries here will collect finished night-sky images with short notes on target choice, capture conditions, and processing decisions.</p>
-
-      <h2>Field Notes</h2>
-      <p>This section will hold observing context: location, sky quality, weather, moon phase, and what made a target worth attempting on a given night.</p>
-
-      <h2>Process</h2>
-      <p>The technical notes will cover acquisition, calibration, stacking, post-processing, and the practical lessons that only show up after a long night outside.</p>
+      {% assign astro_posts = site.posts | where: "layout", "astro-workflow" %}
+      {% if astro_posts.size > 0 %}
+      <h2>Sessions</h2>
+      {% for post in astro_posts %}
+      <div class="post-row">
+        <div class="post-row-body">
+          <a class="post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          {% if post.description %}<p class="post-desc">{{ post.description }}</p>{% endif %}
+        </div>
+        <span class="post-date">{{ post.date | date: "%b %Y" }}</span>
+      </div>
+      {% endfor %}
+      {% endif %}
     </div>
   </article>
 

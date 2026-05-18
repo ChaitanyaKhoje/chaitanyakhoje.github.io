@@ -31,7 +31,7 @@ layout: default
       <!-- Projects -->
       <section class="writing-section" id="projects">
         <p class="section-label">Latest Projects</p>
-        {% for post in site.posts %}
+        {% for post in site.posts %}{% unless post.layout == "astro-workflow" %}
         <div class="post-row">
           <div class="post-row-body">
             <a class="post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
@@ -39,7 +39,7 @@ layout: default
           </div>
           <span class="post-date">{{ post.date | date: "%b %Y" }}</span>
         </div>
-        {% endfor %}
+        {% endunless %}{% endfor %}
       </section>
 
     </main>
