@@ -795,6 +795,17 @@ body.astro-page .article-shell {
   border-bottom: 1px solid var(--db-rule);
 }
 
+.db-back-link {
+  color: var(--db-mute);
+  text-decoration: none;
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  margin-right: 4px;
+  transition: color 0.15s;
+}
+.db-back-link:hover { color: var(--db-a2); }
+
 .db-status-strip {
   padding: 9px 40px;
   display: flex;
