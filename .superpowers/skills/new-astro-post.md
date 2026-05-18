@@ -247,22 +247,27 @@ Before writing:
 2. Write the file to `_posts/`
 3. Report: filename created, gear panel fields populated, word count, any log fields that could not be extracted (list them so the user can fill them in)
 
-## Layout reference — Observatory Notebook
+## Layout reference — Imaging Dashboard
 
-Posts using `layout: astro-workflow` render the **Observatory Notebook** design:
+Posts using `layout: astro-workflow` render the **Imaging Dashboard** design:
 
-- **Top bar:** sticky mono header with target, date, location
-- **Hero:** large title in monospace, field-data grid card (target/type/constellation/dates/integration/location), badges from `tags`, margin note aside
-- **Hero image:** full-width 16:9 frame with crosshair tick marks and corner brackets; uses `hero_image` if set, otherwise renders a deep-space SVG nebula placeholder
-- **Body grid:** 240px sticky sidebar + main content column
-- **Sidebar contains:**
-  1. Auto-generated scroll-spy TOC (built from `h2`/`h3` in the post body)
-  2. Quick Stats from `capture.*` front matter
-  3. Gear card from `gear.*` front matter (numbered rows, mono labels)
-- **Prose styles:** `.nb-prose` — serif body, monospace `h2` with `§` prefix, callout `blockquote`s, syntax-highlighted `pre`/`code`, markdown tables styled as acquisition tables
-- **Before/After slider:** rendered if both `before_image` and `after_image` are set in front matter; drag-to-compare interaction
-- **Background:** graph-paper grid with seeded star dots (CSS only, no JS)
-- On mobile (≤840px): sidebar moves above the content, TOC becomes a wrapping chip strip
+- **Mission bar (two rows):** sticky; top row = status strip (OPERATIONAL dot, date, target, session/channel), bottom row = horizontal scroll-spy TOC built from `h2` headings
+- **Hero panel:** `CornerPanel` with teal corner brackets containing:
+  - Telemetry band: big-number readouts for integration, subs, gain, Bortle from `capture.*`
+  - Title row: large serif H1 + subtitle, date/location right-aligned
+  - Image frame (21:9, HUD overlay): RA/Dec vertical text, compass, scale bar, CSS corner brackets; uses `hero_image` or SVG nebula placeholder
+  - Tab strip (Final / Starless / Annotated / Linear / Raw stack)
+  - Action bar (Fullscreen, Download links)
+- **Body grid:** main content left + 260px sticky right sidebar
+- **Right sidebar panels** (`CornerPanel` with teal/blue/red accents):
+  1. OBJECT — target, constellation, RA, Dec, magnitude, distance from front matter
+  2. CAPTURE LOG — frames, exposure, integration, gain, date, location, Bortle
+  3. GEAR — short names for telescope, camera, mount, filter
+- **Gear section:** rendered from `gear.*` as a 2-column grid of `CornerPanel` cards + software pills
+- **Prose styles:** `.db-prose` — serif body, monospace uppercase `h2` with `§` prefix and color dashed underline, `blockquote` as callout panel, `pre`/`code` on dark bg
+- **Before/After slider:** rendered if `before_image` + `after_image` set; drag-to-compare with STAGE A/B/C footer
+- **Background:** scanline overlay + seeded star dots
+- On mobile (≤860px): sidebar becomes a horizontal flex row; on ≤480px stacks vertically
 
 ## Consistency rules
 
