@@ -913,7 +913,14 @@ body.astro-page .article-shell {
   height: 100%;
   object-fit: cover;
   display: block;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
+
+.db-image-frame { pointer-events: auto; }
+.db-image-frame img { pointer-events: none; }
 
 .db-hero-placeholder {
   width: 100%;

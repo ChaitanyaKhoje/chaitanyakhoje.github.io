@@ -60,7 +60,12 @@ layout: default
       <!-- Image frame -->
       <div class="db-image-frame">
         {% if page.hero_image %}
-        <img src="{{ page.hero_image | relative_url }}" alt="{{ page.title }}" class="db-hero-img" />
+        <img src="{{ page.hero_image | relative_url }}"
+             alt="{{ page.title }}"
+             class="db-hero-img"
+             id="db-hero-img"
+             draggable="false"
+             oncontextmenu="return false" />
         {% else %}
         <div class="db-hero-placeholder" id="db-hero-placeholder"></div>
         {% endif %}
@@ -76,13 +81,14 @@ layout: default
         </div>
       </div>
 
-      <!-- Tab strip -->
+      <!-- Tab strip — Final / Starless / B&W only -->
       <div class="db-tab-strip" id="db-tab-strip">
-        <button class="db-tab db-tab--active" data-variant="final">● Final</button>
-        <button class="db-tab" data-variant="starless">Starless</button>
-        <button class="db-tab" data-variant="annotated">Annotated</button>
-        <button class="db-tab" data-variant="linear">Linear</button>
-        <button class="db-tab" data-variant="raw">Raw stack</button>
+        <button class="db-tab db-tab--active" data-variant="final"
+                data-src="{{ page.hero_image | relative_url }}">● Final</button>
+        <button class="db-tab" data-variant="starless"
+                data-src="{{ page.starless_image | relative_url }}">Starless</button>
+        <button class="db-tab" data-variant="bw"
+                data-src="{{ page.bw_image | relative_url }}">B&amp;W</button>
       </div>
 
       <!-- Action bar — only external links, no download/filler -->
@@ -324,10 +330,36 @@ layout: default
       + '</svg>';
   }
 
+  // ── IMAGE VARIANT TABS ───────────────────────────────────────────────
+  function initTabs() {
+    const tabs = document.querySelectorAll('.db-tab[data-src]');
+    const img = document.getElementById('db-hero-img');
+    if (!tabs.length || !img) return;
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const src = tab.getAttribute('data-src');
+        if (!src || src === 'null' || src === '') return;
+        tabs.forEach(t => t.classList.remove('db-tab--active'));
+        tab.classList.add('db-tab--active');
+        img.src = src;
+      });
+    });
+  }
+
+  // ── NO-COPY PROTECTION ───────────────────────────────────────────────
+  function initNoCopy() {
+    document.querySelectorAll('.db-hero-img, .db-image-frame img').forEach(el => {
+      el.addEventListener('contextmenu', e => e.preventDefault());
+      el.addEventListener('dragstart', e => e.preventDefault());
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     buildInlineToc();
+    initTabs();
     initBA();
     initToTop();
+    initNoCopy();
     renderPlaceholder();
   });
 })();

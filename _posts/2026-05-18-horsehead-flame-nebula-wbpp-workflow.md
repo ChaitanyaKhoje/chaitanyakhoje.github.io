@@ -13,6 +13,10 @@ ra: "05h 40m 59s"
 dec: "−02° 27′ 30″"
 tags: [astrophotography, pixinsight, wbpp, seestar, nebula]
 
+hero_image: /assets/images/posts/horsehead-flame/final.png
+starless_image: /assets/images/posts/horsehead-flame/starless.png
+bw_image: /assets/images/posts/horsehead-flame/bw.png
+
 astrobin_url: https://app.astrobin.com/u/chaitanyakhoje#gallery
 
 margin_note: "The Horsehead's silhouette held up better than expected against the LP gradient — local normalization across two nights made the difference."
