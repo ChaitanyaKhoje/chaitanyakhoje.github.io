@@ -600,8 +600,8 @@ body.astro-page .article-shell {
   --db-a1:      #e85a4f;
   --db-a2:      #5ec5c1;
   --db-a3:      #8aa9ff;
-  --db-mono:    'JetBrains Mono', ui-monospace, monospace;
-  --db-serif:   'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+  --db-mono:    'Special Elite', 'Courier New', monospace;
+  --db-serif:   'EB Garamond', Georgia, serif;
 
   position: relative;
   background: var(--db-bg);
@@ -1686,10 +1686,9 @@ body.astro-page .article-shell {
   --al-side-scale: 0.95;
   --al-hero-scale: 0.95;
   /* Fonts */
-  --al-mono:   'JetBrains Mono', ui-monospace, monospace;
-  --al-serif:  'Source Serif 4', 'Source Serif Pro', Georgia, serif;
-  /* Display = mono headline (eyebrow) + bold sans for large headers */
-  --al-display-h: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+  --al-mono:      'Special Elite', 'Courier New', monospace;
+  --al-serif:     'EB Garamond', Georgia, serif;
+  --al-display-h: 'DM Serif Display', Georgia, serif;
 
   position: relative;
   background: var(--al-bg);
