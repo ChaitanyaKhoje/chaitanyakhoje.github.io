@@ -13,8 +13,7 @@ ra: "05h 40m 59s"
 dec: "−02° 27′ 30″"
 tags: [astrophotography, pixinsight, wbpp, seestar, nebula]
 
-hero_image: /assets/images/posts/2026-05-18-horsehead-flame-nebula-wbpp-workflow/horsehead-flame.png
-hero_image_caption: "Horsehead and Flame Nebulae — final processed image. IC 434 / Barnard 33 / NGC 2024. ZWO Seestar S50, 1138 × 10 s, Bortle 8, Sunnyvale CA."
+astrobin_url: https://app.astrobin.com/u/chaitanyakhoje#gallery
 
 margin_note: "The Horsehead's silhouette held up better than expected against the LP gradient — local normalization across two nights made the difference."
 margin_note_date: "Sunnyvale, Jan 30–31"
