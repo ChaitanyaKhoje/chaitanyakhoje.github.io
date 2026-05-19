@@ -37,13 +37,15 @@ capture:
 
 ## Target
 
-The **Horsehead Nebula (Barnard 33)** is a dark absorption nebula silhouetted against the glowing emission of IC 434, a faint sheet of ionized hydrogen stretching south from the bright star Alnitak in Orion's Belt. Immediately to the west, the **Flame Nebula (NGC 2024)** blazes around Alnitak itself, lit by its ultraviolet output. Together they are among the most recognizable nebulae in the winter sky — and among the most punishing to image from a suburban site. The Horsehead's contrast depends entirely on the faint Ha glow behind it, which a broadband LP filter captures only partially.
+The **Horsehead Nebula (Barnard 33)** is a dark absorption nebula silhouetted against IC 434, the faint hydrogen emission sheet south of Alnitak in Orion's Belt. The nearby **Flame Nebula (NGC 2024)** adds bright structure and a difficult glare source from Alnitak.
+
+This workflow is written as a PixInsight recipe: which process to open, what to set, what to inspect, and what output to carry forward. It does not depend on screenshots of the PixInsight dialogs.
 
 ---
 
 ## Acquisition
 
-The Seestar S50 ran across two nights in **EQ mode**, tracking the field with electronic field de-rotation. Alnitak is bright enough to cause blooming artifacts in long exposures; 10-second subs kept this controlled while still accumulating enough integration time to pull the nebulosity out of the Bortle 8 sky background.
+The Seestar S50 ran across two nights in **EQ mode**, tracking the field with electronic field de-rotation. Ten-second subs kept Alnitak under control while accumulating enough signal to pull IC 434 and the Horsehead silhouette out of a Bortle 8 sky.
 
 | Parameter | Value |
 |-----------|-------|
@@ -54,149 +56,269 @@ The Seestar S50 ran across two nights in **EQ mode**, tracking the field with el
 | Mode | CFA / OSC |
 | Calibration frames | None |
 
-No darks, flats, or bias frames were used. WBPP handled internal calibration estimation from the light frames directly.
+No darks, flats, or bias frames were used. WBPP handled the light frames directly, so the later normalization and background extraction steps matter more than they would in a fully calibrated dataset.
 
 ---
 
-## WBPP Run — Step by Step
+## Workflow Overview
 
-### 1. Light Frame Calibration
-
-WBPP opened all 1146 frames as a single group:
-
-```
-Group of 1146 Light frames (1146 active)
-SIZE  : 1080×1920  |  BINNING : 1
-Filter : LP  |  Exposure : 10.00 s
-Color  : CFA  |  Mode : calibration
-```
-
-No calibration masters were attached. The run used internal calibration mode.
-
-### 2. Debayering (Demosaicing)
-
-All 1146 frames debayered from raw Bayer CFA to RGB:
-
-- **Pattern:** Auto (auto-detected)
-- **Method:** VNG (Variable Number of Gradients)
-
-All 1146 frames completed demosaicing successfully.
-
-### 3. Image Measurements
-
-WBPP measured each debayered frame for FWHM, eccentricity, and SNR. These scores feed directly into the per-frame weights used during integration — worse frames receive lower weight rather than being discarded outright.
-
-### 4. Reference Frame Selection
-
-WBPP auto-selected the best reference for star registration:
-
-```
-Best reference: Light_IC 434_10.0s_LP_20260131-192733_d.xisf
-```
-
-Selected from the second night (Jan 31), around 19:27 UTC — likely the best atmospheric stability window of the two-night run.
-
-### 5. Image Registration
-
-Star registration ran against the auto-selected reference. **1138 of 1146 frames registered successfully.** 8 frames failed (0.70% rejection rate).
-
-The 8 failed frames cluster as follows:
-
-- **Jan 30 — 20:53, 21:54, 22:10, 22:11, 22:41** (five failures spread across the first night's early and mid session)
-- **Jan 31 — 19:35, 19:51, 20:59** (three isolated failures on the second night)
-
-At 0.7% the rejection rate is exceptionally low. No single time cluster stands out — these are likely individual frames with momentary tracking glitches or passing clouds rather than a systemic problem.
-
-### 6. Local Normalization
-
-This run used **local normalization**, unlike the M81 session. WBPP generated a local normalization map for each frame before integration:
-
-```
-LN.scale = 270
-LN.rejection = true
-LN.highClippingLevel = 0.85
-LN.referenceRejectionThreshold = 3.00
-```
-
-Local normalization corrects frame-to-frame variation in sky background illumination across the field — particularly useful here because:
-
-1. **No flat frames were used.** Without flats, vignetting and illumination gradients vary subtly between frames as the field rotates in EQ mode. Local normalization compensates for this.
-2. **Two-night dataset.** Atmospheric conditions and sky background brightness differed between Jan 30 and Jan 31. Local normalization aligns each frame's background model before stacking, preventing the two nights from averaging inconsistently.
-3. **Alnitak proximity.** The very bright star at the edge of the field causes a strong local illumination gradient. Local normalization handles this better than global normalization.
-
-### 7. Integration
-
-After local normalization, WBPP integrated the 1138 registered frames using:
-
-- **Rejection method:** Linear Fit Clipping with Local Rejection Normalization
-- **Integration:** SNR-weighted average
-
-A separate sub-stack of 20 frames was also integrated at this stage (visible in the log as a `Group of 20 Light frames`) — likely WBPP's internal preview or best-frames sub-stack for registration quality assessment.
+| Stage | Process / module | Purpose | Output |
+|-------|------------------|---------|--------|
+| Preprocessing | WeightedBatchPreprocessing | Load, measure, register, normalize, and integrate the OSC lights | Linear RGB master |
+| Frame conversion | Debayer | Convert CFA frames to RGB | Debayered registered frames |
+| Frame matching | Local Normalization | Match sky background across two nights | Normalized frames for stacking |
+| Integration | ImageIntegration / DrizzleIntegration | Reject bad pixels and combine the accepted frames | Final linear master |
+| Crop/orientation | FastRotation / DynamicCrop | Correct orientation and remove edge artifacts | Clean linear working frame |
+| Gradient removal | DynamicBackgroundExtraction | Remove light pollution and field gradients | Linear gradient-corrected image |
+| Linear correction | BlurXTerminator, NoiseXTerminator, SCNR | Correct star profiles, reduce noise, neutralize green cast | Cleaner linear image |
+| Starless workflow | StarXTerminator | Separate stars from nebula before stretching | Starless image plus star layer |
+| Stretch | PixelMath, Statistical Stretch | Set a robust blackpoint and stretch midtones | Nonlinear image |
+| Local contrast | LocalHistogramEqualization, HDRMultiscaleTransform | Bring out nebula structure and control Alnitak | Finished nonlinear image |
 
 ---
 
-## Post-Processing — Step by Step
+## Part 1: WBPP Preprocessing Recipe
 
-The post-processing session ran on 2026-05-18 starting at 02:13 UTC — immediately after WBPP completed. The full sequence from the PixInsight project log:
+PixInsight's process interfaces are parameter-driven. The useful mental model is not "follow the log"; it is "configure the process, apply it, inspect the output, then carry that output into the next process."
 
-### 1. Integration (Drizzle stack)
+### 1. Load the Lights in WeightedBatchPreprocessing
 
-A second ImageIntegration run at `02:13` (~9 minutes) produced the final master light. The project contains both a standard-integration and a drizzle-integrated master (`masterLight_…_drizzle_1x.xisf`, 51.6 MB vs 75.6 MB). The drizzle pass upsamples the stack by 1× — useful at the Seestar's modest 250mm focal length to recover detail that would otherwise be lost to pixel scale aliasing.
+**Use:** `Script > Batch Processing > WeightedBatchPreprocessing`
 
-### 2. Rotate and Combine
+**Set:**
 
-At `02:27`, a `FastRotation` was applied — correcting the field orientation from EQ-mode de-rotation to a natural north-up framing. This was followed immediately by `ChannelCombination` (RGB reassembly) and `DynamicCrop` to trim the rotated image edges.
+- Add all 1146 Seestar light frames as one light group.
+- Confirm the image size is `1080x1920`, binning is `1`, exposure is `10.00 s`, and the data is CFA/OSC.
+- Do not attach calibration masters for this run.
 
-### 3. Background Extraction (DBE)
+**Inspect:**
 
-`DynamicBackgroundExtraction` ran at `03:00`. DBE fits a polynomial surface to manually-placed background sample points and subtracts it, eliminating the LP gradient and the vignetting roll-off from Alnitak's proximity. With `derivativeOrder = 2` (second-order polynomial), the correction handles modest gradient curvature without over-fitting to the nebula itself.
+- WBPP should show all 1146 light frames active.
+- The group should be treated as CFA data before debayering.
+- If WBPP splits the frames into unexpected groups, check the filter, exposure, and metadata fields before continuing.
 
-### 4. Linear Deconvolution (BlurXTerminator — Correct Only)
+**Output:** A configured WBPP run ready to debayer, measure, register, normalize, and integrate the lights.
 
-The first BlurX pass at `02:35` (`correct_only = true`) ran PSF correction without sharpening — tightening star profiles to remove trailing from the Seestar's limited aperture without introducing ringing artifacts. A second full BlurX pass at `02:38` (`correct_only = false`, `sharpen_nonstellar = 0.50`, `sharpen_stars = 0.50`) applied the full sharpening pass to both stars and extended structure.
+### 2. Debayer the CFA Frames
 
-Both passes used the **BlurXTerminator 4** ML model with `auto_nonstellar_psf = true`, letting the model estimate the PSF from the image rather than requiring a manual PSF measurement.
+**Use:** WBPP's debayer step, using PixInsight's Debayer process internally.
 
-### 5. Noise Reduction — Linear (NoiseXTerminator)
+**Set:**
 
-`NoiseXTerminator 3` ran at `02:42` on the linear (pre-stretch) stack:
+- Bayer pattern: `Auto`
+- Debayer method: `VNG`
 
+**Inspect:**
+
+- All 1146 frames should convert from CFA to RGB.
+- If the preview has incorrect color, the auto-detected Bayer pattern is the first thing to question.
+
+**Output:** RGB light frames ready for measurement and registration.
+
+### 3. Measure and Weight the Frames
+
+**Use:** WBPP frame measurement and weighting.
+
+**Set:**
+
+- Let WBPP measure FWHM, eccentricity, and SNR.
+- Keep SNR-weighted integration enabled.
+
+**Inspect:**
+
+- Look for obvious outliers: high eccentricity, unusually poor FWHM, or low SNR.
+- Do not reject frames just because they are below average; weighting lets weak frames contribute less.
+
+**Output:** A scored frame set that WBPP can use for reference selection and integration weights.
+
+### 4. Register the Frames
+
+**Use:** WBPP registration, using PixInsight's StarAlignment process internally.
+
+**Set:**
+
+- Let WBPP choose the reference frame automatically.
+- The selected reference for this run was `Light_IC 434_10.0s_LP_20260131-192733_d.xisf`.
+
+**Inspect:**
+
+- Registration accepted 1138 of 1146 frames.
+- The 8 failures were only 0.70% of the dataset, which is low enough to continue.
+- If failures cluster in time, inspect those subs for clouds, field jumps, or tracking glitches.
+
+**Output:** 1138 registered RGB frames.
+
+### 5. Apply Local Normalization
+
+**Use:** WBPP local normalization, using PixInsight's LocalNormalization process internally.
+
+**Set:**
+
+```text
+scale: 270
+rejection: enabled
+highClippingLevel: 0.85
+referenceRejectionThreshold: 3.00
 ```
+
+**Inspect:**
+
+- This step is important because the dataset spans two nights and has no flats.
+- Check that the background correction does not flatten real IC 434 nebulosity.
+- Alnitak creates a strong local illumination gradient, so local normalization should improve frame-to-frame consistency before stacking.
+
+**Output:** Registered frames with more consistent background illumination.
+
+### 6. Integrate the Stack
+
+**Use:** WBPP integration, using PixInsight's ImageIntegration and DrizzleIntegration processes.
+
+**Set:**
+
+- Rejection method: `Linear Fit Clipping`
+- Normalization: local rejection normalization
+- Combination: SNR-weighted average
+- Keep the drizzle-integrated master if WBPP produces both standard and drizzle outputs.
+
+**Inspect:**
+
+- The accepted integration should represent 1138 frames, or roughly 3h 10m of exposure.
+- Check the rejection maps for strong residual trails, hot pixels, or edge artifacts.
+- Compare the standard and drizzle masters before choosing the working master.
+
+**Output:** Final linear RGB master for manual processing.
+
+---
+
+## Part 2: Linear Processing Recipe
+
+Work on the linear master before stretching. Linear corrections are usually cleaner because the noise and gradients have not been amplified yet.
+
+### 1. Correct Orientation and Crop Edges
+
+**Use:** `FastRotation`, `ChannelCombination` if needed, then `DynamicCrop`.
+
+**Set:**
+
+- Rotate to the preferred composition after WBPP output.
+- Crop away the registration and rotation edges.
+- Keep the Horsehead, Flame, and Alnitak halo inside the frame.
+
+**Inspect:**
+
+- Do not crop so tightly that the Flame or Alnitak's halo feels clipped.
+- Check all corners for black wedges or stacking artifacts.
+
+**Output:** Clean linear RGB frame with usable edges.
+
+### 2. Remove Gradients with DynamicBackgroundExtraction
+
+**Use:** `Process > BackgroundModelization > DynamicBackgroundExtraction`
+
+**Set:**
+
+- Place samples manually in true background regions.
+- Avoid the Horsehead, IC 434 emission, the Flame, and Alnitak's halo.
+- Use a modest polynomial correction; this run used a second-order model.
+
+**Inspect:**
+
+- The background should become more even without erasing the red IC 434 sheet.
+- If the nebula loses contrast, remove or move samples that landed on faint emission.
+- If Alnitak's side of the frame over-corrects, reduce sample pressure near the halo.
+
+**Output:** Linear image with the light pollution gradient reduced.
+
+### 3. Correct Blur Before Sharpening
+
+**Use:** RC-Astro `BlurXTerminator`
+
+**Set:**
+
+- First pass: correction only.
+- Second pass: full correction with moderate sharpening.
+- This run used automatic nonstellar PSF estimation and a balanced star/nonstellar sharpening around `0.50`.
+
+**Inspect:**
+
+- Stars should become tighter without hard rings.
+- The Horsehead edge should gain definition without looking cut out.
+- If small stars become crunchy, reduce star sharpening before touching the nebula settings.
+
+**Output:** Linear image with corrected star profiles and cleaner structure.
+
+### 4. Reduce Linear Noise
+
+**Use:** RC-Astro `NoiseXTerminator`
+
+**Set:**
+
+```text
 denoise: 0.90
 denoise_color: 0.90
 detail: 0.15
 iterations: 2
-color_separation: true
+color_separation: enabled
 ```
 
-Aggressive denoising (0.9) on the linear stack is safe — the noise model is simpler pre-stretch, and preserving fine nebula detail at `detail = 0.15` prevents the model from over-smoothing the Horsehead's dark edge.
+**Inspect:**
 
-### 6. Star Removal (StarXTerminator)
+- The background should smooth out, but the Horsehead edge should remain intact.
+- If the nebula starts looking plastic, lower denoise or raise detail preservation.
 
-`StarXTerminator` ran at `02:45`. The `stars = true` mode saves a separate star layer for later recombination. Removing stars before stretch prevents Alnitak's saturated core from anchoring the histogram and pulling the rest of the image dark.
+**Output:** Linear image with lower background and chroma noise.
 
-### 7. Green Neutralization (SCNR)
+### 5. Separate Stars Before Stretching
 
-`SCNR` ran twice — once at `02:46` (pre-stretch) and again at `03:07` (post-DBE on a second pass). Both used:
+**Use:** RC-Astro `StarXTerminator`
 
-```
+**Set:**
+
+- Enable star output so the star layer is saved separately.
+- Apply to the linear image after blur and noise correction.
+
+**Inspect:**
+
+- The starless image should retain the nebula without large star holes.
+- The star layer should preserve Alnitak and the smaller field stars for later recombination.
+
+**Output:** A starless nebula image and a separate star layer.
+
+### 6. Neutralize Green Cast
+
+**Use:** `Process > NoiseReduction > SCNR`
+
+**Set:**
+
+```text
 colorToRemove: Green
 amount: 1.00
-protectionMethod: AverageNeutral
-preserveLightness: true
+protectionMethod: Average Neutral
+preserveLightness: enabled
 ```
 
-OSC sensors over-represent green (the Bayer matrix has 2 green pixels per 4), which shows up as a green cast in the sky background after debayering. Full-strength SCNR with average neutral protection removes the cast while preserving luminance.
+**Inspect:**
 
-### 8. Curves Adjustment (Pre-stretch)
+- The background should lose the OSC green cast.
+- Red Ha emission should not shift toward magenta.
 
-Two `CurvesTransformation` passes ran at `02:47` — brief micro-adjustments to the linear data before stretch, likely correcting a residual color cast or nudging the channel balance toward the Ha-dominant red.
+**Output:** Linear starless image with cleaner color balance.
 
-### 9. Background Blackpoint (PixelMath)
+---
 
-At `03:42`, three rapid `PixelMath` passes applied a luminance-weighted blackpoint clipping formula:
+## Part 3: Stretch and Nonlinear Processing Recipe
 
-```
+After stretch, the image is easier to judge visually, but noise and halos are also easier to exaggerate. Make smaller adjustments and inspect often.
+
+### 1. Set a Robust Blackpoint with PixelMath
+
+**Use:** `Process > PixelMath > PixelMath`
+
+**Set:**
+
+Use the luminance-weighted median and MAD pattern from this run:
+
+```text
 cr=0.2126; cg=0.7152; cb=0.0722;
 Med = cr*med($T[0]) + cg*med($T[1]) + cb*med($T[2]);
 Sig = 1.4826*(cr*MAD($T[0]) + cg*MAD($T[1]) + cb*MAD($T[2]));
@@ -205,61 +327,139 @@ BP = iif(BPraw < MinC, MinC, BPraw);
 Rescaled = ($T - BP) / (1 - BP);
 ```
 
-This Rec.601-weighted median-and-MAD formula clips the background at 5 sigma below the luminance median and rescales to [0,1]. More robust than a fixed black clip — it adapts to the actual background level after DBE.
+**Inspect:**
 
-### 10. Stretch (Statistical Stretch Script)
+- The background should be controlled but not clipped.
+- The faint IC 434 emission covers a large part of the field, so avoid forcing the whole background to black.
 
-At `03:42`, the `statisticalstretch.js` script stretched the image:
+**Output:** Linear image with a statistically controlled blackpoint.
 
-```
+### 2. Stretch the Starless Image
+
+**Use:** `statisticalstretch.js`
+
+**Set:**
+
+```text
 targetMedian: 0.27
 curvesBoost: 0.37
-linkedStretch: true
+linkedStretch: enabled
 blackpointSigma: 3
 numIterations: 1
 ```
 
-A target median of 0.27 is slightly above the typical 0.2–0.25 range — pushing the midtone brighter to lift the faint IC 434 emission above the noise floor. The `curvesBoost = 0.37` adds an S-curve bump during the stretch for extra contrast. Linked stretch preserves color ratios, avoiding channel drift on the Ha emission.
+**Inspect:**
 
-### 11. Post-Stretch Noise Reduction (NoiseXTerminator)
+- IC 434 should lift out of the background without washing out.
+- Linked stretch should preserve the red-dominant color balance.
+- If the background becomes too bright, reduce the target median before adding more contrast.
 
-At `03:42`, a second NoiseXT pass ran on the stretched image with the same parameters (`denoise = 0.90`, `detail = 0.15`). Post-stretch noise reduction catches amplified shadow noise that becomes visible after the histogram stretch.
+**Output:** Nonlinear starless image.
 
-### 12. Channel Work and Recombination
+### 3. Clean Up Stretch-Amplified Noise
 
-At `03:45`, `ChannelExtraction` separated the RGB channels — likely to work the red/Ha channel independently. This was followed by a `CurvesTransformation` at `03:42` (logged just before) to enhance the red channel's Ha signal.
+**Use:** RC-Astro `NoiseXTerminator`
 
-### 13. Local Contrast — LocalHistogramEqualization
+**Set:**
 
-At `04:15`, `LocalHistogramEqualization` (LHE) ran with:
+- Start from the same conservative detail-preserving settings used in the linear pass.
+- Apply less aggressively if the stretched image already looks smooth.
 
-```
+**Inspect:**
+
+- Look at the faint red emission around the Horsehead, not just the dark sky.
+- Avoid wiping out soft Ha texture.
+
+**Output:** Nonlinear starless image with controlled shadow noise.
+
+### 4. Work the Red Channel if Needed
+
+**Use:** `ChannelExtraction`, then `CurvesTransformation`
+
+**Set:**
+
+- Extract RGB channels.
+- Use the red channel as the main reference for Ha contrast.
+- Apply small curve adjustments rather than a single large move.
+
+**Inspect:**
+
+- The Horsehead silhouette should separate more clearly from IC 434.
+- The Flame should not become oversaturated or disconnected from the surrounding field.
+
+**Output:** Color-balanced nonlinear image with stronger Ha contrast.
+
+### 5. Add Local Contrast
+
+**Use:** `Process > IntensityTransformations > LocalHistogramEqualization`
+
+**Set:**
+
+```text
 radius: 124
 slopeLimit: 2.0
 amount: 0.630
 histogramBins: 8-bit
-circularKernel: true
+circularKernel: enabled
 ```
 
-LHE at a 124-pixel radius enhances local contrast across mid-scale structures — useful for bringing out the Horsehead's dark pillar edge against the IC 434 background without over-boosting noise in the flat sky regions. The 2.0 slope limit caps amplification to prevent halos.
+**Inspect:**
 
-### 14. HDR Compression (HDRMultiscaleTransform)
+- The Horsehead edge and Flame structure should gain local definition.
+- Watch for halos around Alnitak and bright stars.
+- If flat background areas become noisy, reduce amount before changing radius.
 
-At `04:17`, `HDRMultiscaleTransform` ran with:
+**Output:** Nonlinear image with stronger mid-scale nebula contrast.
 
-```
+### 6. Compress Bright Structure
+
+**Use:** `Process > MultiscaleProcessing > HDRMultiscaleTransform`
+
+**Set:**
+
+```text
 numberOfLayers: 5
-invertedIterations: true
+invertedIterations: enabled
 scalingFunction: B3 Spline (5)
 largeScaleDeringing: 0.250
-toIntensity: true
+toIntensity: enabled
 ```
 
-HDRMT with inverted iterations compresses large-scale highlights — particularly Alnitak's blown-out core — while preserving the fine nebula detail captured in the lower wavelet layers. The B3 Spline 5-layer decomposition reaches down to ~32-pixel structures.
+**Inspect:**
 
-### 15. Curves and Final Noise Passes
+- Alnitak's halo should feel less dominant.
+- The Flame should keep internal structure without looking flattened.
+- HDRMT cannot recover saturated detail; it only compresses the surrounding bright structure.
 
-Three final `CurvesTransformation` passes ran between `04:22–04:30` — fine-tuning the tone curve to taste. Two more `NoiseXTerminator` passes at `04:24` and `04:39` (each ~2–3 seconds) cleaned up noise introduced by the LHE and HDRMT contrast passes.
+**Output:** Nonlinear image with better highlight control.
+
+### 7. Finish with Curves and Star Recombination
+
+**Use:** `CurvesTransformation`, then recombine with the saved star layer.
+
+**Set:**
+
+- Use small S-curve moves for contrast.
+- Use saturation carefully on the red channel.
+- Add stars back after the nebula stretch is stable.
+
+**Inspect:**
+
+- Alnitak should not dominate the histogram again after recombination.
+- Small stars should look present but not sharpened beyond the nebula.
+- The Horsehead silhouette should remain dark without clipping into a featureless black patch.
+
+**Output:** Final RGB image.
+
+---
+
+## What To Watch For
+
+- **DBE samples on nebulosity:** IC 434 is broad and faint. Bad samples can subtract the target itself.
+- **Alnitak biasing the stretch:** separating stars before stretch keeps the nebula from being held down by the bright star.
+- **Over-denoising:** NoiseXTerminator can make faint Ha texture look synthetic if the denoise amount is too high for the stretched image.
+- **Local contrast halos:** LHE and HDRMT both help the Flame and Horsehead, but both can create halos near bright stars.
+- **False black background:** this field is not empty sky. A very dark background usually means faint emission has been clipped.
 
 ---
 
@@ -268,20 +468,8 @@ Three final `CurvesTransformation` passes ran between `04:22–04:30` — fine-t
 | Stage | Input | Output |
 |-------|-------|--------|
 | Debayering | 1146 CFA frames | 1146 RGB frames |
-| Registration | 1146 attempted | 1138 accepted · 8 rejected |
-| Stack integration | 1138 × 10 s | ~3h 10m |
-| Post-processing | Linear master | Fully processed RGB |
+| Registration | 1146 attempted | 1138 accepted, 8 rejected |
+| Stack integration | 1138 x 10 s | ~3h 10m |
+| Post-processing | Linear RGB master | Finished RGB image |
 
-**Yield: 99.3%** — exceptional. The Horsehead's dark silhouette and the Flame's thermal structure both resolved cleanly from a Bortle 8 site.
-
----
-
-## Notes and Observations
-
-The two-night structure worked well. Enabling local normalization was the right call — the stack was notably smoother than single-night OSC datasets. The reference frame auto-selected from the second night confirms Jan 31 had better seeing.
-
-The statistical stretch at `targetMedian = 0.27` was deliberately aggressive: lifting the faint IC 434 emission meant accepting a slightly brighter background, but the LP gradient was well-corrected by DBE and SCNR beforehand. Alnitak's core is fully saturated in the final image; HDRMultiscaleTransform compressed the halo substantially but couldn't recover detail that wasn't captured in 10-second subs.
-
-StarXTerminator removing stars before stretch was important for this field. Without it, Alnitak would have dominated the histogram and crushed the nebula midtones.
-
-The PixelMath blackpoint formula was a particularly useful pattern — the Rec.601-weighted median approach adapts cleanly to backgrounds that aren't uniformly dark after DBE, which is the case here with IC 434's diffuse Ha emission occupying a large fraction of the frame.
+**Yield: 99.3%.** The key choices were local normalization for the two-night, no-flat dataset; DBE for the urban gradient; star separation before stretching; and controlled local contrast to keep the Horsehead and Flame structured without letting Alnitak take over the frame.
