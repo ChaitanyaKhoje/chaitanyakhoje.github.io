@@ -71,12 +71,12 @@ body.modal-open {
 }
 
 body.astro-page {
-  background: #0a0e16;
-  color: #ece5d3;
+  background: #05060a;
+  color: #f1ede5;
 }
 
 body.astro-page .topbar {
-  background: color-mix(in srgb, #0a0e16 88%, transparent);
+  background: color-mix(in srgb, #05060a 88%, transparent);
 }
 
 body.astro-page .article-shell {
@@ -591,18 +591,17 @@ body.astro-page .article-shell {
 
 /* ── Tokens ── */
 .db-wrap {
-  /* Aurora palette — golden-orange × cyan-aqua over deep navy */
-  --db-bg:      #0a0e16;
-  --db-ink:     #ece5d3;
-  --db-ink-sub: #c8bda3;
-  --db-mute:    rgba(110,100,80,0.65);
-  --db-rule:    rgba(255,154,60,0.18);
-  --db-panel:   rgba(17,21,31,0.84);
-  --db-a1:      #ff9a3c;   /* primary: gold-orange */
-  --db-a2:      #6ad5e8;   /* secondary: cyan-aqua */
-  --db-a3:      #ffc572;   /* tertiary: amber */
-  --db-mono:    'Special Elite', 'Courier New', monospace;
-  --db-serif:   'EB Garamond', Georgia, serif;
+  --db-bg:      #04060b;
+  --db-ink:     #c8d3e6;
+  --db-ink-sub: #aeb8cc;
+  --db-mute:    rgba(170,190,220,0.45);
+  --db-rule:    rgba(94,197,193,0.14);
+  --db-panel:   rgba(8,12,22,0.78);
+  --db-a1:      #e85a4f;
+  --db-a2:      #5ec5c1;
+  --db-a3:      #8aa9ff;
+  --db-mono:    'JetBrains Mono', ui-monospace, monospace;
+  --db-serif:   'Source Serif 4', 'Source Serif Pro', Georgia, serif;
 
   position: relative;
   background: var(--db-bg);
@@ -618,99 +617,118 @@ body.astro-page .article-shell {
   pointer-events: none;
   z-index: 0;
   background-image:
-    radial-gradient(rgba(255,200,140,0.4) 0.5px, transparent 0.5px),
-    radial-gradient(800px 500px at 10% -8%, rgba(255,154,60,0.08), transparent 70%),
-    radial-gradient(800px 600px at 90% 110%, rgba(106,213,232,0.06), transparent 70%),
-    repeating-linear-gradient(0deg, rgba(106,213,232,0.015) 0 1px, transparent 1px 4px);
-  background-size: 220px 220px, 100% 100%, 100% 100%, 100% 100%;
-  opacity: 0.7;
+    radial-gradient(rgba(255,255,255,0.55) 0.5px, transparent 0.5px),
+    repeating-linear-gradient(0deg, rgba(94,197,193,0.03) 0 1px, transparent 1px 4px);
+  background-size: 220px 220px, 100% 100%;
+  opacity: 0.65;
 }
 
 /* ── Mission bar ── */
-.db-mission-bar {
-  position: sticky;
-  top: var(--nav-h);
-  z-index: 10;
-  background: rgba(10,14,22,0.94);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--db-rule);
-}
-
-.db-back-link {
-  color: var(--db-mute);
-  text-decoration: none;
-  font-size: 10px;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  margin-right: 4px;
-  transition: color 0.15s;
-}
-.db-back-link:hover { color: var(--db-a2); }
-
-.db-status-strip {
-  padding: 9px 40px;
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  font-size: 10px;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  color: var(--db-mute);
-  border-bottom: 1px solid var(--db-rule);
-}
-
+/* ── Status pulse shared ── */
 .db-status-live {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  color: var(--db-a2);
+  color: var(--db-a1);
+  font-family: var(--db-mono);
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .db-status-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--db-a2);
-  box-shadow: 0 0 8px var(--db-a2);
+  background: var(--db-a1);
+  box-shadow: 0 0 8px var(--db-a1);
+  flex-shrink: 0;
+  animation: db-pulse 2.4s ease-in-out infinite;
+}
+@keyframes db-pulse { 50% { opacity: .55; } }
+
+/* ── Inline sticky TOC (single combined nav) ── */
+.db-inline-toc {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 12;
+  margin: 6px 40px 0;
+  background: color-mix(in srgb, var(--db-bg) 94%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--db-rule);
+  border-bottom: 2px solid var(--db-a1);
+}
+
+.db-inline-toc-inner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  min-height: 44px;
+}
+.db-inline-toc-inner::-webkit-scrollbar { display: none; }
+
+.db-inline-back {
+  font-family: var(--db-mono);
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--db-mute);
+  text-decoration: none;
+  padding: 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.db-inline-back:hover { color: var(--db-a1); }
+
+.db-inline-sep {
+  width: 1px;
+  align-self: stretch;
+  background: var(--db-rule);
+  margin: 4px;
   flex-shrink: 0;
 }
 
-.db-status-dim   { color: var(--db-mute); }
-.db-status-spacer{ flex: 1; }
-.db-status-accent1 { color: var(--db-a1); }
-.db-status-accent3 { color: var(--db-a3); }
-
-/* TOC scroll strip */
-.db-toc-strip {
-  padding: 6px 40px;
+.db-inline-buttons {
   display: flex;
   gap: 2px;
-  overflow-x: auto;
-  scrollbar-width: none;
+  align-items: center;
 }
 
-.db-toc-strip::-webkit-scrollbar { display: none; }
+.db-inline-spacer { flex: 1; }
 
+.db-inline-status {
+  padding: 0 6px 0 0;
+  flex-shrink: 0;
+}
+
+/* TOC buttons (used inside inline TOC) */
 .db-toc-btn {
-  padding: 5px 10px;
+  padding: 9px 13px;
   background: transparent;
   color: var(--db-mute);
   border: 0;
   cursor: pointer;
   font-family: var(--db-mono);
-  font-size: 9.5px;
+  font-size: 11px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   white-space: nowrap;
   transition: background 0.12s, color 0.12s;
 }
-
 .db-toc-btn:hover { color: var(--db-ink); }
+.db-toc-btn--active { background: var(--db-a1); color: var(--db-bg); }
 
-.db-toc-btn--active {
-  background: var(--db-a2);
-  color: #0a0e16;
+@media (max-width: 1100px) { .db-inline-toc { margin: 6px 28px 0; } }
+@media (max-width: 860px)  {
+  .db-inline-toc { margin: 6px 20px 0; }
+  .db-inline-status { display: none; }
+  .db-inline-spacer { display: none; }
 }
 
 /* ── Hero section ── */
@@ -778,9 +796,9 @@ body.astro-page .article-shell {
   text-transform: uppercase;
 }
 
-.db-panel-header--teal { color: var(--db-a2); background: rgba(106,213,232,0.04); }
-.db-panel-header--blue { color: var(--db-a3); background: rgba(255,197,114,0.04); }
-.db-panel-header--red  { color: var(--db-a1); background: rgba(255,154,60,0.04); }
+.db-panel-header--teal { color: var(--db-a2); background: rgba(94,197,193,0.04); }
+.db-panel-header--blue { color: var(--db-a3); background: rgba(138,169,255,0.04); }
+.db-panel-header--red  { color: var(--db-a1); background: rgba(232,90,79,0.04); }
 
 .db-panel-header--small { padding: 6px 12px; font-size: 9px; }
 .db-panel-right { color: var(--db-mute); }
@@ -809,7 +827,7 @@ body.astro-page .article-shell {
   font-style: italic;
   font-size: 38px;
   line-height: 1.05;
-  color: #ece5d3;
+  color: #f0f3f9;
   margin-top: 2px;
 }
 
@@ -825,13 +843,18 @@ body.astro-page .article-shell {
   font-weight: 500;
   font-size: 26px;
   font-variant-numeric: tabular-nums;
-  color: #ece5d3;
+  color: #e7ecf6;
   margin-top: 2px;
 }
 
-.db-telem-val--teal { color: var(--db-a2); }
-.db-telem-val--blue { color: var(--db-a3); }
-.db-telem-val--red  { color: var(--db-a1); }
+.db-telem-val--teal   { color: var(--db-a2); }
+.db-telem-val--blue   { color: var(--db-a2); }
+.db-telem-val--red    { color: var(--db-a1); }
+.db-telem-val--amber  { color: var(--db-a3); }
+.db-telem-val--orange { color: var(--db-a1); }
+.db-sval--amber  { color: var(--db-a3); }
+.db-sval--orange { color: var(--db-a1); }
+.db-sval--blue   { color: var(--db-a2); }
 
 /* ── Title row ── */
 .db-title-row {
@@ -850,7 +873,7 @@ body.astro-page .article-shell {
   font-size: clamp(28px, 3.5vw, 48px);
   line-height: 1.05;
   letter-spacing: -0.4px;
-  color: #ece5d3;
+  color: #f0f3f9;
 }
 
 .db-subtitle {
@@ -858,7 +881,7 @@ body.astro-page .article-shell {
   font-family: var(--db-serif);
   font-size: 17px;
   line-height: 1.5;
-  color: #c8bda3;
+  color: #aeb8cc;
   max-width: 740px;
 }
 
@@ -867,7 +890,7 @@ body.astro-page .article-shell {
 .db-title-meta {
   font-family: var(--db-mono);
   font-size: 12px;
-  color: #ece5d3;
+  color: #c8d3e6;
   margin-top: 4px;
 }
 
@@ -926,7 +949,7 @@ body.astro-page .article-shell {
   font-family: var(--db-serif);
   font-size: clamp(24px, 3vw, 34px);
   line-height: 1.1;
-  color: #ece5d3;
+  color: #f0f3f9;
   text-decoration: none;
   margin-bottom: 12px;
 }
@@ -979,7 +1002,7 @@ body.astro-page .article-shell {
   bottom: 14px;
   left: 14px;
   padding: 5px 9px;
-  background: rgba(10,14,22,0.7);
+  background: rgba(4,6,11,0.7);
   border: 1px solid var(--db-rule);
   font-size: 10px;
   letter-spacing: 1.5px;
@@ -991,7 +1014,7 @@ body.astro-page .article-shell {
   bottom: 14px;
   right: 14px;
   padding: 5px 9px;
-  background: rgba(10,14,22,0.7);
+  background: rgba(4,6,11,0.7);
   border: 1px solid var(--db-rule);
   font-size: 10px;
   letter-spacing: 1.5px;
@@ -1022,7 +1045,7 @@ body.astro-page .article-shell {
   padding: 9px 12px;
   border: 0;
   cursor: pointer;
-  background: rgba(10,14,22,0.85);
+  background: rgba(8,12,22,0.85);
   color: #cfd6e4;
   font-family: var(--db-mono);
   font-size: 10px;
@@ -1032,7 +1055,7 @@ body.astro-page .article-shell {
 }
 
 .db-tab:hover  { background: rgba(138,169,255,0.1); color: var(--db-a3); }
-.db-tab--active { background: var(--db-a2); color: #0a0e16; font-weight: 600; }
+.db-tab--active { background: var(--db-a2); color: #04060b; font-weight: 600; }
 
 /* ── Action bar ── */
 .db-action-bar {
@@ -1052,7 +1075,7 @@ body.astro-page .article-shell {
 .db-action-btn {
   background: transparent;
   border: 0;
-  color: #ece5d3;
+  color: #c8d3e6;
   cursor: pointer;
   font-family: var(--db-mono);
   font-size: 10px;
@@ -1123,7 +1146,7 @@ body.astro-page .article-shell {
   font-weight: 500;
   font-size: 13px;
   letter-spacing: 2.5px;
-  color: #ece5d3;
+  color: #f0f3f9;
   text-transform: uppercase;
 }
 
@@ -1155,7 +1178,7 @@ body.astro-page .article-shell {
 .db-gear-val {
   font-family: var(--db-serif);
   font-size: 16px;
-  color: #ece5d3;
+  color: #e7ecf6;
   line-height: 1.35;
 }
 
@@ -1172,7 +1195,7 @@ body.astro-page .article-shell {
   border: 1px solid var(--db-rule);
   font-size: 10px;
   letter-spacing: 1.4px;
-  color: #ece5d3;
+  color: #c8d3e6;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -1191,7 +1214,7 @@ body.astro-page .article-shell {
   font-family: var(--db-serif);
   font-size: 17px;
   line-height: 1.72;
-  color: #c8bda3;
+  color: #c8d0e0;
   max-width: 760px;
 }
 
@@ -1206,7 +1229,7 @@ body.astro-page .article-shell {
   font-weight: 500;
   font-size: 13px;
   letter-spacing: 2.5px;
-  color: #ece5d3;
+  color: #f0f3f9;
   text-transform: uppercase;
 }
 
@@ -1229,13 +1252,13 @@ body.astro-page .article-shell {
   font-size: 11px;
   letter-spacing: 1.8px;
   text-transform: uppercase;
-  color: #ece5d3;
+  color: #e7ecf6;
   margin: 28px 0 10px;
 }
 
 .db-prose p { margin: 0 0 16px; }
 
-.db-prose strong { color: #ece5d3; }
+.db-prose strong { color: #e7ecf6; }
 
 .db-prose a { color: var(--db-a3); text-decoration: underline; text-underline-offset: 3px; }
 
@@ -1290,7 +1313,7 @@ body.astro-page .article-shell {
 .db-prose code {
   font-family: var(--db-mono);
   font-size: 12px;
-  color: #c8bda3;
+  color: #aeb8cc;
 }
 
 .db-prose pre {
@@ -1304,7 +1327,7 @@ body.astro-page .article-shell {
 }
 
 .db-prose code {
-  background: rgba(10,14,22,0.8);
+  background: rgba(8,12,22,0.8);
   padding: 1px 5px;
   border: 1px solid var(--db-rule);
 }
@@ -1329,7 +1352,7 @@ body.astro-page .article-shell {
   font-family: var(--db-serif);
   font-size: 15px;
   line-height: 1.5;
-  color: #c8bda3;
+  color: #c8d0e0;
 }
 
 .db-prose ol li::before {
@@ -1377,9 +1400,9 @@ body.astro-page .article-shell {
   position: absolute;
   top: 12px;
   padding: 3px 8px;
-  background: rgba(10,14,22,0.7);
+  background: rgba(4,6,11,0.7);
   border: 1px solid var(--db-rule);
-  color: #ece5d3;
+  color: #c8d3e6;
   font-size: 10px;
   letter-spacing: 1.6px;
   text-transform: uppercase;
@@ -1406,7 +1429,7 @@ body.astro-page .article-shell {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(10,14,22,0.85);
+  background: rgba(4,6,11,0.85);
   border: 1.5px solid var(--db-a3);
   display: flex;
   align-items: center;
@@ -1427,7 +1450,7 @@ body.astro-page .article-shell {
 .db-ba-stage + .db-ba-stage { border-left: 1px solid var(--db-rule); }
 
 .db-ba-stage-tag  { font-size: 9px; letter-spacing: 1.8px; margin-bottom: 4px; }
-.db-ba-stage-title { font-size: 12px; color: #ece5d3; letter-spacing: 0.4px; margin-bottom: 3px; }
+.db-ba-stage-title { font-size: 12px; color: #e7ecf6; letter-spacing: 0.4px; margin-bottom: 3px; }
 .db-ba-stage-desc  { font-size: 11px; color: var(--db-mute); }
 
 .db-ba-stage--a1 .db-ba-stage-tag { color: var(--db-a1); }
@@ -1472,7 +1495,7 @@ body.astro-page .article-shell {
 }
 
 .db-sval {
-  color: #ece5d3;
+  color: #e7ecf6;
   font-variant-numeric: tabular-nums;
   text-align: right;
   font-size: 11px;
@@ -1493,7 +1516,7 @@ body.astro-page .article-shell {
   color: var(--db-mute);
 }
 
-.db-footer-teal { color: var(--db-a2); }
+.db-footer-teal { color: var(--db-a1); }
 
 /* ── Responsive ── */
 @media (max-width: 1100px) {
@@ -1688,10 +1711,13 @@ body.astro-page .article-shell {
   /* Scale knobs */
   --al-side-scale: 0.95;
   --al-hero-scale: 0.95;
-  /* Fonts */
-  --al-mono:      'Special Elite', 'Courier New', monospace;
-  --al-serif:     'EB Garamond', Georgia, serif;
-  --al-display-h: 'DM Serif Display', Georgia, serif;
+  /* Fonts — modern theme, matching design spec */
+  --al-mono:           'JetBrains Mono', ui-monospace, monospace;
+  --al-serif:          'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+  --al-display-h:      'Playfair Display', Georgia, serif;
+  --al-display-weight: 700;
+  --al-display-style:  italic;
+  --al-display-track:  -0.4px;
 
   position: relative;
   background: var(--al-bg);
@@ -1760,17 +1786,12 @@ body.astro-page .article-shell {
 
 /* ── Header ── */
 .astro-listing-wrap .al-head {
-  padding: 36px 0 28px;
+  padding: calc(28px * var(--al-hero-scale)) 0 22px;
   border-bottom: 1px solid var(--al-rule);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 48px;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
   align-items: end;
-}
-.astro-listing-wrap .al-head-left {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
 }
 .astro-listing-wrap .al-head .al-meta {
   font-family: var(--al-mono);
@@ -1778,50 +1799,37 @@ body.astro-page .article-shell {
   letter-spacing: 1.8px;
   text-transform: uppercase;
   color: var(--al-mute);
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 .astro-listing-wrap .al-head .al-meta .al-accent-blue { color: var(--al-blue); }
 .astro-listing-wrap .al-head h1 {
   font-family: var(--al-display-h);
-  font-weight: 700;
-  font-size: clamp(30px, calc(3.8vw * var(--al-hero-scale)), 50px);
+  font-style: var(--al-display-style);
+  font-weight: var(--al-display-weight);
+  font-size: clamp(34px, calc(4.4vw * var(--al-hero-scale)), 56px);
   line-height: 0.98;
-  letter-spacing: -1.5px;
+  letter-spacing: var(--al-display-track);
   color: var(--al-cream);
   margin-bottom: 18px;
   text-wrap: balance;
 }
 .astro-listing-wrap .al-head h1 .al-accent {
   color: var(--al-orange);
-  font-family: var(--al-mono);
-  font-weight: 600;
-  font-size: 0.68em;
-  letter-spacing: 1px;
-  vertical-align: baseline;
+  font-style: var(--al-display-style);
 }
 .astro-listing-wrap .al-head .al-sub {
   font-family: var(--al-serif);
   font-size: 16px;
   line-height: 1.55;
   color: var(--al-ink-mid);
-  max-width: 460px;
-  margin: 0;
+  max-width: 540px;
 }
-/* Stats: vertical column, label left / number right, divider on left */
 .astro-listing-wrap .al-head .al-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  border-left: 1px solid var(--al-rule);
-  padding-left: 36px;
-  padding-bottom: 4px;
-  min-width: 200px;
-}
-.astro-listing-wrap .al-stat {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 18px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 20px 30px;
+  align-self: end;
+  padding-bottom: 6px;
 }
 .astro-listing-wrap .al-stat .al-k {
   font-family: var(--al-mono);
@@ -1829,13 +1837,13 @@ body.astro-page .article-shell {
   letter-spacing: 1.8px;
   text-transform: uppercase;
   color: var(--al-mute);
+  margin-bottom: 2px;
 }
 .astro-listing-wrap .al-stat .al-v {
   font-family: var(--al-mono);
   font-variant-numeric: tabular-nums;
-  font-size: 22px;
+  font-size: calc(22px * var(--al-hero-scale));
   color: var(--al-cream);
-  line-height: 1;
 }
 .astro-listing-wrap .al-stat .al-v.is-orange { color: var(--al-orange); }
 .astro-listing-wrap .al-stat .al-v.is-blue   { color: var(--al-blue); }
@@ -1857,9 +1865,9 @@ body.astro-page .article-shell {
   letter-spacing: 2px;
 }
 .astro-listing-wrap .al-sec-title {
-  font-family: var(--al-display-h);
-  font-weight: 600;
-  font-size: 12px;
+  font-family: var(--al-mono);
+  font-weight: 500;
+  font-size: 13px;
   letter-spacing: 2.5px;
   color: var(--al-cream);
   text-transform: uppercase;
@@ -1904,7 +1912,7 @@ body.astro-page .article-shell {
 
 .astro-listing-wrap .al-featured-img {
   position: relative;
-  background: #050a14;
+  background: #050408;
   min-height: 440px;
   overflow: hidden;
 }
@@ -1935,9 +1943,10 @@ body.astro-page .article-shell {
 }
 .astro-listing-wrap .al-hud-tag .al-desig-big {
   font-family: var(--al-display-h);
-  font-weight: 700;
-  font-size: 28px;
-  letter-spacing: -0.5px;
+  font-style: var(--al-display-style);
+  font-weight: var(--al-display-weight);
+  font-size: 30px;
+  letter-spacing: var(--al-display-track);
   color: var(--al-cream);
   margin-bottom: 2px;
   text-transform: none;
@@ -1976,10 +1985,11 @@ body.astro-page .article-shell {
 }
 .astro-listing-wrap .al-featured-body h2 {
   font-family: var(--al-display-h);
-  font-weight: 700;
-  font-size: calc(28px * var(--al-hero-scale));
+  font-style: var(--al-display-style);
+  font-weight: var(--al-display-weight);
+  font-size: calc(30px * var(--al-hero-scale));
   line-height: 1.08;
-  letter-spacing: -0.8px;
+  letter-spacing: var(--al-display-track);
   color: var(--al-cream);
   text-wrap: balance;
 }
@@ -2061,7 +2071,7 @@ body.astro-page .article-shell {
 
 .astro-listing-wrap .al-card-thumb {
   position: relative; height: 200px;
-  background: #050a14; overflow: hidden;
+  background: #050408; overflow: hidden;
 }
 .astro-listing-wrap .al-card-thumb img,
 .astro-listing-wrap .al-card-thumb svg {
@@ -2077,8 +2087,10 @@ body.astro-page .article-shell {
 .astro-listing-wrap .al-card .al-card-desig {
   position: absolute; bottom: 12px; left: 14px; z-index: 2;
   font-family: var(--al-display-h);
-  font-weight: 700; font-size: 20px;
-  color: var(--al-cream); letter-spacing: -0.4px;
+  font-style: var(--al-display-style);
+  font-weight: var(--al-display-weight);
+  font-size: 22px;
+  color: var(--al-cream); letter-spacing: var(--al-display-track);
 }
 .astro-listing-wrap .al-card .al-session-tag {
   position: absolute; top: 10px; left: 12px; z-index: 2;
@@ -2097,8 +2109,10 @@ body.astro-page .article-shell {
 }
 .astro-listing-wrap .al-card-title {
   font-family: var(--al-display-h);
-  font-weight: 600; font-size: 16px; line-height: 1.3;
-  color: var(--al-ink); letter-spacing: -0.2px;
+  font-style: var(--al-display-style);
+  font-weight: var(--al-display-weight);
+  font-size: 17px; line-height: 1.3;
+  color: var(--al-ink); letter-spacing: var(--al-display-track);
 }
 .astro-listing-wrap .al-card-desc {
   font-family: var(--al-serif);
@@ -2180,8 +2194,8 @@ body.astro-page .article-shell {
 @media (max-width: 860px) {
   .astro-listing-wrap .al-listing { padding: 0 20px 40px; }
   .astro-listing-wrap .al-status-strip { padding-left: 20px; padding-right: 20px; }
-  .astro-listing-wrap .al-head { grid-template-columns: 1fr; gap: 24px; }
-  .astro-listing-wrap .al-head .al-stats { flex-direction: row; flex-wrap: wrap; border-left: none; border-top: 1px solid var(--al-rule); padding-left: 0; padding-top: 16px; min-width: 0; gap: 14px 28px; }
+  .astro-listing-wrap .al-head { grid-template-columns: 1fr; }
+  .astro-listing-wrap .al-head .al-stats { grid-template-columns: repeat(3, auto); justify-content: start; gap: 14px 24px; }
   .astro-listing-wrap .al-featured { grid-template-columns: 1fr; }
   .astro-listing-wrap .al-featured-img { min-height: 280px; }
   .astro-listing-wrap .al-featured-body { border-left: none; border-top: 1px solid var(--al-rule); }
