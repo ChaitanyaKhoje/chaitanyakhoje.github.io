@@ -13,9 +13,9 @@ ra: "05h 40m 59s"
 dec: "−02° 27′ 30″"
 tags: [astrophotography, pixinsight, wbpp, seestar, nebula]
 
-hero_image: /assets/images/posts/horsehead-flame/final.png
-starless_image: /assets/images/posts/horsehead-flame/starless.png
-bw_image: /assets/images/posts/horsehead-flame/bw.png
+hero_image: /assets/images/posts/horsehead-flame/final.jpg
+starless_image: /assets/images/posts/horsehead-flame/starless.jpg
+bw_image: /assets/images/posts/horsehead-flame/bw.jpg
 
 astrobin_url: https://app.astrobin.com/u/chaitanyakhoje#gallery
 
