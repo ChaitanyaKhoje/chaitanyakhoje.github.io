@@ -1760,12 +1760,17 @@ body.astro-page .article-shell {
 
 /* ── Header ── */
 .astro-listing-wrap .al-head {
-  padding: calc(28px * var(--al-hero-scale)) 0 22px;
+  padding: 36px 0 28px;
   border-bottom: 1px solid var(--al-rule);
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 48px;
   align-items: end;
+}
+.astro-listing-wrap .al-head-left {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 .astro-listing-wrap .al-head .al-meta {
   font-family: var(--al-mono);
@@ -1773,10 +1778,9 @@ body.astro-page .article-shell {
   letter-spacing: 1.8px;
   text-transform: uppercase;
   color: var(--al-mute);
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 .astro-listing-wrap .al-head .al-meta .al-accent-blue { color: var(--al-blue); }
-/* Large heading: bold sans-serif with mono eyebrow via ::before */
 .astro-listing-wrap .al-head h1 {
   font-family: var(--al-display-h);
   font-weight: 700;
@@ -1784,7 +1788,7 @@ body.astro-page .article-shell {
   line-height: 0.98;
   letter-spacing: -1.5px;
   color: var(--al-cream);
-  margin-bottom: 12px;
+  margin-bottom: 18px;
   text-wrap: balance;
 }
 .astro-listing-wrap .al-head h1 .al-accent {
@@ -1800,14 +1804,24 @@ body.astro-page .article-shell {
   font-size: 16px;
   line-height: 1.55;
   color: var(--al-ink-mid);
-  max-width: 540px;
+  max-width: 460px;
+  margin: 0;
 }
+/* Stats: vertical column, label left / number right, divider on left */
 .astro-listing-wrap .al-head .al-stats {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  gap: 20px 30px;
-  align-self: end;
-  padding-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-left: 1px solid var(--al-rule);
+  padding-left: 36px;
+  padding-bottom: 4px;
+  min-width: 200px;
+}
+.astro-listing-wrap .al-stat {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
 }
 .astro-listing-wrap .al-stat .al-k {
   font-family: var(--al-mono);
@@ -1815,13 +1829,13 @@ body.astro-page .article-shell {
   letter-spacing: 1.8px;
   text-transform: uppercase;
   color: var(--al-mute);
-  margin-bottom: 2px;
 }
 .astro-listing-wrap .al-stat .al-v {
   font-family: var(--al-mono);
   font-variant-numeric: tabular-nums;
-  font-size: calc(22px * var(--al-hero-scale));
+  font-size: 22px;
   color: var(--al-cream);
+  line-height: 1;
 }
 .astro-listing-wrap .al-stat .al-v.is-orange { color: var(--al-orange); }
 .astro-listing-wrap .al-stat .al-v.is-blue   { color: var(--al-blue); }
@@ -2166,8 +2180,8 @@ body.astro-page .article-shell {
 @media (max-width: 860px) {
   .astro-listing-wrap .al-listing { padding: 0 20px 40px; }
   .astro-listing-wrap .al-status-strip { padding-left: 20px; padding-right: 20px; }
-  .astro-listing-wrap .al-head { grid-template-columns: 1fr; }
-  .astro-listing-wrap .al-head .al-stats { grid-template-columns: repeat(3, auto); justify-content: start; gap: 14px 24px; }
+  .astro-listing-wrap .al-head { grid-template-columns: 1fr; gap: 24px; }
+  .astro-listing-wrap .al-head .al-stats { flex-direction: row; flex-wrap: wrap; border-left: none; border-top: 1px solid var(--al-rule); padding-left: 0; padding-top: 16px; min-width: 0; gap: 14px 28px; }
   .astro-listing-wrap .al-featured { grid-template-columns: 1fr; }
   .astro-listing-wrap .al-featured-img { min-height: 280px; }
   .astro-listing-wrap .al-featured-body { border-left: none; border-top: 1px solid var(--al-rule); }
