@@ -50,6 +50,12 @@
   {{ content }}
 
   <script>
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+    document.addEventListener('selectstart', function(e) { e.preventDefault(); });
+    document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+  </script>
+
+  <script>
     (function() {
       var btn = document.getElementById('theme-toggle');
       if (!btn) return;
