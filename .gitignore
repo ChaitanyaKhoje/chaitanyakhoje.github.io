@@ -4,3 +4,10 @@ _site/
 .bundle/
 vendor/bundle/
 Gemfile.lock
+
+# AI agent artifacts — managed outside repo
+.planning/
+.superpowers/brainstorm/
+.superpowers/plans/
+.claude/
+CLAUDE.md
