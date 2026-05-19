@@ -40,15 +40,15 @@ body_class: astro-page
 
     <!-- Header -->
     <header class="al-head">
-      <div>
+      <div class="al-head-left">
         <div class="al-meta">
-          Field Log · Imaging Sessions · <span class="al-accent-blue">Index 001 / {{ total_sessions }}</span>
+          Field Log · <span class="al-accent-blue">001 / {{ total_sessions }}</span>
         </div>
         <h1>Astrophotography.<br>
           <span class="al-accent">Sessions &amp; workflows.</span>
         </h1>
         <p class="al-sub">
-          A field log of imaging sessions — acquisition notes, calibration, and the processing pipeline behind each frame. Each entry runs through the full pipeline from raw subs to final stretch.
+          Acquisition notes, calibration, and the processing pipeline behind each frame — from raw subs to final stretch.
         </p>
       </div>
       <div class="al-stats">
@@ -61,8 +61,8 @@ body_class: astro-page
           <div class="al-v">{{ total_frames | default: "—" }}</div>
         </div>
         <div class="al-stat">
-          <div class="al-k">Bortle</div>
-          <div class="al-v is-amber">7–8</div>
+          <div class="al-k">Integration</div>
+          <div class="al-v is-blue">—</div>
         </div>
       </div>
     </header>
