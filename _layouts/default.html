@@ -21,6 +21,7 @@
   {% seo %}
 </head>
 <body class="{{ page.body_class | default: '' }}">
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <nav class="topbar">
     <div class="nav-inner">
@@ -48,12 +49,6 @@
   </nav>
 
   {{ content }}
-
-  <script>
-    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
-    document.addEventListener('selectstart', function(e) { e.preventDefault(); });
-    document.addEventListener('dragstart', function(e) { e.preventDefault(); });
-  </script>
 
   <script>
     (function() {

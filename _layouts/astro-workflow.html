@@ -96,7 +96,13 @@ layout: default
         {% if page.hero_image %}
         <img src="{{ page.hero_image | relative_url }}" alt="{{ page.title }}" class="db-hero-img" />
         {% else %}
-        <div class="db-hero-placeholder" id="db-hero-placeholder"></div>
+        <div class="db-hero-placeholder" id="db-hero-placeholder">
+          <div class="db-external-frame">
+            <div class="db-external-kicker">Hosted externally</div>
+            <a class="db-external-link" href="{{ page.astrobin_url }}" target="_blank" rel="noopener">View this session on AstroBin</a>
+            <div class="db-external-note">The local image has been removed from this repository.</div>
+          </div>
+        </div>
         {% endif %}
 
         <!-- HUD overlays -->
@@ -124,6 +130,7 @@ layout: default
             <span class="db-hud-scale-bar"></span>
           </div>
         </div>
+
       </div>
 
       <!-- Tab strip -->
@@ -138,7 +145,12 @@ layout: default
       <!-- Action bar -->
       <div class="db-action-bar">
         <div class="db-action-links">
-          <a class="db-action-btn" href="{{ page.hero_image | default: '#' | relative_url }}" target="_blank">⤢ FULLSCREEN</a>
+          {% if page.hero_image %}
+          <a class="db-action-btn" href="{{ page.hero_image | relative_url }}" target="_blank" rel="noopener">⤢ FULLSCREEN</a>
+          {% endif %}
+          {% if page.astrobin_url %}
+          <a class="db-action-btn" href="{{ page.astrobin_url }}" target="_blank" rel="noopener">↗ ASTROBIN</a>
+          {% endif %}
           {% if page.download_url %}<a class="db-action-btn" href="{{ page.download_url | relative_url }}">↓ DOWNLOAD</a>{% endif %}
         </div>
         <span class="db-action-dim">FITS · OSC · debayered VNG</span>
@@ -159,7 +171,7 @@ layout: default
   <!-- ── BODY GRID (main + right sidebar) ── -->
   <div class="db-body">
 
-    <main class="db-main">
+    <main class="db-main" id="main-content" tabindex="-1">
 
       <!-- Gear section -->
       {% if page.gear %}
