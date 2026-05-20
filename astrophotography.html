@@ -329,7 +329,10 @@ body_class: astro-page
   if (!toggle) return;
 
   function currentTheme() {
-    return document.body.classList.contains('theme-atlas') ? 'theme-atlas' : 'theme-night';
+    if (document.body.classList.contains('theme-atlas')) return 'theme-atlas';
+    if (document.body.classList.contains('theme-night')) return 'theme-night';
+    document.body.classList.add('theme-night');
+    return 'theme-night';
   }
 
   function labelFor(theme) {
