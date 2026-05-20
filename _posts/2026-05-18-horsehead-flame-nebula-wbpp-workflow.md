@@ -4,6 +4,8 @@ theme: dark
 body_class: astro-page
 hide_theme_toggle: true
 title: "Horsehead and Flame Nebulae — Full Processing Workflow"
+hero_title: "Horsehead & Flame"
+hero_subtitle: "two nights in Orion."
 description: "1146 light frames of IC 434 through the ZWO Seestar S50, stacked in PixInsight with WBPP and processed through DBE, BlurXTerminator, StarXTerminator, statistical stretch, and local contrast enhancement."
 date: 2026-05-18
 target: IC 434

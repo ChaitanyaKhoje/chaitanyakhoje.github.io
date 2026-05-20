@@ -372,11 +372,13 @@ html.theme-night .night-hero-title {
 
 html.theme-night .night-hero-h1 {
   font-family: var(--display);
-  font-size: clamp(42px, 5.4vw, 72px);
+  max-width: min(820px, 72%);
+  font-size: clamp(38px, 4.5vw, 64px);
   line-height: 0.98;
   letter-spacing: 0;
   font-weight: 400;
   color: var(--ink);
+  text-wrap: balance;
 }
 
 html.theme-night .night-hero-h1 em {
@@ -411,8 +413,8 @@ html.theme-night .night-prose {
 
 html.theme-night .night-prose .intro {
   font-family: var(--display);
-  font-size: clamp(26px, 2.6vw, 38px);
-  line-height: 1.18;
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.26;
   letter-spacing: 0;
   color: var(--ink);
   margin-bottom: 24px;
@@ -595,5 +597,15 @@ html.theme-night .night-post-footer span:nth-child(2) {
     bottom: 16px;
     flex-direction: column;
     align-items: flex-start;
+    gap: 18px;
+  }
+
+  html.theme-night .night-hero-h1 {
+    max-width: 100%;
+    font-size: clamp(34px, 10vw, 54px);
+  }
+
+  html.theme-night .night-prose .intro {
+    font-size: clamp(21px, 7vw, 28px);
   }
 }
