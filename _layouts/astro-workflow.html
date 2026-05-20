@@ -2,44 +2,194 @@
 layout: default
 ---
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Special+Elite&display=swap" />
+{% assign astro_posts = site.posts | where: "layout", "astro-workflow" | sort: "date" | reverse %}
+{% assign total_sessions = astro_posts.size %}
+{% assign current_index = 0 %}
+{% assign previous_post = nil %}
+{% assign next_post = nil %}
+{% assign previous_candidate = nil %}
+{% assign last_index = astro_posts.size | minus: 1 %}
+{% for post in astro_posts %}
+  {% if post.url == page.url %}
+    {% assign current_index = forloop.index %}
+    {% assign previous_post = previous_candidate %}
+    {% if forloop.index0 < last_index %}
+      {% assign next_post = astro_posts[forloop.index] %}
+    {% endif %}
+  {% endif %}
+  {% assign previous_candidate = post %}
+{% endfor %}
+{% assign current_number = current_index | prepend: "00" | slice: -3, 3 %}
 
-<div class="db-wrap">
+<section class="night-post">
+  <div class="night-scene-bg" aria-hidden="true"></div>
 
-  <!-- Scanline / starfield background -->
-  <div class="db-bg" aria-hidden="true"></div>
-
-  <!-- ── MISSION BAR (two rows) ── -->
-  <header class="db-mission-bar" id="db-mission-bar">
-    <!-- Status strip -->
-    <div class="db-status-strip">
-      <a class="db-back-link" href="{{ '/astrophotography/' | relative_url }}">← Astrophotography</a>
-      <span class="db-status-live">
-        <span class="db-status-dot"></span>
-        STATION // OPERATIONAL
-      </span>
-      <span class="db-status-dim">{{ page.date | date: "%Y-%m-%d" }}</span>
-      {% if page.target %}<span class="db-status-dim">OBJ // {{ page.target }}</span>{% endif %}
-      <div class="db-status-spacer"></div>
-      <span>SESSION&nbsp;<span class="db-status-accent3">S-001</span></span>
-      {% if page.tags %}<span>CHANNEL&nbsp;<span class="db-status-accent1">{{ page.tags | first | upcase }}</span></span>{% endif %}
+  <header class="night-mast">
+    <div class="night-brand">Khoje · <em>after dark</em></div>
+    <div class="night-nav">
+      <a href="{{ '/astrophotography/' | relative_url }}">← Back</a>
+      <a href="{{ '/astrophotography/' | relative_url }}">Index</a>
+      <span class="is-active">Session {{ current_number }}</span>
+      {% if next_post %}
+      <a href="{{ next_post.url | relative_url }}">Next →</a>
+      {% else %}
+      <span>Next →</span>
+      {% endif %}
+      <button id="astro-theme-toggle" class="al-theme-toggle night-theme-toggle" aria-label="Switch astrophotography theme"></button>
     </div>
-    <!-- TOC strip (scroll-spy) -->
-    <div class="db-toc-strip" id="db-toc-strip"></div>
   </header>
 
-  <!-- ── HERO PANEL ── -->
-  <section class="db-hero" data-sec="hero">
+  <div class="night-hero">
+    <div class="night-hero-media" aria-hidden="true">
+      {% if page.hero_image %}
+      <img src="{{ page.hero_image | relative_url }}" alt="{{ page.title }}" draggable="false" oncontextmenu="return false" />
+      {% else %}
+      <svg viewBox="0 0 1200 430" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="night-ha" cx="50%" cy="55%" r="65%">
+            <stop offset="0%" stop-color="#d4a76a" stop-opacity="0.55" />
+            <stop offset="30%" stop-color="#a04a2e" stop-opacity="0.5" />
+            <stop offset="70%" stop-color="#3a1a18" stop-opacity="0.3" />
+            <stop offset="100%" stop-color="#07080b" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="night-alnitak" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff8e0" stop-opacity="0.95" />
+            <stop offset="35%" stop-color="#f4dca8" stop-opacity="0.5" />
+            <stop offset="100%" stop-color="#d4a76a" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="night-oiii" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#6fc7d4" stop-opacity="0.35" />
+            <stop offset="100%" stop-color="#6fc7d4" stop-opacity="0" />
+          </radialGradient>
+          <filter id="grain">
+            <feTurbulence baseFrequency="0.9" numOctaves="2" />
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 0.95   0 0 0 0 0.85   0 0 0 0.08 0" />
+          </filter>
+        </defs>
+        <rect width="1200" height="430" fill="#07080b" />
+        <ellipse cx="700" cy="240" rx="600" ry="240" fill="url(#night-ha)" />
+        <ellipse cx="380" cy="180" rx="180" ry="110" fill="url(#night-oiii)" />
+        <circle cx="280" cy="210" r="90" fill="url(#night-alnitak)" />
+        <circle cx="280" cy="210" r="4" fill="#fff" />
+        <line x1="180" y1="210" x2="380" y2="210" stroke="#fff" strokeWidth="0.7" opacity="0.6" />
+        <line x1="280" y1="120" x2="280" y2="300" stroke="#fff" strokeWidth="0.7" opacity="0.6" />
+        <path d="M 660 320 C 650 290, 666 260, 700 252 C 712 220, 740 204, 760 208 C 776 188, 808 188, 818 212 C 844 216, 862 240, 854 264 C 880 280, 884 312, 866 332 C 874 360, 850 396, 814 396 L 814 480 L 670 480 Z" fill="#07080b" />
+        <circle cx="140" cy="80" r="5.4" fill="#fffaf0" />
+        <circle cx="230" cy="120" r="3.9" fill="#fffaf0" />
+        <circle cx="460" cy="60" r="6" fill="#fffaf0" />
+        <circle cx="560" cy="90" r="4.4" fill="#fffaf0" />
+        <circle cx="640" cy="130" r="3.6" fill="#fffaf0" />
+        <circle cx="820" cy="70" r="7.5" fill="#fffaf0" />
+        <circle cx="920" cy="140" r="4.8" fill="#fffaf0" />
+        <circle cx="1030" cy="80" r="4.2" fill="#fffaf0" />
+        <circle cx="1090" cy="200" r="6" fill="#fffaf0" />
+        <circle cx="120" cy="260" r="3.6" fill="#fffaf0" />
+        <circle cx="200" cy="340" r="4.8" fill="#fffaf0" />
+        <circle cx="480" cy="380" r="3.6" fill="#fffaf0" />
+        <circle cx="940" cy="320" r="5.4" fill="#fffaf0" />
+        <circle cx="1070" cy="360" r="4.2" fill="#fffaf0" />
+        <rect width="1200" height="430" filter="url(#grain)" opacity="0.4" />
+      </svg>
+      {% endif %}
+    </div>
 
-    <!-- Big-numbers telemetry band -->
-    <div class="db-corner-panel db-corner-panel--teal">
-      <div class="db-panel-header db-panel-header--teal">
-        <span>⟦ ACQ // FINAL FRAME ⟧</span>
-        {% if page.target %}<span class="db-panel-right">OBJ-001 // {{ page.target }}</span>{% endif %}
+    <div class="night-hero-floats" aria-hidden="true">
+      <div>RA · {% if page.ra %}{{ page.ra }}{% else %}—{% endif %} · DEC · {% if page.dec %}{{ page.dec }}{% else %}—{% endif %}</div>
+      <div class="plate">● Plate {{ current_number }}</div>
+    </div>
+
+    <div class="night-hero-title">
+      <h1 class="night-hero-h1">
+        {{ page.title }}<br /><em>in the stack.</em>
+      </h1>
+      <div class="night-hero-scale">
+        ─── 10 arcmin ─── <br />
+        North ↑ &nbsp; East ←
       </div>
+    </div>
+  </div>
 
+  <div class="night-body">
+    <main class="night-prose" id="main-content" tabindex="-1">
+      {% if page.description %}
+      <p class="intro">{{ page.description }}</p>
+      {% endif %}
+      <div>
+        {{ content }}
+      </div>
+    </main>
+
+    <aside class="night-side" id="night-sidebar">
+      {% if page.margin_note %}
+      <div class="night-note">
+        <div class="night-side-label">↳ Session note</div>
+        <div class="night-side-block">{{ page.margin_note }}</div>
+        {% if page.margin_note_date %}
+        <div class="night-note-date">{{ page.margin_note_date }}</div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if page.gear %}
+      <div class="night-side-block">
+        <div class="night-side-title">── Apparatus</div>
+        <div class="night-side-label">↳ Optic</div>
+        <div>{{ page.gear.telescope | default: "—" }}</div>
+        <div class="night-side-label" style="margin-top: 12px;">↳ Camera</div>
+        <div>{{ page.gear.camera | default: "—" }}</div>
+        <div class="night-side-label" style="margin-top: 12px;">↳ Mount</div>
+        <div>{{ page.gear.mount | default: "—" }}</div>
+        <div class="night-side-label" style="margin-top: 12px;">↳ Filter</div>
+        <div>{{ page.gear.filter | default: "—" }}</div>
+      </div>
+      {% endif %}
+
+      {% if page.capture %}
+      <div class="night-side-block">
+        <div class="night-side-title">── Session</div>
+        <div class="night-side-label">↳ Integration</div>
+        <div>{{ page.capture.integration | default: "—" }}</div>
+        <div class="night-side-label" style="margin-top: 12px;">↳ Subs</div>
+        <div>{{ page.capture.frames | default: "—" }}</div>
+        <div class="night-side-label" style="margin-top: 12px;">↳ Bortle</div>
+        <div>{{ page.capture.bortle | default: "—" }}</div>
+        <div class="night-side-label" style="margin-top: 12px;">↳ Date</div>
+        <div>
+          {% if page.capture.date %}{{ page.capture.date }}{% else %}{{ page.date | date: "%b %d, %Y" }}{% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if page.capture and page.capture.location %}
+      <div class="night-side-block">
+        <div class="night-side-title">── Pipeline</div>
+        <div class="night-side-label">↳ Site</div>
+        <div>{{ page.capture.location }}</div>
+        {% if page.gear and page.gear.software %}
+        <div class="night-side-label" style="margin-top: 12px;">↳ Software</div>
+        <div>{{ page.gear.software }}</div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </aside>
+  </div>
+
+  <footer class="night-post-footer">
+    <span>{% if previous_post %}← {{ previous_post.target | default: previous_post.title | default: "Archive" }}{% else %}← Archive{% endif %}</span>
+    <span>● Session {{ current_number }}</span>
+    <span>{% if next_post %}{{ next_post.target | default: next_post.title | default: "Next" }} →{% else %}Index →{% endif %}</span>
+  </footer>
+</section>
+
+<div class="db-wrap post">
+
+  <div class="db-bg" aria-hidden="true"></div>
+
+  <!-- ── HERO PANEL ── -->
+  <section class="db-hero">
+    <div class="db-corner-panel db-corner-panel--teal">
+
+      <!-- Telemetry band -->
       <div class="db-telem-band">
         <div class="db-telem-designation">
           <div class="db-telem-key">Designation</div>
@@ -50,7 +200,7 @@ layout: default
         {% if page.capture.integration %}
         <div class="db-telem-item">
           <div class="db-telem-key">Integration</div>
-          <div class="db-telem-val db-telem-val--teal">{{ page.capture.integration }}</div>
+          <div class="db-telem-val db-telem-val--amber">{{ page.capture.integration }}</div>
         </div>
         {% endif %}
         {% if page.capture.frames %}
@@ -68,7 +218,7 @@ layout: default
         {% if page.capture.bortle %}
         <div class="db-telem-item">
           <div class="db-telem-key">Bortle</div>
-          <div class="db-telem-val db-telem-val--red">{{ page.capture.bortle }}</div>
+          <div class="db-telem-val db-telem-val--orange">{{ page.capture.bortle }}</div>
         </div>
         {% endif %}
         {% endif %}
@@ -80,69 +230,50 @@ layout: default
           <h1 class="db-h1">{{ page.title }}</h1>
           {% if page.description %}<p class="db-subtitle">{{ page.description }}</p>{% endif %}
         </div>
-        <div class="db-title-right">
-          <div class="db-telem-key">Entry</div>
-          {% if page.capture and page.capture.date %}
-          <div class="db-title-meta">{{ page.capture.date }}</div>
-          {% endif %}
-          {% if page.capture and page.capture.location %}
-          <div class="db-title-loc">{{ page.capture.location }}</div>
-          {% endif %}
-        </div>
       </div>
 
-      <!-- Image frame with HUD overlay -->
+      <!-- Image frame -->
       <div class="db-image-frame">
         {% if page.hero_image %}
-        <img src="{{ page.hero_image | relative_url }}" alt="{{ page.title }}" class="db-hero-img" />
+        <img src="{{ page.hero_image | relative_url }}"
+             alt="{{ page.title }}"
+             class="db-hero-img"
+             id="db-hero-img"
+             draggable="false"
+             oncontextmenu="return false" />
         {% else %}
-        <div class="db-hero-placeholder" id="db-hero-placeholder">
-          <div class="db-external-frame">
-            <div class="db-external-kicker">Hosted externally</div>
-            <a class="db-external-link" href="{{ page.astrobin_url }}" target="_blank" rel="noopener">View this session on AstroBin</a>
-            <div class="db-external-note">The local image has been removed from this repository.</div>
-          </div>
-        </div>
+        <div class="db-hero-placeholder" id="db-hero-placeholder"></div>
         {% endif %}
-
-        <!-- HUD overlays -->
         <div class="db-hud" aria-hidden="true">
-          <!-- Corner brackets (CSS-only) -->
           <div class="db-corner db-corner--tl"></div>
           <div class="db-corner db-corner--tr"></div>
           <div class="db-corner db-corner--bl"></div>
           <div class="db-corner db-corner--br"></div>
-
-          {% if page.ra %}
-          <div class="db-hud-ra">RA · {{ page.ra }}</div>
-          {% else %}
-          <div class="db-hud-ra">RA · —</div>
-          {% endif %}
-          {% if page.dec %}
-          <div class="db-hud-dec">DEC · {{ page.dec }}</div>
-          {% else %}
-          <div class="db-hud-dec">DEC · —</div>
-          {% endif %}
-
+          {% if page.ra %}<div class="db-hud-ra">RA · {{ page.ra }}</div>{% endif %}
+          {% if page.dec %}<div class="db-hud-dec">DEC · {{ page.dec }}</div>{% endif %}
           <div class="db-hud-compass">N ↑&nbsp;&nbsp;E ←</div>
-          <div class="db-hud-scale">
-            <span>10′</span>
-            <span class="db-hud-scale-bar"></span>
-          </div>
+          <div class="db-hud-scale"><span>10′</span><span class="db-hud-scale-bar"></span></div>
         </div>
-
       </div>
 
-      <!-- Tab strip -->
+      <!-- Tab strip — Final / Starless / B&W only -->
+      {% if page.hero_image %}
       <div class="db-tab-strip" id="db-tab-strip">
-        <button class="db-tab db-tab--active" data-variant="final">● Final</button>
-        <button class="db-tab" data-variant="starless">Starless</button>
-        <button class="db-tab" data-variant="annotated">Annotated</button>
-        <button class="db-tab" data-variant="linear">Linear</button>
-        <button class="db-tab" data-variant="raw">Raw stack</button>
+        <button class="db-tab db-tab--active" data-variant="final"
+                data-src="{{ page.hero_image | relative_url }}">● Final</button>
+        {% if page.starless_image %}
+        <button class="db-tab" data-variant="starless"
+                data-src="{{ page.starless_image | relative_url }}">Starless</button>
+        {% endif %}
+        {% if page.bw_image %}
+        <button class="db-tab" data-variant="bw"
+                data-src="{{ page.bw_image | relative_url }}">B&amp;W</button>
+        {% endif %}
       </div>
+      {% endif %}
 
-      <!-- Action bar -->
+      <!-- Action bar — only external links, no download/filler -->
+      {% if page.hero_image or page.astrobin_url %}
       <div class="db-action-bar">
         <div class="db-action-links">
           {% if page.hero_image %}
@@ -151,84 +282,32 @@ layout: default
           {% if page.astrobin_url %}
           <a class="db-action-btn" href="{{ page.astrobin_url }}" target="_blank" rel="noopener">↗ ASTROBIN</a>
           {% endif %}
-          {% if page.download_url %}<a class="db-action-btn" href="{{ page.download_url | relative_url }}">↓ DOWNLOAD</a>{% endif %}
         </div>
-        <span class="db-action-dim">FITS · OSC · debayered VNG</span>
       </div>
-    </div>
+      {% endif %}
 
-    <!-- Badges -->
-    {% if page.tags %}
-    <div class="db-badges">
-      {% assign db_accent = "a1,a2,a3,a1,a2" | split: "," %}
-      {% for tag in page.tags %}
-      <span class="db-badge db-badge--{{ db_accent[forloop.index0] }}">#{{ tag }}</span>
-      {% endfor %}
     </div>
-    {% endif %}
   </section>
 
-  <!-- ── BODY GRID (main + right sidebar) ── -->
+  <!-- ── INLINE STICKY TOC — back · scroll-spy sections · status ── -->
+  <nav class="db-inline-toc" id="db-inline-toc" aria-label="Workflow sections">
+    <div class="db-inline-toc-inner">
+      <a class="db-inline-back" href="{{ '/astrophotography/' | relative_url }}">← Back</a>
+      <span class="db-inline-sep"></span>
+      <button id="astro-theme-toggle" class="al-theme-toggle" aria-label="Switch astrophotography theme"></button>
+      <div class="db-inline-buttons" id="db-toc-buttons"></div>
+      <span class="db-inline-spacer"></span>
+      <span class="db-status-live db-inline-status">
+        <span class="db-status-dot"></span>
+        Operational
+      </span>
+    </div>
+  </nav>
+
+  <!-- ── BODY GRID ── -->
   <div class="db-body">
 
     <main class="db-main" id="main-content" tabindex="-1">
-
-      <!-- Gear section -->
-      {% if page.gear %}
-      <section class="db-section" data-sec="gear">
-        <div class="db-sec-label db-sec-label--blue">
-          <span class="db-sec-num">§ 01</span>
-          <h2 class="db-sec-title">INSTRUMENT BENCH</h2>
-          <div class="db-sec-rule"></div>
-          <span class="db-sec-frame">FRAME 01</span>
-        </div>
-        <div class="db-gear-grid">
-          {% if page.gear.telescope %}
-          <div class="db-corner-panel db-corner-panel--blue db-corner-panel--small">
-            <div class="db-panel-header db-panel-header--blue"><span>⟦ OPT-01 · TELESCOPE ⟧</span></div>
-            <div class="db-gear-body">
-              <div class="db-gear-val">{{ page.gear.telescope }}</div>
-            </div>
-          </div>
-          {% endif %}
-          {% if page.gear.camera %}
-          <div class="db-corner-panel db-corner-panel--blue db-corner-panel--small">
-            <div class="db-panel-header db-panel-header--blue"><span>⟦ CAM-01 · CAMERA ⟧</span></div>
-            <div class="db-gear-body">
-              <div class="db-gear-val">{{ page.gear.camera }}</div>
-            </div>
-          </div>
-          {% endif %}
-          {% if page.gear.mount %}
-          <div class="db-corner-panel db-corner-panel--blue db-corner-panel--small">
-            <div class="db-panel-header db-panel-header--blue"><span>⟦ MNT-01 · MOUNT ⟧</span></div>
-            <div class="db-gear-body">
-              <div class="db-gear-val">{{ page.gear.mount }}</div>
-            </div>
-          </div>
-          {% endif %}
-          {% if page.gear.filter %}
-          <div class="db-corner-panel db-corner-panel--blue db-corner-panel--small">
-            <div class="db-panel-header db-panel-header--blue"><span>⟦ FLT-01 · FILTER ⟧</span></div>
-            <div class="db-gear-body">
-              <div class="db-gear-val">{{ page.gear.filter }}</div>
-            </div>
-          </div>
-          {% endif %}
-        </div>
-        {% if page.gear.software %}
-        <div class="db-corner-panel db-corner-panel--teal db-corner-panel--small" style="margin-top:12px">
-          <div class="db-panel-header db-panel-header--teal"><span>⟦ SW-PIPELINE ⟧</span></div>
-          <div class="db-sw-body">
-            {% assign sw_items = page.gear.software | split: " · " %}
-            {% for sw in sw_items %}
-            <span class="db-sw-pill"><span class="db-sw-dot"></span>{{ sw }}</span>
-            {% endfor %}
-          </div>
-        </div>
-        {% endif %}
-      </section>
-      {% endif %}
 
       <!-- Post markdown content -->
       <div class="db-prose" id="db-prose">
@@ -240,12 +319,11 @@ layout: default
       <section class="db-section" data-sec="compare">
         <div class="db-sec-label db-sec-label--blue">
           <span class="db-sec-num">§</span>
-          <h2 class="db-sec-title">DELTA · A → C</h2>
+          <h2 class="db-sec-title">Before / After</h2>
           <div class="db-sec-rule"></div>
-          <span class="db-sec-frame">DRAG DIVIDER</span>
+          <span class="db-sec-frame">Drag divider</span>
         </div>
         <div class="db-corner-panel db-corner-panel--blue">
-          <div class="db-panel-header db-panel-header--blue"><span>⟦ CMP/A-C ⟧</span><span class="db-panel-right">DRAG DIVIDER</span></div>
           <div class="db-ba-wrap" id="db-ba">
             <div class="db-ba-after"><img src="{{ page.after_image | relative_url }}" alt="Final" /></div>
             <div class="db-ba-before" id="db-ba-before"><img src="{{ page.before_image | relative_url }}" alt="Raw" /></div>
@@ -274,62 +352,221 @@ layout: default
       </section>
       {% endif %}
 
-      <!-- Footer -->
       <footer class="db-footer">
-        <span>END-OF-RECORD</span>
-        <span class="db-footer-teal">CHECKSUM OK</span>
+        <span>End of Record</span>
+        <span class="db-footer-teal">Checksum OK</span>
         <span>CC-BY-NC 4.0 · {{ page.date | date: "%Y" }}</span>
       </footer>
 
     </main>
 
-    <!-- Right sidebar -->
+    <!-- Right sidebar — Gear first, then Object, Capture -->
     <aside class="db-sidebar" id="db-sidebar">
 
-      <!-- Object coords -->
+      {% if page.gear %}
       <div class="db-corner-panel db-corner-panel--teal db-corner-panel--small">
-        <div class="db-panel-header db-panel-header--teal"><span>⟦ OBJECT ⟧</span></div>
+        <div class="db-panel-header db-panel-header--teal"><span>⟦ Gear ⟧</span></div>
         <div class="db-sidebar-table">
-          {% if page.target %}<div class="db-srow"><span class="db-skey">TGT</span><span class="db-sval">{{ page.target }}</span></div>{% endif %}
-          {% if page.constellation %}<div class="db-srow"><span class="db-skey">CONST</span><span class="db-sval">{{ page.constellation }}</span></div>{% endif %}
-          {% if page.ra %}<div class="db-srow"><span class="db-skey">RA</span><span class="db-sval">{{ page.ra }}</span></div>{% endif %}
-          {% if page.dec %}<div class="db-srow"><span class="db-skey">DEC</span><span class="db-sval">{{ page.dec }}</span></div>{% endif %}
-          {% if page.magnitude %}<div class="db-srow"><span class="db-skey">MAG</span><span class="db-sval">{{ page.magnitude }}</span></div>{% endif %}
-          {% if page.distance %}<div class="db-srow"><span class="db-skey">DIST</span><span class="db-sval">{{ page.distance }}</span></div>{% endif %}
-          {% if page.object_type %}<div class="db-srow"><span class="db-skey">TYPE</span><span class="db-sval">{{ page.object_type }}</span></div>{% endif %}
+          {% if page.gear.telescope %}<div class="db-srow"><span class="db-skey">Opt</span><span class="db-sval">{{ page.gear.telescope | split: " · " | first }}</span></div>{% endif %}
+          {% if page.gear.camera %}<div class="db-srow"><span class="db-skey">Cam</span><span class="db-sval">{{ page.gear.camera | split: " (" | first }}</span></div>{% endif %}
+          {% if page.gear.mount %}<div class="db-srow"><span class="db-skey">Mnt</span><span class="db-sval">{{ page.gear.mount | split: " (" | first }}</span></div>{% endif %}
+          {% if page.gear.filter %}<div class="db-srow"><span class="db-skey">Filt</span><span class="db-sval">{{ page.gear.filter }}</span></div>{% endif %}
         </div>
-      </div>
-
-      <!-- Capture telemetry -->
-      {% if page.capture %}
-      <div class="db-corner-panel db-corner-panel--blue db-corner-panel--small">
-        <div class="db-panel-header db-panel-header--blue"><span>⟦ CAPTURE LOG ⟧</span></div>
-        <div class="db-sidebar-table">
-          {% if page.capture.frames %}<div class="db-srow"><span class="db-skey">SUBS</span><span class="db-sval">{{ page.capture.frames }}</span></div>{% endif %}
-          {% if page.capture.exposure %}<div class="db-srow"><span class="db-skey">EXP</span><span class="db-sval">{{ page.capture.exposure }}</span></div>{% endif %}
-          {% if page.capture.integration %}<div class="db-srow"><span class="db-skey">TOTAL</span><span class="db-sval db-sval--teal">{{ page.capture.integration }}</span></div>{% endif %}
-          {% if page.capture.gain %}<div class="db-srow"><span class="db-skey">GAIN</span><span class="db-sval">{{ page.capture.gain }}</span></div>{% endif %}
-          {% if page.capture.date %}<div class="db-srow"><span class="db-skey">DATE</span><span class="db-sval">{{ page.capture.date }}</span></div>{% endif %}
-          {% if page.capture.location %}<div class="db-srow"><span class="db-skey">SITE</span><span class="db-sval">{{ page.capture.location }}</span></div>{% endif %}
-          {% if page.capture.bortle %}<div class="db-srow"><span class="db-skey">BORTLE</span><span class="db-sval">{{ page.capture.bortle }}</span></div>{% endif %}
+        {% if page.gear.software %}
+        <div class="db-panel-header db-panel-header--teal" style="border-top:1px solid var(--db-rule)"><span>⟦ Software ⟧</span></div>
+        <div class="db-sw-body">
+          {% assign sw_items = page.gear.software | split: " · " %}
+          {% for sw in sw_items %}
+          <span class="db-sw-pill"><span class="db-sw-dot"></span>{{ sw }}</span>
+          {% endfor %}
         </div>
+        {% endif %}
       </div>
       {% endif %}
 
-      <!-- Gear quick ref -->
-      {% if page.gear %}
-      <div class="db-corner-panel db-corner-panel--red db-corner-panel--small">
-        <div class="db-panel-header db-panel-header--red"><span>⟦ GEAR ⟧</span></div>
+      <div class="db-corner-panel db-corner-panel--teal db-corner-panel--small">
+        <div class="db-panel-header db-panel-header--teal"><span>⟦ Object ⟧</span></div>
         <div class="db-sidebar-table">
-          {% if page.gear.telescope %}<div class="db-srow"><span class="db-skey">OPT</span><span class="db-sval">{{ page.gear.telescope | split: " · " | first }}</span></div>{% endif %}
-          {% if page.gear.camera %}<div class="db-srow"><span class="db-skey">CAM</span><span class="db-sval">{{ page.gear.camera | split: " (" | first }}</span></div>{% endif %}
-          {% if page.gear.mount %}<div class="db-srow"><span class="db-skey">MNT</span><span class="db-sval">{{ page.gear.mount | split: " (" | first }}</span></div>{% endif %}
-          {% if page.gear.filter %}<div class="db-srow"><span class="db-skey">FILT</span><span class="db-sval">{{ page.gear.filter }}</span></div>{% endif %}
+          {% if page.target %}<div class="db-srow"><span class="db-skey">TGT</span><span class="db-sval">{{ page.target }}</span></div>{% endif %}
+          {% if page.constellation %}<div class="db-srow"><span class="db-skey">Const</span><span class="db-sval">{{ page.constellation }}</span></div>{% endif %}
+          {% if page.ra %}<div class="db-srow"><span class="db-skey">RA</span><span class="db-sval">{{ page.ra }}</span></div>{% endif %}
+          {% if page.dec %}<div class="db-srow"><span class="db-skey">Dec</span><span class="db-sval">{{ page.dec }}</span></div>{% endif %}
+          {% if page.magnitude %}<div class="db-srow"><span class="db-skey">Mag</span><span class="db-sval">{{ page.magnitude }}</span></div>{% endif %}
+          {% if page.distance %}<div class="db-srow"><span class="db-skey">Dist</span><span class="db-sval">{{ page.distance }}</span></div>{% endif %}
+          {% if page.object_type %}<div class="db-srow"><span class="db-skey">Type</span><span class="db-sval">{{ page.object_type }}</span></div>{% endif %}
+        </div>
+      </div>
+
+      {% if page.capture %}
+      <div class="db-corner-panel db-corner-panel--blue db-corner-panel--small">
+        <div class="db-panel-header db-panel-header--blue"><span>⟦ Capture Log ⟧</span></div>
+        <div class="db-sidebar-table">
+          {% if page.capture.frames %}<div class="db-srow"><span class="db-skey">Subs</span><span class="db-sval">{{ page.capture.frames }}</span></div>{% endif %}
+          {% if page.capture.exposure %}<div class="db-srow"><span class="db-skey">Exp</span><span class="db-sval">{{ page.capture.exposure }}</span></div>{% endif %}
+          {% if page.capture.integration %}<div class="db-srow"><span class="db-skey">Total</span><span class="db-sval db-sval--amber">{{ page.capture.integration }}</span></div>{% endif %}
+          {% if page.capture.gain %}<div class="db-srow"><span class="db-skey">Gain</span><span class="db-sval">{{ page.capture.gain }}</span></div>{% endif %}
+          {% if page.capture.bortle %}<div class="db-srow"><span class="db-skey">Bortle</span><span class="db-sval db-sval--orange">{{ page.capture.bortle }}</span></div>{% endif %}
         </div>
       </div>
       {% endif %}
 
     </aside>
+  </div>
+
+  <!-- ── FIELD ATLAS LAYOUT (html.theme-atlas only) ─────────────── -->
+
+  <!-- Atlas ribbon -->
+  <div class="db-atlas-ribbon">
+    <div class="db-atlas-ribbon-left">
+      <a href="{{ '/astrophotography/' | relative_url }}">← BACK TO ATLAS</a>
+      <span>{% if page.target %}{{ page.target }}{% else %}PLATE{% endif %}</span>
+    </div>
+    <div class="db-atlas-ribbon-right">FOL. {{ page.date | date: "%j" }} — VERSO · PRIVATE WORKING COPY</div>
+  </div>
+
+  <!-- Atlas two-column body -->
+  <div class="db-atlas-cols">
+    <div>
+      <div class="db-atlas-kicker-row">
+        <span class="db-atlas-kicker">Plate · {{ page.target | default: "—" }} region · {{ page.constellation | default: "—" }}</span>
+        <span class="db-atlas-kicker">Cadence {{ page.capture.exposure | default: "10 s" }} · OSC</span>
+      </div>
+
+      <div class="db-atlas-chart" style="height:380px;position:relative;">
+        <div class="db-atlas-chart-grid"></div>
+        <span class="al-chart-corner tl"></span>
+        <span class="al-chart-corner tr"></span>
+        <span class="al-chart-corner bl"></span>
+        <span class="al-chart-corner br"></span>
+
+        {% if page.hero_image %}
+        <img src="{{ page.hero_image | relative_url }}"
+             alt="{{ page.title }}"
+             class="db-atlas-chart-svg"
+             style="object-fit:cover;"
+             draggable="false"
+             oncontextmenu="return false" />
+        {% else %}
+        <svg class="db-atlas-chart-svg" viewBox="0 0 360 220" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="atlas-ha-post" cx="50%" cy="55%" r="65%">
+              <stop offset="0%" stop-color="#a04a2e" stop-opacity="0.7" />
+              <stop offset="55%" stop-color="#7a2a1a" stop-opacity="0.3" />
+              <stop offset="100%" stop-color="#1a1f2b" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <rect width="360" height="220" fill="var(--paper-d)" />
+          <ellipse cx="180" cy="120" rx="190" ry="92" fill="url(#atlas-ha-post)" />
+          <path d="M 155 145 C 152 130, 156 118, 168 116 C 172 104, 178 100, 184 102 C 188 96, 196 96, 198 104 C 204 104, 208 110, 206 118 C 212 122, 214 132, 208 138 C 210 148, 202 156, 192 156 L 192 178 L 158 178 Z" fill="var(--ink)" opacity="0.85" />
+          <g>
+            <circle cx="80" cy="100" r="14" fill="var(--ink)" opacity="0.05" />
+            <circle cx="80" cy="100" r="4.5" fill="#f4e6c6" />
+            <line x1="58" y1="100" x2="102" y2="100" stroke="var(--ink)" stroke-width="0.5" opacity="0.5" />
+            <line x1="80" y1="78" x2="80" y2="122" stroke="var(--ink)" stroke-width="0.5" opacity="0.5" />
+          </g>
+          <circle cx="50" cy="40" r="1.2" fill="var(--ink)" opacity="0.7" />
+          <circle cx="120" cy="60" r="1.4" fill="var(--ink)" opacity="0.7" />
+          <circle cx="200" cy="40" r="1.0" fill="var(--ink)" opacity="0.7" />
+          <circle cx="260" cy="80" r="1.8" fill="var(--ink)" opacity="0.7" />
+          <circle cx="300" cy="140" r="1.2" fill="var(--ink)" opacity="0.7" />
+          <circle cx="120" cy="160" r="1.0" fill="var(--ink)" opacity="0.7" />
+          <circle cx="240" cy="160" r="1.6" fill="var(--ink)" opacity="0.7" />
+        </svg>
+        {% endif %}
+
+        {% if page.ra or page.dec %}
+        <div class="db-atlas-chart-ra">
+          {% if page.ra %}RA {{ page.ra }}<br />{% endif %}
+          {% if page.dec %}Dec {{ page.dec }}{% endif %}
+        </div>
+        {% endif %}
+        {% if page.magnitude or page.distance %}
+        <div class="db-atlas-chart-mag">
+          {% if page.magnitude %}MAG {{ page.magnitude }}<br />{% endif %}
+          {% if page.distance %}{{ page.distance }}{% endif %}
+        </div>
+        {% endif %}
+
+        <div class="db-atlas-scale">
+          <span class="db-atlas-scale-bar"></span>
+          10′
+          <span class="db-atlas-scale-bar"></span>
+        </div>
+      </div>
+
+      <div class="db-atlas-ledger">
+        <div class="db-atlas-kicker" style="margin-bottom:12px;">WBPP · acquisition ledger</div>
+        {% if page.capture %}
+        <table>
+          <tbody>
+            {% if page.capture.dates %}<tr><td class="ak">Dates</td><td class="av">{{ page.capture.dates }}</td></tr>{% endif %}
+            {% if page.capture.frames %}<tr><td class="ak">Sub-exposures</td><td class="av">{{ page.capture.frames }}{% if page.capture.exposure %} × {{ page.capture.exposure }}{% endif %}</td></tr>{% endif %}
+            {% if page.capture.registered %}<tr><td class="ak">Registered</td><td class="av">{{ page.capture.registered }}</td></tr>{% endif %}
+            {% if page.capture.rejected %}<tr><td class="ak">Rejected</td><td class="av">{{ page.capture.rejected }}</td></tr>{% endif %}
+            {% if page.capture.filter %}<tr><td class="ak">Filter</td><td class="av">{{ page.capture.filter }}</td></tr>{% endif %}
+            {% if page.capture.sensor %}<tr><td class="ak">Sensor</td><td class="av">{{ page.capture.sensor }}</td></tr>{% endif %}
+            {% if page.capture.debayer %}<tr><td class="ak">Debayer</td><td class="av">{{ page.capture.debayer }}</td></tr>{% endif %}
+            {% if page.capture.normalize %}<tr><td class="ak">Normalize</td><td class="av">{{ page.capture.normalize }}</td></tr>{% endif %}
+            {% if page.capture.bortle %}<tr><td class="ak">Bortle</td><td class="av">{{ page.capture.bortle }}</td></tr>{% endif %}
+            {% if page.capture.gain %}<tr><td class="ak">Gain</td><td class="av">{{ page.capture.gain }}</td></tr>{% endif %}
+            {% if page.capture.integration %}<tr><td class="ak">Integration</td><td class="av">{{ page.capture.integration }}</td></tr>{% endif %}
+          </tbody>
+        </table>
+        {% else %}
+        <p style="font-family:var(--mono);font-size:11px;color:var(--ink-sub);">No capture data in front matter.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="db-atlas-prose-col">
+      <div class="db-atlas-kicker" style="margin-bottom:14px;">
+        Session {% if page.date %}{{ page.date | date: "%Y-%m-%d" }}{% endif %} · {{ page.target | default: "—" }}
+      </div>
+
+      <h2 class="db-atlas-h1">{{ page.title }}</h2>
+
+      {% if page.description %}
+      <p class="db-atlas-lede">{{ page.description }}</p>
+      {% endif %}
+
+      <div class="db-atlas-prose">
+        {{ content }}
+      </div>
+
+      {% if page.gear %}
+      <div class="db-atlas-sidenotes">
+        {% if page.gear.telescope %}
+        <div>
+          <span class="db-atlas-sidenote-mark">↳ Apparatus</span>
+          {{ page.gear.telescope }}{% if page.gear.camera %} · {{ page.gear.camera }}{% endif %}{% if page.gear.filter %} · {{ page.gear.filter }}{% endif %}
+        </div>
+        {% endif %}
+        {% if page.gear.software %}
+        <div>
+          <span class="db-atlas-sidenote-mark">↳ Pipeline</span>
+          {{ page.gear.software }}
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if page.gear.software %}
+      {% assign sw_steps = page.gear.software | split: " · " %}
+      <div class="db-atlas-pipeline">
+        {% for step in sw_steps %}
+        <span>{{ step }}</span>
+        {% unless forloop.last %}<span class="db-atlas-pipeline-arrow">→</span>{% endunless %}
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div><!-- /db-atlas-cols -->
+
+  <!-- Atlas folio strip -->
+  <div class="db-atlas-folio">
+    <span>plate · {{ page.target | default: "—" }}</span>
+    <span>continued on next plate →</span>
+    <span>Khoje · {{ page.date | date: "%Y" }}</span>
   </div>
 </div>
 
@@ -337,47 +574,43 @@ layout: default
 
 <script>
 (function() {
-  // ── BUILD TOC STRIP ─────────────────────────────────────────────────
-  function buildToc() {
-    const strip = document.getElementById('db-toc-strip');
+
+  // ── INLINE TOC + SCROLL-SPY ──────────────────────────────────────────
+  function buildInlineToc() {
+    const buttons = document.getElementById('db-toc-buttons');
     const prose = document.getElementById('db-prose');
-    if (!strip || !prose) return;
+    if (!buttons || !prose) return;
 
     const headings = Array.from(prose.querySelectorAll('h2'));
-    // Also include named data-sec sections outside prose
-    const dataSecs = Array.from(document.querySelectorAll('[data-sec]'))
-      .filter(el => !el.closest('.db-hero'));
+    if (headings.length === 0) return;
 
-    const items = headings.map((h, i) => {
+    headings.forEach((h, i) => {
       if (!h.id) h.id = 'db-h-' + i;
-      return { el: h, label: h.textContent.trim() };
     });
 
-    items.forEach(({ el, label }, i) => {
+    headings.forEach((h, i) => {
       const btn = document.createElement('button');
       btn.className = 'db-toc-btn';
-      btn.textContent = String(i + 1).padStart(2, '0') + ' ' + label.toUpperCase().slice(0, 22);
-      btn.setAttribute('data-target', el.id);
-      btn.addEventListener('click', () => {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-      strip.appendChild(btn);
+      btn.textContent = String(i + 1).padStart(2, '0') + ' ' + h.textContent.trim().split('—')[0].trim().slice(0, 20);
+      btn.setAttribute('data-target', h.id);
+      btn.addEventListener('click', () => h.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+      buttons.appendChild(btn);
     });
 
     // Scroll-spy
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
-        strip.querySelectorAll('.db-toc-btn').forEach(b => b.classList.remove('db-toc-btn--active'));
-        const btn = strip.querySelector(`[data-target="${e.target.id}"]`);
+        buttons.querySelectorAll('.db-toc-btn').forEach(b => b.classList.remove('db-toc-btn--active'));
+        const btn = buttons.querySelector('[data-target="' + e.target.id + '"]');
         if (btn) btn.classList.add('db-toc-btn--active');
       });
     }, { rootMargin: '-20% 0px -70% 0px' });
 
-    items.forEach(({ el }) => obs.observe(el));
+    headings.forEach(h => obs.observe(h));
   }
 
-  // ── BEFORE/AFTER SLIDER ─────────────────────────────────────────────
+  // ── BEFORE/AFTER SLIDER ──────────────────────────────────────────────
   function initBA() {
     const track = document.getElementById('db-ba');
     if (!track) return;
@@ -388,7 +621,7 @@ layout: default
     function setPos(clientX) {
       const r = track.getBoundingClientRect();
       const pct = Math.max(0, Math.min(100, ((clientX - r.left) / r.width) * 100));
-      before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+      before.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
       divider.style.left = pct + '%';
     }
 
@@ -403,7 +636,7 @@ layout: default
     setPos(r.left + r.width * 0.5);
   }
 
-  // ── TO-TOP ──────────────────────────────────────────────────────────
+  // ── TO-TOP ───────────────────────────────────────────────────────────
   function initToTop() {
     const btn = document.getElementById('to-top-button');
     if (!btn) return;
@@ -411,54 +644,90 @@ layout: default
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
-  // ── DEEP-SPACE SVG PLACEHOLDER ──────────────────────────────────────
+  // ── AURORA SVG HERO PLACEHOLDER ──────────────────────────────────────
   function renderPlaceholder() {
     const el = document.getElementById('db-hero-placeholder');
     if (!el) return;
-    el.innerHTML = `<svg viewBox="0 0 1600 720" preserveAspectRatio="xMidYMid slice"
-      style="width:100%;height:100%;display:block;">
-      <defs>
-        <radialGradient id="db-core" cx="50%" cy="48%" r="22%">
-          <stop offset="0%" stop-color="#fff6e8"/>
-          <stop offset="18%" stop-color="#ffd9a0" stop-opacity="0.95"/>
-          <stop offset="45%" stop-color="#ff9560" stop-opacity="0.7"/>
-          <stop offset="75%" stop-color="#c4485a" stop-opacity="0.35"/>
-          <stop offset="100%" stop-color="#3a1530" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="db-ha" cx="50%" cy="50%" r="62%">
-          <stop offset="0%" stop-color="#ff9a3c" stop-opacity="0"/>
-          <stop offset="35%" stop-color="#d36e10" stop-opacity="0.55"/>
-          <stop offset="65%" stop-color="#7a3a10" stop-opacity="0.35"/>
-          <stop offset="100%" stop-color="#1a0e06" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="db-oiii" cx="62%" cy="28%" r="22%">
-          <stop offset="0%" stop-color="#6ad5e8" stop-opacity="0.85"/>
-          <stop offset="50%" stop-color="#38a4b9" stop-opacity="0.45"/>
-          <stop offset="100%" stop-color="#0e2a35" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="db-sky" cx="50%" cy="50%" r="80%">
-          <stop offset="0%" stop-color="#0e1628"/>
-          <stop offset="60%" stop-color="#080e1a"/>
-          <stop offset="100%" stop-color="#030608"/>
-        </radialGradient>
-        <filter id="db-blur"><feGaussianBlur stdDeviation="0.8"/></filter>
-      </defs>
-      <rect width="1600" height="720" fill="url(#db-sky)"/>
-      <ellipse cx="800" cy="360" rx="780" ry="345" fill="url(#db-ha)" opacity="0.85"/>
-      <ellipse cx="990" cy="210" rx="280" ry="145" fill="url(#db-oiii)"/>
-      <ellipse cx="800" cy="346" rx="320" ry="175" fill="url(#db-core)"/>
-      <circle cx="792" cy="338" r="7.5" fill="#fff6e8" opacity="0.3" filter="url(#db-blur)"/>
-      <circle cx="792" cy="338" r="3.4" fill="#fff"/>
-      <circle cx="810" cy="344" r="6" fill="#fff6e8" opacity="0.3" filter="url(#db-blur)"/>
-      <circle cx="810" cy="344" r="2.8" fill="#fff"/>
-    </svg>`;
+    el.innerHTML = '<svg viewBox="0 0 1600 720" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;"><defs>'
+      + '<radialGradient id="dbp-sky" cx="50%" cy="50%" r="80%"><stop offset="0%" stop-color="#0e1628"/><stop offset="60%" stop-color="#080e1a"/><stop offset="100%" stop-color="#030608"/></radialGradient>'
+      + '<radialGradient id="dbp-ha" cx="50%" cy="50%" r="62%"><stop offset="0%" stop-color="#ff9a3c" stop-opacity="0"/><stop offset="35%" stop-color="#d36e10" stop-opacity="0.55"/><stop offset="65%" stop-color="#7a3a10" stop-opacity="0.35"/><stop offset="100%" stop-color="#1a0e06" stop-opacity="0"/></radialGradient>'
+      + '<radialGradient id="dbp-oiii" cx="62%" cy="28%" r="22%"><stop offset="0%" stop-color="#6ad5e8" stop-opacity="0.85"/><stop offset="50%" stop-color="#38a4b9" stop-opacity="0.45"/><stop offset="100%" stop-color="#0e2a35" stop-opacity="0"/></radialGradient>'
+      + '<radialGradient id="dbp-core" cx="50%" cy="48%" r="22%"><stop offset="0%" stop-color="#fff6e8"/><stop offset="18%" stop-color="#ffd9a0" stop-opacity="0.95"/><stop offset="45%" stop-color="#ff9a3c" stop-opacity="0.7"/><stop offset="100%" stop-color="#3a1530" stop-opacity="0"/></radialGradient>'
+      + '<filter id="dbp-blur"><feGaussianBlur stdDeviation="0.8"/></filter>'
+      + '</defs>'
+      + '<rect width="1600" height="720" fill="url(#dbp-sky)"/>'
+      + '<ellipse cx="800" cy="360" rx="780" ry="345" fill="url(#dbp-ha)" opacity="0.85"/>'
+      + '<ellipse cx="990" cy="210" rx="280" ry="145" fill="url(#dbp-oiii)"/>'
+      + '<ellipse cx="800" cy="346" rx="320" ry="175" fill="url(#dbp-core)"/>'
+      + '<circle cx="792" cy="338" r="7.5" fill="#fff6e8" opacity="0.3" filter="url(#dbp-blur)"/><circle cx="792" cy="338" r="3.4" fill="#fff"/>'
+      + '<circle cx="810" cy="344" r="6" fill="#fff6e8" opacity="0.3" filter="url(#dbp-blur)"/><circle cx="810" cy="344" r="2.8" fill="#fff"/>'
+      + '<circle cx="400" cy="180" r="4" fill="#fff6e8" opacity="0.2" filter="url(#dbp-blur)"/><circle cx="400" cy="180" r="1.8" fill="#fffaf0"/>'
+      + '<circle cx="1200" cy="120" r="3" fill="#fff6e8" opacity="0.25" filter="url(#dbp-blur)"/><circle cx="1200" cy="120" r="1.3" fill="#fffaf0"/>'
+      + '<circle cx="300" cy="500" r="2.4" fill="#fff6e8" opacity="0.2" filter="url(#dbp-blur)"/><circle cx="300" cy="500" r="1.1" fill="#fffaf0"/>'
+      + '<circle cx="1350" cy="560" r="3.5" fill="#fff6e8" opacity="0.22" filter="url(#dbp-blur)"/><circle cx="1350" cy="560" r="1.6" fill="#fffaf0"/>'
+      + '</svg>';
+  }
+
+  // ── IMAGE VARIANT TABS ───────────────────────────────────────────────
+  function initTabs() {
+    const tabs = document.querySelectorAll('.db-tab[data-src]');
+    const img = document.getElementById('db-hero-img');
+    if (!tabs.length || !img) return;
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const src = tab.getAttribute('data-src');
+        if (!src || src === 'null' || src === '' || src === '/') return;
+        tabs.forEach(t => t.classList.remove('db-tab--active'));
+        tab.classList.add('db-tab--active');
+        img.src = src;
+      });
+    });
+  }
+
+  // ── ASTRO THEME TOGGLE ───────────────────────────────────────────────
+  function initAstroThemeToggle() {
+    var toggle = document.getElementById('astro-theme-toggle');
+    if (!toggle) return;
+
+    function currentTheme() {
+      if (document.documentElement.classList.contains('theme-atlas')) return 'theme-atlas';
+      if (document.documentElement.classList.contains('theme-night')) return 'theme-night';
+      document.documentElement.classList.add('theme-night');
+      return 'theme-night';
+    }
+
+    function labelFor(theme) {
+      return theme === 'theme-atlas' ? '◑ Night' : '◐ Atlas';
+    }
+
+    toggle.textContent = labelFor(currentTheme());
+
+    toggle.addEventListener('click', function() {
+      var current = currentTheme();
+      var next = current === 'theme-atlas' ? 'theme-night' : 'theme-atlas';
+      document.documentElement.classList.remove(current);
+      document.documentElement.classList.add(next);
+      try { localStorage.setItem('astro-theme', next); } catch (e) {}
+      toggle.textContent = labelFor(next);
+    });
+  }
+
+  // ── NO-COPY PROTECTION ───────────────────────────────────────────────
+  function initNoCopy() {
+    document.querySelectorAll('.db-hero-img, .db-image-frame img').forEach(el => {
+      el.addEventListener('contextmenu', e => e.preventDefault());
+      el.addEventListener('dragstart', e => e.preventDefault());
+    });
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    buildToc();
+    buildInlineToc();
+    initTabs();
     initBA();
     initToTop();
+    initNoCopy();
     renderPlaceholder();
+    initAstroThemeToggle();
   });
 })();
 </script>
