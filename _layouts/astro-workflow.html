@@ -97,10 +97,14 @@ layout: default
       <div class="db-tab-strip" id="db-tab-strip">
         <button class="db-tab db-tab--active" data-variant="final"
                 data-src="{{ page.hero_image | relative_url }}">● Final</button>
+        {% if page.starless_image %}
         <button class="db-tab" data-variant="starless"
                 data-src="{{ page.starless_image | relative_url }}">Starless</button>
+        {% endif %}
+        {% if page.bw_image %}
         <button class="db-tab" data-variant="bw"
                 data-src="{{ page.bw_image | relative_url }}">B&amp;W</button>
+        {% endif %}
       </div>
 
       <!-- Action bar — only external links, no download/filler -->
