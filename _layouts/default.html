@@ -11,13 +11,16 @@
   <script>
     (function() {
       var forced = {% if page.theme %}{{ page.theme | jsonify }}{% else %}null{% endif %};
-      var saved = localStorage.getItem('theme');
+      var saved;
+      try { saved = localStorage.getItem('theme'); } catch(e) { saved = null; }
       var preferred = forced || saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.documentElement.setAttribute('data-theme', preferred);
-      if (forced) localStorage.setItem('theme', forced);
+      if (forced) { try { localStorage.setItem('theme', forced); } catch(e) {} }
     })();
   </script>
   <link rel="stylesheet" href="{{ '/assets/css/portfolio.css' | relative_url }}" />
+  {% if page.layout == 'astro-workflow' or page.body_class == 'astro-page' %}{% include astro-head.html %}{% endif %}
+  {% if page.extra_head %}{{ page.extra_head }}{% endif %}
   {% seo %}
 </head>
 <body class="{{ page.body_class | default: '' }}">
@@ -59,7 +62,7 @@
 
       function applyTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
+        try { localStorage.setItem('theme', theme); } catch(e) {}
         if (theme === 'light') {
           sun.style.display = 'block';
           moon.style.display = 'none';
