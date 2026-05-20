@@ -333,10 +333,10 @@ body_class: astro-page
   }
 
   function labelFor(theme) {
-    return theme === 'theme-atlas' ? '&#x25D1; Night' : '&#x25D0; Atlas';
+    return theme === 'theme-atlas' ? '◑ Night' : '◐ Atlas';
   }
 
-  toggle.innerHTML = labelFor(currentTheme());
+  toggle.textContent = labelFor(currentTheme());
 
   toggle.addEventListener('click', function() {
     var current = currentTheme();
