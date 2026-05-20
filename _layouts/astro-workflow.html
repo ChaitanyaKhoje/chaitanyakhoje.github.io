@@ -35,7 +35,7 @@ layout: default
       {% else %}
       <span>Next →</span>
       {% endif %}
-      <button id="astro-theme-toggle" class="al-theme-toggle night-theme-toggle" aria-label="Switch astrophotography theme"></button>
+      <button class="al-theme-toggle astro-theme-toggle night-theme-toggle" aria-label="Switch astrophotography theme"></button>
     </div>
   </header>
 
@@ -294,7 +294,7 @@ layout: default
     <div class="db-inline-toc-inner">
       <a class="db-inline-back" href="{{ '/astrophotography/' | relative_url }}">← Back</a>
       <span class="db-inline-sep"></span>
-      <button id="astro-theme-toggle" class="al-theme-toggle" aria-label="Switch astrophotography theme"></button>
+      <button class="al-theme-toggle astro-theme-toggle" aria-label="Switch astrophotography theme"></button>
       <div class="db-inline-buttons" id="db-toc-buttons"></div>
       <span class="db-inline-spacer"></span>
       <span class="db-status-live db-inline-status">
@@ -686,8 +686,8 @@ layout: default
 
   // ── ASTRO THEME TOGGLE ───────────────────────────────────────────────
   function initAstroThemeToggle() {
-    var toggle = document.getElementById('astro-theme-toggle');
-    if (!toggle) return;
+    var toggles = Array.prototype.slice.call(document.querySelectorAll('.astro-theme-toggle'));
+    if (!toggles.length) return;
 
     function currentTheme() {
       if (document.documentElement.classList.contains('theme-atlas')) return 'theme-atlas';
@@ -700,15 +700,24 @@ layout: default
       return theme === 'theme-atlas' ? '◑ Night' : '◐ Atlas';
     }
 
-    toggle.textContent = labelFor(currentTheme());
+    function syncLabels() {
+      var label = labelFor(currentTheme());
+      toggles.forEach(function(toggle) {
+        toggle.textContent = label;
+      });
+    }
 
-    toggle.addEventListener('click', function() {
-      var current = currentTheme();
-      var next = current === 'theme-atlas' ? 'theme-night' : 'theme-atlas';
-      document.documentElement.classList.remove(current);
-      document.documentElement.classList.add(next);
-      try { localStorage.setItem('astro-theme', next); } catch (e) {}
-      toggle.textContent = labelFor(next);
+    syncLabels();
+
+    toggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function() {
+        var current = currentTheme();
+        var next = current === 'theme-atlas' ? 'theme-night' : 'theme-atlas';
+        document.documentElement.classList.remove(current);
+        document.documentElement.classList.add(next);
+        try { localStorage.setItem('astro-theme', next); } catch (e) {}
+        syncLabels();
+      });
     });
   }
 

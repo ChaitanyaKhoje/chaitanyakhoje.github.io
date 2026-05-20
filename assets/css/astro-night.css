@@ -110,6 +110,17 @@ html.theme-night .night-theme-toggle {
   margin-left: 6px;
 }
 
+html.theme-night .al-theme-toggle {
+  border: 1px solid var(--rule);
+  background: rgba(236,229,212,0.04);
+  color: var(--ink);
+}
+
+html.theme-night .al-theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 html.theme-night .night-shell {
   padding: 0 0 56px;
 }

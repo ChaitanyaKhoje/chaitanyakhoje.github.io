@@ -32,7 +32,7 @@ body_class: astro-page
       <a href="{{ '/' | relative_url }}">Portfolio</a>
       <a class="is-active" href="{{ '/astrophotography/' | relative_url }}">Astrophotography</a>
       <a href="#archive">Archive</a>
-      <button id="astro-theme-toggle" class="al-theme-toggle night-theme-toggle" aria-label="Switch astrophotography theme"></button>
+      <button class="al-theme-toggle astro-theme-toggle night-theme-toggle" aria-label="Switch astrophotography theme"></button>
     </div>
   </header>
 
@@ -135,7 +135,7 @@ body_class: astro-page
     <div class="al-status-strip">
       <a class="al-back-link" href="{{ '/' | relative_url }}">← Portfolio</a>
       <span class="al-spacer"></span>
-      <button id="astro-theme-toggle" class="al-theme-toggle" aria-label="Switch astrophotography theme"></button>
+      <button class="al-theme-toggle astro-theme-toggle" aria-label="Switch astrophotography theme"></button>
       <span class="al-status-live">
         <span class="al-status-dot"></span>
         Station · Operational
@@ -547,8 +547,8 @@ body_class: astro-page
 
 <script>
 (function() {
-  var toggle = document.getElementById('astro-theme-toggle');
-  if (!toggle) return;
+  var toggles = Array.prototype.slice.call(document.querySelectorAll('.astro-theme-toggle'));
+  if (!toggles.length) return;
 
   function currentTheme() {
     if (document.documentElement.classList.contains('theme-atlas')) return 'theme-atlas';
@@ -561,15 +561,24 @@ body_class: astro-page
     return theme === 'theme-atlas' ? '◑ Night' : '◐ Atlas';
   }
 
-  toggle.textContent = labelFor(currentTheme());
+  function syncLabels() {
+    var label = labelFor(currentTheme());
+    toggles.forEach(function(toggle) {
+      toggle.textContent = label;
+    });
+  }
 
-  toggle.addEventListener('click', function() {
-    var current = currentTheme();
-    var next = current === 'theme-atlas' ? 'theme-night' : 'theme-atlas';
-    document.documentElement.classList.remove(current);
-    document.documentElement.classList.add(next);
-    try { localStorage.setItem('astro-theme', next); } catch (e) {}
-    toggle.textContent = labelFor(next);
+  syncLabels();
+
+  toggles.forEach(function(toggle) {
+    toggle.addEventListener('click', function() {
+      var current = currentTheme();
+      var next = current === 'theme-atlas' ? 'theme-night' : 'theme-atlas';
+      document.documentElement.classList.remove(current);
+      document.documentElement.classList.add(next);
+      try { localStorage.setItem('astro-theme', next); } catch (e) {}
+      syncLabels();
+    });
   });
 })();
 </script>

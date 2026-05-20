@@ -13,6 +13,11 @@ html.theme-atlas .al-listing {
   min-height: 100vh;
 }
 
+html.theme-atlas .astro-listing-wrap {
+  background: var(--paper);
+  color: var(--ink);
+}
+
 /* Cartographic grid overlay */
 html.theme-atlas .al-listing::before {
   content: "";
@@ -714,8 +719,98 @@ html.theme-atlas .db-atlas-prose {
   color: var(--ink-mid);
 }
 
+html.theme-atlas .db-atlas-prose > *:first-child {
+  margin-top: 0;
+}
+
 html.theme-atlas .db-atlas-prose p + p {
   margin-top: 14px;
+}
+
+html.theme-atlas .db-atlas-prose h2 {
+  margin: 30px 0 10px;
+  font-family: var(--display);
+  font-size: clamp(30px, 3vw, 44px);
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+html.theme-atlas .db-atlas-prose h3 {
+  margin: 22px 0 8px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+html.theme-atlas .db-atlas-prose strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+html.theme-atlas .db-atlas-prose a {
+  color: var(--accent);
+  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  text-underline-offset: 0.18em;
+}
+
+html.theme-atlas .db-atlas-prose ul,
+html.theme-atlas .db-atlas-prose ol {
+  margin: 14px 0 18px 22px;
+}
+
+html.theme-atlas .db-atlas-prose li + li {
+  margin-top: 6px;
+}
+
+html.theme-atlas .db-atlas-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0 24px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+}
+
+html.theme-atlas .db-atlas-prose th,
+html.theme-atlas .db-atlas-prose td {
+  padding: 8px 10px 8px 0;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+html.theme-atlas .db-atlas-prose th {
+  color: var(--ink-sub);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+html.theme-atlas .db-atlas-prose blockquote {
+  margin: 22px 0;
+  padding: 14px 0 14px 18px;
+  border-left: 2px solid var(--accent);
+  color: var(--ink);
+  font-style: italic;
+}
+
+html.theme-atlas .db-atlas-prose pre {
+  margin: 16px 0 22px;
+  padding: 14px 16px;
+  border: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--paper-d) 56%, white);
+  overflow-x: auto;
+}
+
+html.theme-atlas .db-atlas-prose code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  color: var(--ink);
 }
 
 html.theme-atlas .db-atlas-sidenotes {
@@ -782,19 +877,46 @@ html.theme-atlas .al-scene-bg {
   display: none;
 }
 
-/* Corner panels: keep but adopt atlas palette */
-html.theme-atlas .db-corner-panel {
-  border-color: var(--ink);
-  background: var(--paper);
-}
-
-/* Existing structural elements: transparent so atlas bg shows through */
+/* Hide legacy dark/dashboard sections so Atlas is not visually mixed with old chrome. */
+html.theme-atlas .al-head,
+html.theme-atlas .al-sec-label,
+html.theme-atlas .al-featured,
+html.theme-atlas .al-session-grid,
+html.theme-atlas .al-method,
+html.theme-atlas .al-footer,
 html.theme-atlas .db-hero,
 html.theme-atlas .db-inline-toc,
 html.theme-atlas .db-sidebar,
 html.theme-atlas .db-main,
-html.theme-atlas .db-body {
+html.theme-atlas .db-body,
+html.theme-atlas .db-footer {
+  display: none;
+}
+
+html.theme-atlas .al-mission-bar {
+  background: color-mix(in srgb, var(--paper) 92%, white);
+  border-bottom: 1px solid var(--rule);
+}
+
+html.theme-atlas .al-status-strip,
+html.theme-atlas .al-back-link,
+html.theme-atlas .al-status-live {
+  color: var(--ink);
+}
+
+html.theme-atlas .al-theme-toggle {
+  border: 1px solid var(--ink);
   background: transparent;
+  color: var(--ink);
+}
+
+html.theme-atlas .al-theme-toggle:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+html.theme-atlas .db-wrap {
+  background: var(--paper);
   color: var(--ink);
 }
 
