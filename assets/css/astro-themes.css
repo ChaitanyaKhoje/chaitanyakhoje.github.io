@@ -7,6 +7,8 @@
 body.theme-atlas {
   --paper:      #ede6d3;
   --paper-d:    #ddd4be;
+  --bg:         #ede6d3;   /* alias for --paper */
+  --bg-2:       #ddd4be;   /* alias for --paper-d */
   --ink:        #1a1f2b;
   --ink-mid:    #4a4a4a;
   --ink-sub:    #786c54;
@@ -14,9 +16,12 @@ body.theme-atlas {
   --rule-soft:  rgba(26,31,43,0.08);
   --accent:     #a04a2e;    /* burnt sienna */
   --indigo:     #2c3a5a;   /* deep ink secondary */
+  --cyan:       #2c3a5a;   /* nearest cool accent, aliases --indigo */
   --mono:       "JetBrains Mono", ui-monospace, monospace;
   --serif:      "Spectral", Georgia, serif;
   --display:    "Italiana", "Bodoni Moda", serif;
+  --sans:       system-ui, -apple-system, sans-serif;
+  --body:       "Spectral", Georgia, serif;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -26,11 +31,15 @@ body.theme-atlas {
 body.theme-night {
   --bg:         #07080b;
   --bg-2:       #0d0f14;
+  --paper:      #07080b;   /* alias for --bg */
+  --paper-d:    #0d0f14;   /* alias for --bg-2 */
   --ink:        #ece5d4;
   --ink-mid:    #a89f8a;
   --ink-sub:    #6a6357;
   --rule:       rgba(236,229,212,0.10);
+  --rule-soft:  rgba(236,229,212,0.05);
   --accent:     #d4a76a;   /* warm gold */
+  --indigo:     #6fc7d4;   /* nearest cool secondary, aliases --cyan */
   --cyan:       #6fc7d4;
   --display:    "Newsreader", "Times New Roman", serif;
   --sans:       "Space Grotesk", -apple-system, sans-serif;
