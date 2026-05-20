@@ -8,12 +8,11 @@ layout: default
 <link rel="stylesheet" href="{{ '/assets/css/astro-themes.css' | relative_url }}" />
 <script>
 (function() {
-  var saved = localStorage.getItem('astro-theme');
+  var saved;
+  try { saved = localStorage.getItem('astro-theme'); } catch (e) { saved = null; }
   var theme;
   if (saved === 'theme-atlas' || saved === 'theme-night') {
     theme = saved;
-  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    theme = 'theme-night';
   } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
     theme = 'theme-atlas';
   } else {
@@ -384,8 +383,8 @@ layout: default
       var next = current === 'theme-atlas' ? 'theme-night' : 'theme-atlas';
       document.body.classList.remove(current);
       document.body.classList.add(next);
-      localStorage.setItem('astro-theme', next);
-      toggle.innerHTML = labelFor(next);
+      try { localStorage.setItem('astro-theme', next); } catch (e) {}
+      toggle.textContent = labelFor(next);
     });
   }
 
