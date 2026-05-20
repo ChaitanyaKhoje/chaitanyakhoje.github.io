@@ -1,60 +1,42 @@
-/* astro-night.css — After Dark theme layout rules (Phase 6). All rules scoped under html.theme-night. */
+/* astro-night.css — Astrophotography theme layout rules. Supports theme-night and theme-light. */
 
-html.theme-atlas .night-shell,
-html.theme-atlas .night-post {
-  display: none;
-}
-
-html.theme-night .astro-listing-wrap,
-html.theme-night .db-wrap.post {
-  display: none;
-}
-
-html.theme-night .to-top-button {
-  display: none;
-}
+/* ══════════════════════════════════════════════════════════════════
+   SHARED LAYOUT — applies to both theme-night and theme-light
+   ══════════════════════════════════════════════════════════════════ */
 
 html.theme-night .night-shell,
-html.theme-night .night-post {
+html.theme-night .night-post,
+html.theme-light .night-shell,
+html.theme-light .night-post {
   position: relative;
   min-height: 100vh;
   background: var(--bg);
   color: var(--ink);
+}
+
+html.theme-night .night-shell,
+html.theme-light .night-shell {
   overflow: hidden;
 }
 
-html.theme-night .night-shell::before,
-html.theme-night .night-post::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(92,109,255,0.16), transparent 32%),
-    radial-gradient(circle at 78% 36%, rgba(255,121,59,0.08), transparent 28%),
-    linear-gradient(180deg, rgba(5,6,10,0.56), rgba(5,6,10,0.84));
-  z-index: 0;
-}
-
 html.theme-night .night-shell > *,
-html.theme-night .night-post > * {
+html.theme-night .night-post > *,
+html.theme-light .night-shell > *,
+html.theme-light .night-post > * {
   position: relative;
   z-index: 1;
 }
 
-html.theme-night .night-scene-bg {
+html.theme-night .night-scene-bg,
+html.theme-light .night-scene-bg {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(circle at 50% 18%, transparent 0%, rgba(5,6,10,0.05) 55%, rgba(5,6,10,0.22) 100%),
-    radial-gradient(circle at 68% 30%, rgba(111,199,212,0.15), transparent 34%),
-    radial-gradient(circle at 50% 55%, rgba(212,167,106,0.12), transparent 54%);
-  opacity: 0.95;
   z-index: 0;
 }
 
-html.theme-night .night-mast {
+html.theme-night .night-mast,
+html.theme-light .night-mast {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -69,7 +51,8 @@ html.theme-night .night-mast {
   z-index: 20;
 }
 
-html.theme-night .night-brand {
+html.theme-night .night-brand,
+html.theme-light .night-brand {
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.16em;
@@ -78,12 +61,14 @@ html.theme-night .night-brand {
   white-space: nowrap;
 }
 
-html.theme-night .night-brand em {
+html.theme-night .night-brand em,
+html.theme-light .night-brand em {
   font-style: italic;
   color: var(--accent);
 }
 
-html.theme-night .night-nav {
+html.theme-night .night-nav,
+html.theme-light .night-nav {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -92,7 +77,9 @@ html.theme-night .night-nav {
 }
 
 html.theme-night .night-nav a,
-html.theme-night .night-nav span {
+html.theme-night .night-nav span,
+html.theme-light .night-nav a,
+html.theme-light .night-nav span {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.13em;
@@ -102,38 +89,48 @@ html.theme-night .night-nav span {
 }
 
 html.theme-night .night-nav a.is-active,
-html.theme-night .night-nav span.is-active {
+html.theme-night .night-nav span.is-active,
+html.theme-light .night-nav a.is-active,
+html.theme-light .night-nav span.is-active {
   color: var(--accent);
 }
 
-html.theme-night .night-theme-toggle {
-  margin-left: 6px;
-}
-
-html.theme-night .al-theme-toggle {
+html.theme-night .astro-theme-toggle,
+html.theme-light .astro-theme-toggle {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
   border: 1px solid var(--rule);
-  background: rgba(236,229,212,0.04);
-  color: var(--ink);
+  background: transparent;
+  color: var(--ink-sub);
+  cursor: pointer;
+  padding: 3px 8px;
+  margin-left: 4px;
 }
 
-html.theme-night .al-theme-toggle:hover {
+html.theme-night .astro-theme-toggle:hover,
+html.theme-light .astro-theme-toggle:hover {
   border-color: var(--accent);
   color: var(--accent);
 }
 
-html.theme-night .night-shell {
+html.theme-night .night-shell,
+html.theme-light .night-shell {
   padding: 0 0 56px;
 }
 
-html.theme-night .night-intro {
+html.theme-night .night-intro,
+html.theme-light .night-intro {
   padding: 20px 40px 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 1fr);
   gap: 60px;
-  align-items: end;
+  align-items: start;
 }
 
-html.theme-night .night-num {
+html.theme-night .night-num,
+html.theme-light .night-num {
   margin-bottom: 22px;
   font-family: var(--mono);
   font-size: 11px;
@@ -142,7 +139,8 @@ html.theme-night .night-num {
   color: var(--ink-sub);
 }
 
-html.theme-night .night-h1 {
+html.theme-night .night-h1,
+html.theme-light .night-h1 {
   font-family: var(--display);
   font-size: clamp(48px, 6vw, 82px);
   line-height: 0.96;
@@ -151,12 +149,14 @@ html.theme-night .night-h1 {
   color: var(--ink);
 }
 
-html.theme-night .night-h1 em {
+html.theme-night .night-h1 em,
+html.theme-light .night-h1 em {
   color: var(--accent);
   font-style: italic;
 }
 
-html.theme-night .night-lede {
+html.theme-night .night-lede,
+html.theme-light .night-lede {
   font-family: var(--body);
   font-size: 15px;
   line-height: 1.68;
@@ -164,7 +164,8 @@ html.theme-night .night-lede {
   max-width: 58ch;
 }
 
-html.theme-night .night-stats {
+html.theme-night .night-stats,
+html.theme-light .night-stats {
   margin-top: 24px;
   display: flex;
   gap: 40px;
@@ -176,20 +177,24 @@ html.theme-night .night-stats {
   color: var(--ink-sub);
 }
 
-html.theme-night .night-stats span {
+html.theme-night .night-stats span,
+html.theme-light .night-stats span {
   color: var(--accent);
 }
 
-html.theme-night .night-feed {
+html.theme-night .night-feed,
+html.theme-light .night-feed {
   padding: 44px 40px 0;
 }
 
-html.theme-night .night-feed-rule {
+html.theme-night .night-feed-rule,
+html.theme-light .night-feed-rule {
   border-top: 1px solid var(--rule);
   margin-top: 0;
 }
 
-html.theme-night .feed-row {
+html.theme-night .feed-row,
+html.theme-light .feed-row {
   display: grid;
   grid-template-columns: 72px minmax(0, 1.2fr) minmax(220px, 300px) minmax(180px, 220px);
   gap: 24px;
@@ -200,11 +205,13 @@ html.theme-night .feed-row {
   text-decoration: none;
 }
 
-html.theme-night .feed-row:hover {
-  background: rgba(212,167,106,0.04);
+html.theme-night .feed-row:hover,
+html.theme-light .feed-row:hover {
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
 }
 
-html.theme-night .feed-row .idx {
+html.theme-night .feed-row .idx,
+html.theme-light .feed-row .idx {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.13em;
@@ -214,15 +221,17 @@ html.theme-night .feed-row .idx {
   padding-top: 6px;
 }
 
-html.theme-night .feed-title {
+html.theme-night .feed-title,
+html.theme-light .feed-title {
   font-family: var(--display);
-  font-size: clamp(28px, 3vw, 40px);
-  line-height: 1.02;
+  font-size: clamp(18px, 1.6vw, 24px);
+  line-height: 1.2;
   letter-spacing: 0;
   color: var(--ink);
 }
 
-html.theme-night .feed-desig {
+html.theme-night .feed-desig,
+html.theme-light .feed-desig {
   margin-top: 10px;
   font-family: var(--body);
   font-size: 14.5px;
@@ -230,28 +239,33 @@ html.theme-night .feed-desig {
   color: var(--ink-mid);
 }
 
-html.theme-night .feed-desig em {
+html.theme-night .feed-desig em,
+html.theme-light .feed-desig em {
   font-style: italic;
   color: var(--accent);
 }
 
-html.theme-night .feed-thumb {
+html.theme-night .feed-thumb,
+html.theme-light .feed-thumb {
   position: relative;
   overflow: hidden;
   min-height: 180px;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid var(--rule);
   background: var(--bg-2);
 }
 
 html.theme-night .feed-thumb img,
-html.theme-night .feed-thumb svg {
+html.theme-night .feed-thumb svg,
+html.theme-light .feed-thumb img,
+html.theme-light .feed-thumb svg {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-html.theme-night .feed-thumb .thumb-label {
+html.theme-night .feed-thumb .thumb-label,
+html.theme-light .feed-thumb .thumb-label {
   position: absolute;
   left: 12px;
   bottom: 12px;
@@ -260,18 +274,20 @@ html.theme-night .feed-thumb .thumb-label {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink);
-  background: rgba(7,8,11,0.45);
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
   padding: 4px 6px;
 }
 
-html.theme-night .feed-meta {
+html.theme-night .feed-meta,
+html.theme-light .feed-meta {
   display: grid;
   gap: 10px;
   align-content: start;
   padding-top: 4px;
 }
 
-html.theme-night .feed-meta .row {
+html.theme-night .feed-meta .row,
+html.theme-light .feed-meta .row {
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -282,11 +298,13 @@ html.theme-night .feed-meta .row {
   color: var(--ink-mid);
 }
 
-html.theme-night .feed-meta .k {
+html.theme-night .feed-meta .k,
+html.theme-light .feed-meta .k {
   color: var(--ink-sub);
 }
 
-html.theme-night .night-footer {
+html.theme-night .night-footer,
+html.theme-light .night-footer {
   position: absolute;
   left: 40px;
   right: 40px;
@@ -301,15 +319,18 @@ html.theme-night .night-footer {
   text-transform: uppercase;
 }
 
-html.theme-night .night-footer span:nth-child(2) {
+html.theme-night .night-footer span:nth-child(2),
+html.theme-light .night-footer span:nth-child(2) {
   color: var(--accent);
 }
 
-html.theme-night .night-post {
+html.theme-night .night-post,
+html.theme-light .night-post {
   padding-bottom: 48px;
 }
 
-html.theme-night .night-hero {
+html.theme-night .night-hero,
+html.theme-light .night-hero {
   position: relative;
   margin: 10px 40px 0;
   height: 430px;
@@ -317,7 +338,8 @@ html.theme-night .night-hero {
   overflow: hidden;
 }
 
-html.theme-night .night-hero-media {
+html.theme-night .night-hero-media,
+html.theme-light .night-hero-media {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -326,21 +348,17 @@ html.theme-night .night-hero-media {
 }
 
 html.theme-night .night-hero-media img,
-html.theme-night .night-hero-media svg {
+html.theme-night .night-hero-media svg,
+html.theme-light .night-hero-media img,
+html.theme-light .night-hero-media svg {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-html.theme-night .night-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 52%, rgba(7,8,11,0.38) 72%, rgba(7,8,11,0.86) 100%);
-}
-
-html.theme-night .night-hero-floats {
+html.theme-night .night-hero-floats,
+html.theme-light .night-hero-floats {
   position: absolute;
   left: 20px;
   right: 20px;
@@ -355,22 +373,25 @@ html.theme-night .night-hero-floats {
   color: var(--ink-mid);
 }
 
-html.theme-night .night-hero-floats .plate {
+html.theme-night .night-hero-floats .plate,
+html.theme-light .night-hero-floats .plate {
   color: var(--accent);
 }
 
-html.theme-night .night-hero-title {
+html.theme-night .night-hero-title,
+html.theme-light .night-hero-title {
   position: absolute;
   left: 28px;
   right: 28px;
-  bottom: 26px;
+  top: 26px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 40px;
 }
 
-html.theme-night .night-hero-h1 {
+html.theme-night .night-hero-h1,
+html.theme-light .night-hero-h1 {
   font-family: var(--display);
   max-width: min(820px, 72%);
   font-size: clamp(38px, 4.5vw, 64px);
@@ -381,12 +402,14 @@ html.theme-night .night-hero-h1 {
   text-wrap: balance;
 }
 
-html.theme-night .night-hero-h1 em {
+html.theme-night .night-hero-h1 em,
+html.theme-light .night-hero-h1 em {
   color: var(--accent);
   font-style: italic;
 }
 
-html.theme-night .night-hero-scale {
+html.theme-night .night-hero-scale,
+html.theme-light .night-hero-scale {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.12em;
@@ -396,7 +419,8 @@ html.theme-night .night-hero-scale {
   line-height: 1.8;
 }
 
-html.theme-night .night-body {
+html.theme-night .night-body,
+html.theme-light .night-body {
   padding: 44px 40px 0;
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
@@ -404,27 +428,31 @@ html.theme-night .night-body {
   align-items: start;
 }
 
-html.theme-night .night-prose {
+html.theme-night .night-prose,
+html.theme-light .night-prose {
   font-family: var(--body);
   font-size: 15.5px;
   line-height: 1.7;
   color: var(--ink-mid);
 }
 
-html.theme-night .night-prose .intro {
+html.theme-night .night-prose .intro,
+html.theme-light .night-prose .intro {
   font-family: var(--display);
-  font-size: clamp(22px, 2vw, 30px);
-  line-height: 1.26;
+  font-size: clamp(16px, 1.4vw, 20px);
+  line-height: 1.5;
   letter-spacing: 0;
   color: var(--ink);
   margin-bottom: 24px;
 }
 
-html.theme-night .night-prose p + p {
+html.theme-night .night-prose p + p,
+html.theme-light .night-prose p + p {
   margin-top: 18px;
 }
 
-html.theme-night .night-prose h2 {
+html.theme-night .night-prose h2,
+html.theme-light .night-prose h2 {
   font-family: var(--display);
   font-size: clamp(26px, 2.5vw, 34px);
   line-height: 1.2;
@@ -435,7 +463,8 @@ html.theme-night .night-prose h2 {
   margin-bottom: 14px;
 }
 
-html.theme-night .night-prose h3 {
+html.theme-night .night-prose h3,
+html.theme-light .night-prose h3 {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.14em;
@@ -445,7 +474,8 @@ html.theme-night .night-prose h3 {
   margin-bottom: 8px;
 }
 
-html.theme-night .night-prose table {
+html.theme-night .night-prose table,
+html.theme-light .night-prose table {
   width: 100%;
   border-collapse: collapse;
   margin: 18px 0 22px;
@@ -454,20 +484,24 @@ html.theme-night .night-prose table {
 }
 
 html.theme-night .night-prose th,
-html.theme-night .night-prose td {
+html.theme-night .night-prose td,
+html.theme-light .night-prose th,
+html.theme-light .night-prose td {
   padding: 8px 10px 8px 0;
   border-bottom: 1px solid var(--rule);
   text-align: left;
 }
 
-html.theme-night .night-prose th {
+html.theme-night .night-prose th,
+html.theme-light .night-prose th {
   color: var(--ink-sub);
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
-html.theme-night .night-prose blockquote {
+html.theme-night .night-prose blockquote,
+html.theme-light .night-prose blockquote {
   margin: 24px 0;
   padding: 18px 0;
   border-top: 1px solid var(--rule);
@@ -478,13 +512,19 @@ html.theme-night .night-prose blockquote {
   color: var(--ink);
 }
 
-html.theme-night .night-side {
+html.theme-night .night-side,
+html.theme-light .night-side {
   padding-top: 30px;
   display: grid;
   gap: 22px;
+  position: sticky;
+  top: 60px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
 }
 
-html.theme-night .night-side-title {
+html.theme-night .night-side-title,
+html.theme-light .night-side-title {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.14em;
@@ -493,14 +533,16 @@ html.theme-night .night-side-title {
   margin-bottom: 6px;
 }
 
-html.theme-night .night-side-block {
+html.theme-night .night-side-block,
+html.theme-light .night-side-block {
   font-family: var(--body);
   font-size: 14px;
   line-height: 1.62;
   color: var(--ink-mid);
 }
 
-html.theme-night .night-side-label {
+html.theme-night .night-side-label,
+html.theme-light .night-side-label {
   font-family: var(--sans);
   font-size: 11px;
   letter-spacing: 0.12em;
@@ -509,18 +551,21 @@ html.theme-night .night-side-label {
   margin-bottom: 6px;
 }
 
-html.theme-night .night-side-code {
+html.theme-night .night-side-code,
+html.theme-light .night-side-code {
   font-family: var(--mono);
   font-size: 11px;
   color: var(--ink);
 }
 
-html.theme-night .night-note {
+html.theme-night .night-note,
+html.theme-light .night-note {
   padding-top: 18px;
   border-top: 1px solid var(--rule);
 }
 
-html.theme-night .night-note-date {
+html.theme-night .night-note-date,
+html.theme-light .night-note-date {
   margin-top: 8px;
   font-family: var(--mono);
   font-size: 10px;
@@ -529,7 +574,8 @@ html.theme-night .night-note-date {
   color: var(--ink-sub);
 }
 
-html.theme-night .night-post-footer {
+html.theme-night .night-post-footer,
+html.theme-light .night-post-footer {
   position: absolute;
   left: 40px;
   right: 40px;
@@ -544,68 +590,129 @@ html.theme-night .night-post-footer {
   text-transform: uppercase;
 }
 
-html.theme-night .night-post-footer span:nth-child(2) {
+html.theme-night .night-post-footer span:nth-child(2),
+html.theme-light .night-post-footer span:nth-child(2) {
   color: var(--accent);
 }
 
+/* ══════════════════════════════════════════════════════════════════
+   DARK-ONLY — atmospheric overlays on theme-night
+   ══════════════════════════════════════════════════════════════════ */
+
+html.theme-night .night-shell::before,
+html.theme-night .night-post::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(92,109,255,0.16), transparent 32%),
+    radial-gradient(circle at 78% 36%, rgba(255,121,59,0.08), transparent 28%),
+    linear-gradient(180deg, rgba(5,6,10,0.56), rgba(5,6,10,0.84));
+  z-index: 0;
+}
+
+html.theme-night .night-scene-bg {
+  background:
+    radial-gradient(circle at 50% 18%, transparent 0%, rgba(5,6,10,0.05) 55%, rgba(5,6,10,0.22) 100%),
+    radial-gradient(circle at 68% 30%, rgba(111,199,212,0.15), transparent 34%),
+    radial-gradient(circle at 50% 55%, rgba(212,167,106,0.12), transparent 54%);
+  opacity: 0.95;
+}
+
+html.theme-night .night-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 52%, rgba(7,8,11,0.38) 72%, rgba(7,8,11,0.86) 100%);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LIGHT-ONLY — overrides for theme-light
+   ══════════════════════════════════════════════════════════════════ */
+
+html.theme-light .night-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 52%, rgba(245,242,235,0.32) 72%, rgba(245,242,235,0.82) 100%);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════════════════ */
+
 @media (max-width: 768px) {
-  html.theme-night .night-mast {
+  html.theme-night .night-mast,
+  html.theme-light .night-mast {
     padding: 12px 16px;
     flex-direction: column;
     align-items: flex-start;
   }
 
   html.theme-night .night-intro,
-  html.theme-night .night-body {
+  html.theme-night .night-body,
+  html.theme-light .night-intro,
+  html.theme-light .night-body {
     grid-template-columns: 1fr;
     gap: 28px;
     padding-left: 16px;
     padding-right: 16px;
   }
 
-  html.theme-night .night-feed {
+  html.theme-night .night-feed,
+  html.theme-light .night-feed {
     padding-left: 16px;
     padding-right: 16px;
   }
 
-  html.theme-night .feed-row {
+  html.theme-night .feed-row,
+  html.theme-light .feed-row {
     grid-template-columns: 52px 1fr;
     gap: 12px;
   }
 
   html.theme-night .feed-thumb,
-  html.theme-night .feed-meta {
+  html.theme-night .feed-meta,
+  html.theme-light .feed-thumb,
+  html.theme-light .feed-meta {
     grid-column: 1 / -1;
   }
 
   html.theme-night .night-footer,
-  html.theme-night .night-post-footer {
+  html.theme-night .night-post-footer,
+  html.theme-light .night-footer,
+  html.theme-light .night-post-footer {
     left: 16px;
     right: 16px;
     flex-direction: column;
     align-items: flex-start;
   }
 
-  html.theme-night .night-hero {
+  html.theme-night .night-hero,
+  html.theme-light .night-hero {
     margin: 10px 16px 0;
     height: 360px;
   }
 
-  html.theme-night .night-hero-title {
+  html.theme-night .night-hero-title,
+  html.theme-light .night-hero-title {
     left: 16px;
     right: 16px;
-    bottom: 16px;
+    top: 16px;
     flex-direction: column;
     align-items: flex-start;
     gap: 18px;
   }
 
-  html.theme-night .night-hero-h1 {
+  html.theme-night .night-hero-h1,
+  html.theme-light .night-hero-h1 {
     max-width: 100%;
     font-size: clamp(34px, 10vw, 54px);
   }
 
-  html.theme-night .night-prose .intro {
-    font-size: clamp(21px, 7vw, 28px);
+  html.theme-night .night-prose .intro,
+  html.theme-light .night-prose .intro {
+    font-size: clamp(15px, 4vw, 18px);
   }
 }
