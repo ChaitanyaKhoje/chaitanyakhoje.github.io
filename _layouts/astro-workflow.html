@@ -98,9 +98,11 @@ layout: default
       <div class="plate">● Plate {{ current_number }}</div>
     </div>
 
+    {% assign night_title = page.hero_title | default: page.target | default: page.title %}
+    {% assign night_subtitle = page.hero_subtitle | default: "in the stack." %}
     <div class="night-hero-title">
       <h1 class="night-hero-h1">
-        {{ page.title }}<br /><em>in the stack.</em>
+        {{ night_title }}<br /><em>{{ night_subtitle }}</em>
       </h1>
       <div class="night-hero-scale">
         ─── 10 arcmin ─── <br />
