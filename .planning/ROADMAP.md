@@ -6,7 +6,7 @@
 ## Phases
 
 - [x] **Phase 4: Theme Foundation** — Design tokens, font loading, CSS custom properties, and theme toggle mechanism with prefers-color-scheme + localStorage (completed 2026-05-20)
-- [ ] **Phase 5: Field Atlas** — Light theme listing and post layouts: cartographic cream aesthetic, Italiana display font, atlas index table, two-column post layout
+- [x] **Phase 5: Field Atlas** — Light theme listing and post layouts: cartographic cream aesthetic, Italiana display font, atlas index table, two-column post layout (completed 2026-05-20)
 - [ ] **Phase 6: After Dark** — Dark theme listing and post layouts: cinematic near-black aesthetic, Newsreader italic display, feed-row listing, full-bleed hero post layout
 
 ## Phase Details
@@ -43,11 +43,11 @@ Plans:
 **Plans**: 3 plans
 Plans:
 **Wave 1**
-- [ ] 05-01-PLAN.md — Create assets/css/astro-atlas.css with all Field Atlas listing + post CSS; wire into _includes/astro-head.html
+- [x] 05-01-PLAN.md — Create assets/css/astro-atlas.css with all Field Atlas listing + post CSS; wire into _includes/astro-head.html
 
 **Wave 2** *(blocked on Wave 1 completion)*
-- [ ] 05-02-PLAN.md — Update astrophotography.html with atlas ribbon, atlas-index table, and SVG coordinate chart
-- [ ] 05-03-PLAN.md — Update _layouts/astro-workflow.html with atlas two-column post layout (chart plate, acquisition ledger, sidenotes)
+- [x] 05-02-PLAN.md — Update astrophotography.html with atlas ribbon, atlas-index table, and SVG coordinate chart
+- [x] 05-03-PLAN.md — Update _layouts/astro-workflow.html with atlas two-column post layout (chart plate, acquisition ledger, sidenotes)
 **UI hint**: yes
 
 ### Phase 6: After Dark
@@ -68,7 +68,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 4. Theme Foundation | 2/2 | Complete    | 2026-05-20 |
-| 5. Field Atlas | 0/3 | Not started | - |
+| 5. Field Atlas | 3/3 | Complete    | 2026-05-20 |
 | 6. After Dark | 0/? | Not started | - |
 
 ---
