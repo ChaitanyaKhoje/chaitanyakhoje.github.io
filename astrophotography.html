@@ -10,7 +10,24 @@ body_class: astro-page
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,700&family=Spectral:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="{{ '/assets/css/astro-themes.css' | relative_url }}" />
+<script>
+(function() {
+  var saved = localStorage.getItem('astro-theme');
+  var theme;
+  if (saved === 'theme-atlas' || saved === 'theme-night') {
+    theme = saved;
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    theme = 'theme-night';
+  } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    theme = 'theme-atlas';
+  } else {
+    theme = 'theme-night';
+  }
+  document.body.classList.add(theme);
+})();
+</script>
 
 {% assign astro_posts = site.posts | where: "layout", "astro-workflow" | sort: "date" | reverse %}
 {% assign total_sessions = astro_posts.size %}
@@ -29,6 +46,7 @@ body_class: astro-page
     <div class="al-status-strip">
       <a class="al-back-link" href="{{ '/' | relative_url }}">← Portfolio</a>
       <span class="al-spacer"></span>
+      <button id="astro-theme-toggle" class="al-theme-toggle" aria-label="Switch astrophotography theme"></button>
       <span class="al-status-live">
         <span class="al-status-dot"></span>
         Station · Operational
@@ -306,6 +324,32 @@ body_class: astro-page
   }, { passive: true });
   btn.addEventListener('click', function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+
+<script>
+(function() {
+  var toggle = document.getElementById('astro-theme-toggle');
+  if (!toggle) return;
+
+  function currentTheme() {
+    return document.body.classList.contains('theme-atlas') ? 'theme-atlas' : 'theme-night';
+  }
+
+  function labelFor(theme) {
+    return theme === 'theme-atlas' ? '&#x25D1; Night' : '&#x25D0; Atlas';
+  }
+
+  toggle.innerHTML = labelFor(currentTheme());
+
+  toggle.addEventListener('click', function() {
+    var current = currentTheme();
+    var next = current === 'theme-atlas' ? 'theme-night' : 'theme-atlas';
+    document.body.classList.remove(current);
+    document.body.classList.add(next);
+    localStorage.setItem('astro-theme', next);
+    toggle.innerHTML = labelFor(next);
   });
 })();
 </script>
