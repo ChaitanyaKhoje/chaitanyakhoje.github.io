@@ -29,47 +29,6 @@ layout: default
   <section class="db-hero">
     <div class="db-corner-panel db-corner-panel--teal">
 
-      <!-- Image frame with title overlay -->
-      {% assign night_title = page.hero_title | default: page.target | default: page.title %}
-      {% assign night_subtitle = page.hero_subtitle | default: "in the stack." %}
-      <div class="db-image-frame">
-        {% if page.hero_image %}
-        <img src="{{ page.hero_image | relative_url }}"
-             alt="{{ page.title }}"
-             class="db-hero-img"
-             id="db-hero-img"
-             draggable="false"
-             oncontextmenu="return false" />
-        {% else %}
-        <div class="db-hero-placeholder" id="db-hero-placeholder"></div>
-        {% endif %}
-        <div class="db-hud" aria-hidden="true">
-          <div class="db-corner db-corner--tl"></div>
-          <div class="db-corner db-corner--tr"></div>
-          <div class="db-corner db-corner--bl"></div>
-          <div class="db-corner db-corner--br"></div>
-        </div>
-        <div class="db-hero-title-overlay">
-          <h1 class="db-hero-overlay-h1">{{ night_title }}<br /><em>{{ night_subtitle }}</em></h1>
-        </div>
-      </div>
-
-      <!-- Tab strip — Final / Starless / B&W -->
-      {% if page.hero_image %}
-      <div class="db-tab-strip" id="db-tab-strip">
-        <button class="db-tab db-tab--active" data-variant="final"
-                data-src="{{ page.hero_image | relative_url }}">● Final</button>
-        {% if page.starless_image %}
-        <button class="db-tab" data-variant="starless"
-                data-src="{{ page.starless_image | relative_url }}">Starless</button>
-        {% endif %}
-        {% if page.bw_image %}
-        <button class="db-tab" data-variant="bw"
-                data-src="{{ page.bw_image | relative_url }}">B&amp;W</button>
-        {% endif %}
-      </div>
-      {% endif %}
-
       <!-- Telemetry band -->
       <div class="db-telem-band">
         <div class="db-telem-designation">
@@ -105,9 +64,48 @@ layout: default
         {% endif %}
       </div>
 
-      <!-- Description -->
-      {% if page.description %}
-      <div class="db-hero-desc">{{ page.description }}</div>
+      <!-- Title row -->
+      <div class="db-title-row">
+        <div class="db-title-left">
+          <h1 class="db-h1">{{ page.title }}</h1>
+          {% if page.description %}<p class="db-subtitle">{{ page.description }}</p>{% endif %}
+        </div>
+      </div>
+
+      <!-- Image frame -->
+      <div class="db-image-frame">
+        {% if page.hero_image %}
+        <img src="{{ page.hero_image | relative_url }}"
+             alt="{{ page.title }}"
+             class="db-hero-img"
+             id="db-hero-img"
+             draggable="false"
+             oncontextmenu="return false" />
+        {% else %}
+        <div class="db-hero-placeholder" id="db-hero-placeholder"></div>
+        {% endif %}
+        <div class="db-hud" aria-hidden="true">
+          <div class="db-corner db-corner--tl"></div>
+          <div class="db-corner db-corner--tr"></div>
+          <div class="db-corner db-corner--bl"></div>
+          <div class="db-corner db-corner--br"></div>
+        </div>
+      </div>
+
+      <!-- Tab strip — Final / Starless / B&W -->
+      {% if page.hero_image %}
+      <div class="db-tab-strip" id="db-tab-strip">
+        <button class="db-tab db-tab--active" data-variant="final"
+                data-src="{{ page.hero_image | relative_url }}">● Final</button>
+        {% if page.starless_image %}
+        <button class="db-tab" data-variant="starless"
+                data-src="{{ page.starless_image | relative_url }}">Starless</button>
+        {% endif %}
+        {% if page.bw_image %}
+        <button class="db-tab" data-variant="bw"
+                data-src="{{ page.bw_image | relative_url }}">B&amp;W</button>
+        {% endif %}
+      </div>
       {% endif %}
 
       <!-- Action bar -->
@@ -221,8 +219,8 @@ layout: default
       </div>
       {% endif %}
 
-      <div class="db-corner-panel db-corner-panel--teal db-corner-panel--small">
-        <div class="db-panel-header db-panel-header--teal"><span>⟦ Object ⟧</span></div>
+      <div class="db-corner-panel db-corner-panel--amber db-corner-panel--small">
+        <div class="db-panel-header db-panel-header--amber"><span>⟦ Object ⟧</span></div>
         <div class="db-sidebar-table">
           {% if page.target %}<div class="db-srow"><span class="db-skey">TGT</span><span class="db-sval">{{ page.target }}</span></div>{% endif %}
           {% if page.constellation %}<div class="db-srow"><span class="db-skey">Const</span><span class="db-sval">{{ page.constellation }}</span></div>{% endif %}
