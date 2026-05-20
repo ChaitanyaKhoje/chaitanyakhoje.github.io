@@ -18,6 +18,8 @@
     })();
   </script>
   <link rel="stylesheet" href="{{ '/assets/css/portfolio.css' | relative_url }}" />
+  {% if page.layout == 'astro-workflow' or page.body_class == 'astro-page' %}{% include astro-head.html %}{% endif %}
+  {% if page.extra_head %}{{ page.extra_head }}{% endif %}
   {% seo %}
 </head>
 <body class="{{ page.body_class | default: '' }}">
