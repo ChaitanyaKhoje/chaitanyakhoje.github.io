@@ -78,6 +78,7 @@ layout: default
       </div>
 
       <!-- Tab strip — Final / Starless / B&W only -->
+      {% if page.hero_image %}
       <div class="db-tab-strip" id="db-tab-strip">
         <button class="db-tab db-tab--active" data-variant="final"
                 data-src="{{ page.hero_image | relative_url }}">● Final</button>
@@ -90,6 +91,7 @@ layout: default
                 data-src="{{ page.bw_image | relative_url }}">B&amp;W</button>
         {% endif %}
       </div>
+      {% endif %}
 
       <!-- Action bar — only external links, no download/filler -->
       {% if page.hero_image or page.astrobin_url %}
@@ -339,7 +341,7 @@ layout: default
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const src = tab.getAttribute('data-src');
-        if (!src || src === 'null' || src === '') return;
+        if (!src || src === 'null' || src === '' || src === '/') return;
         tabs.forEach(t => t.classList.remove('db-tab--active'));
         tab.classList.add('db-tab--active');
         img.src = src;
