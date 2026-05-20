@@ -35,6 +35,134 @@ body_class: astro-page
 
   <div class="al-listing">
 
+    <!-- Atlas ribbon (Field Atlas theme) -->
+    <div class="al-ribbon">
+      <div class="al-ribbon-left">
+        <span><span class="al-ribbon-dot"></span> CK · STATION SUNNYVALE</span>
+        <span>37.37° N · 122.04° W</span>
+        <span>BORTLE 7–8</span>
+      </div>
+      <div class="al-ribbon-right">PLATE I · CONTENTS</div>
+    </div>
+
+    <!-- Atlas body: two-column listing layout (Field Atlas theme) -->
+    <div class="al-atlas-body">
+      <div>
+        <div class="al-atlas-kicker">Field log · Sessions 001 – {{ total_sessions | prepend: "00" | slice: -3, 3 }} · {{ site.time | date: "%Y" }}</div>
+        <h2 class="al-atlas-h1">A field<br />atlas of <em>nebulae,</em><br />stacked from<br />Sunnyvale.</h2>
+        <p class="al-atlas-lede">
+          {{ total_sessions }} session{% if total_sessions != 1 %}s{% endif %}, one balcony, one small smart-telescope. Each plate records what could be coaxed out of a Bortle 7–8 sky with patience and a careful processing pipeline.
+        </p>
+
+        <div class="atlas-index">
+          <div class="ai-header-row">
+            <span>№</span>
+            <span>DESIGNATION</span>
+            <span>TARGET</span>
+            <span>INTEGRATION</span>
+            <span>BORTLE</span>
+            <span>TYPE</span>
+            <span></span>
+          </div>
+          {% for post in astro_posts %}
+          <a class="ai-row" href="{{ post.url | relative_url }}">
+            <span class="ai-num">{% if forloop.index < 10 %}0{{ forloop.index }}{% else %}{{ forloop.index }}{% endif %}</span>
+            <span class="ai-desig">{{ post.target | default: "—" }}</span>
+            <span class="ai-title">{{ post.title }}</span>
+            <span class="ai-meta">{{ post.capture.integration | default: "—" }}</span>
+            <span class="ai-meta">{% if post.capture.bortle %}B{{ post.capture.bortle }}{% else %}—{% endif %}</span>
+            <span class="ai-type">{{ post.object_type | default: "—" }}</span>
+            <span class="ai-arrow">→</span>
+          </a>
+          {% endfor %}
+          {% if total_sessions == 0 %}
+          <div class="ai-row" style="cursor:default;">
+            <span class="ai-num">—</span>
+            <span class="ai-desig">—</span>
+            <span class="ai-title" style="font-style:italic;color:var(--ink-sub);">No sessions logged yet</span>
+            <span class="ai-meta">—</span>
+            <span class="ai-meta">—</span>
+            <span class="ai-type">—</span>
+            <span class="ai-arrow"></span>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="al-chart-col">
+        <div class="al-chart-kicker-row">
+          <span class="al-atlas-kicker" style="margin-bottom:0;">Plate · RA 00ʰ – 08ʰ × Dec ±70°</span>
+          <span class="al-atlas-kicker" style="margin-bottom:0;">Equinox J2000.0</span>
+        </div>
+
+        <div class="al-chart">
+          <div class="al-chart-grid"></div>
+          <div class="al-chart-stars"></div>
+          <span class="al-chart-corner tl"></span>
+          <span class="al-chart-corner tr"></span>
+          <span class="al-chart-corner bl"></span>
+          <span class="al-chart-corner br"></span>
+
+          <span class="al-chart-axis" style="top:6px;left:6%;transform:translateX(-50%);">00ʰ</span>
+          <span class="al-chart-axis" style="top:6px;left:28%;transform:translateX(-50%);">02ʰ</span>
+          <span class="al-chart-axis" style="top:6px;left:50%;transform:translateX(-50%);">04ʰ</span>
+          <span class="al-chart-axis" style="top:6px;left:72%;transform:translateX(-50%);">06ʰ</span>
+          <span class="al-chart-axis" style="top:6px;left:94%;transform:translateX(-50%);">08ʰ</span>
+
+          <span class="al-chart-axis" style="left:8px;top:20%;transform:translateY(-50%);">+60°</span>
+          <span class="al-chart-axis" style="left:8px;top:32%;transform:translateY(-50%);">+30°</span>
+          <span class="al-chart-axis" style="left:8px;top:50%;transform:translateY(-50%);">0°</span>
+          <span class="al-chart-axis" style="left:8px;top:68%;transform:translateY(-50%);">−30°</span>
+          <span class="al-chart-axis" style="left:8px;top:80%;transform:translateY(-50%);">−60°</span>
+
+          {% for post in astro_posts %}
+          {% assign marker_left = "45%" %}
+          {% assign marker_top = "50%" %}
+          {% if post.target == "IC 434" or post.target == "IC434" %}{% assign marker_left = "69%" %}{% assign marker_top = "52%" %}{% endif %}
+          {% if post.target == "Wsh 5" or post.target == "Sh2-199" or post.target == "Soul Nebula" %}{% assign marker_left = "38%" %}{% assign marker_top = "14%" %}{% endif %}
+          {% if post.target == "M 31" or post.target == "M31" %}{% assign marker_left = "14%" %}{% assign marker_top = "25%" %}{% endif %}
+          {% if post.target == "M 42" or post.target == "M42" %}{% assign marker_left = "68%" %}{% assign marker_top = "53%" %}{% endif %}
+          {% if post.target == "M 45" or post.target == "M45" %}{% assign marker_left = "48%" %}{% assign marker_top = "36%" %}{% endif %}
+          <div class="al-chart-marker" style="left:{{ marker_left }};top:{{ marker_top }};">
+            <div style="position:relative;">
+              <span class="cross"></span>
+              <span class="ring"></span>
+            </div>
+            <span class="lbl">{% if forloop.index < 10 %}0{{ forloop.index }}{% else %}{{ forloop.index }}{% endif %} · {{ post.target | default: post.title | truncate: 10, "" }}</span>
+          </div>
+          {% endfor %}
+
+          <div class="al-chart-compass">N ↑ · E ←<br />━━ 1ʰ ━━</div>
+        </div>
+
+        <div class="al-chart-footnotes">
+          <span>* All coordinates J2000.0</span>
+          <span>† Plate II–IV on request</span>
+        </div>
+
+        <div class="al-chart-apparatus">
+          <div class="al-atlas-kicker" style="margin-bottom:14px;">Apparatus</div>
+          <div class="al-chart-apparatus-grid">
+            <div>
+              <div class="al-chart-apparatus-label">OPTIC</div>
+              ZWO Seestar S50, 250 mm <em>ƒ</em>/4.8. Built-in OSC CMOS at native pixel scale.
+            </div>
+            <div>
+              <div class="al-chart-apparatus-label">PIPELINE</div>
+              WBPP 3.0 in PixInsight — DBE, BlurX, NoiseX, StarX, statistical stretch, LHE.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /al-atlas-body -->
+
+    <!-- Atlas folio strip (Field Atlas theme) -->
+    <div class="al-atlas-folio">
+      <span>Khoje · field atlas · vol. 1</span>
+      <span>fol. 001 — recto</span>
+      <span>CC-BY-NC 4.0 · {{ "now" | date: "%Y" }}</span>
+    </div>
+
     <!-- Header -->
     <header class="al-head">
       <div>
