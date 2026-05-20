@@ -7,7 +7,7 @@
 
 - [x] **Phase 4: Theme Foundation** — Design tokens, font loading, CSS custom properties, and theme toggle mechanism with prefers-color-scheme + localStorage (completed 2026-05-20)
 - [x] **Phase 5: Field Atlas** — Light theme listing and post layouts: cartographic cream aesthetic, Italiana display font, atlas index table, two-column post layout (completed 2026-05-20)
-- [ ] **Phase 6: After Dark** — Dark theme listing and post layouts: cinematic near-black aesthetic, Newsreader italic display, feed-row listing, full-bleed hero post layout
+- [x] **Phase 6: After Dark** — Dark theme listing and post layouts: cinematic near-black aesthetic, Newsreader italic display, feed-row listing, full-bleed hero post layout (completed 2026-05-20)
 
 ## Phase Details
 
@@ -60,7 +60,14 @@ Plans:
   3. The post page opens with a wide full-bleed cinematic image plate (hero_image when provided, SVG nebula fallback otherwise)
   4. The post body is a two-column grid: wide prose column on the left, side-notes and mono apparatus/pipeline notes on the right
   5. The mast is minimal — brand on the left, context nav on the right (Back / Index / Session N / Next) — and all navigation links resolve correctly
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+**Wave 1**
+- [x] 06-01-PLAN.md — Create assets/css/astro-night.css and wire it into _includes/astro-head.html
+
+**Wave 2**
+- [x] 06-02-PLAN.md — Update astrophotography.html with the After Dark listing shell
+- [x] 06-03-PLAN.md — Update _layouts/astro-workflow.html with the After Dark post shell
 **UI hint**: yes
 
 ## Progress
@@ -69,7 +76,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 4. Theme Foundation | 2/2 | Complete    | 2026-05-20 |
 | 5. Field Atlas | 3/3 | Complete    | 2026-05-20 |
-| 6. After Dark | 0/? | Not started | - |
+| 6. After Dark | 3/3 | Complete | 2026-05-20 |
 
 ---
 *Roadmap created: 2026-05-19 — Milestone v1.1*

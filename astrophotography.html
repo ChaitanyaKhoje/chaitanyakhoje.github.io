@@ -16,6 +16,116 @@ body_class: astro-page
     {% assign total_frames = total_frames | plus: post.capture.frames %}
   {% endif %}
 {% endfor %}
+{% assign featured_post = astro_posts.first %}
+{% assign night_total_frames = 0 %}
+{% for post in astro_posts %}
+  {% assign frame_count = post.capture.frames | split: " " | first | plus: 0 %}
+  {% assign night_total_frames = night_total_frames | plus: frame_count %}
+{% endfor %}
+
+<section class="night-shell">
+  <div class="night-scene-bg" aria-hidden="true"></div>
+
+  <header class="night-mast">
+    <div class="night-brand">Khoje · <em>after dark</em></div>
+    <div class="night-nav">
+      <a href="{{ '/' | relative_url }}">Portfolio</a>
+      <a class="is-active" href="{{ '/astrophotography/' | relative_url }}">Astrophotography</a>
+      <a href="#archive">Archive</a>
+      <button id="astro-theme-toggle" class="al-theme-toggle night-theme-toggle" aria-label="Switch astrophotography theme"></button>
+    </div>
+  </header>
+
+  <div class="night-intro">
+    <div>
+      <div class="night-num">● Live · last frame · {{ site.time | date: "%H:%M %Z" }}</div>
+      <h1 class="night-h1">
+        Light, given<br /><em>time enough</em><br />to arrive.
+      </h1>
+    </div>
+    <div>
+      <p class="night-lede">
+        {{ total_sessions }} session{% if total_sessions != 1 %}s{% endif %} through a small smart-telescope from a suburban balcony. Each entry keeps what stayed after the bad frames were thrown out and the rest was patiently stacked.
+      </p>
+      <div class="night-stats">
+        <div><span>{{ total_sessions | prepend: "00" | slice: -2, 2 }}</span> Sessions</div>
+        <div><span>{% if featured_post and featured_post.capture and featured_post.capture.integration %}{{ featured_post.capture.integration }}{% else %}—{% endif %}</span> Integration</div>
+        <div><span>{{ night_total_frames }}</span> Subs</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="night-feed" id="archive">
+    {% for post in astro_posts %}
+    {% assign post_index = forloop.index | prepend: "00" | slice: -3, 3 %}
+    <a class="feed-row" href="{{ post.url | relative_url }}">
+      <div class="idx">— {{ post_index }}</div>
+      <div>
+        <div class="feed-title">{{ post.title | default: post.target | default: "Untitled Session" }}</div>
+        <div class="feed-desig">
+          {{ post.target | default: "—" }} · {{ post.margin_note | default: post.description | strip_html | truncate: 84 }}
+        </div>
+      </div>
+      <div class="feed-thumb">
+        {% if post.hero_image %}
+        <img src="{{ post.hero_image | relative_url }}" alt="{{ post.title }}" />
+        {% else %}
+        <svg viewBox="0 0 720 440" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <radialGradient id="night-thumb-{{ forloop.index }}" cx="50%" cy="50%" r="78%">
+              <stop offset="0%" stop-color="#d4a76a" stop-opacity="0.42" />
+              <stop offset="36%" stop-color="#6fc7d4" stop-opacity="0.12" />
+              <stop offset="100%" stop-color="#07080b" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <rect width="720" height="440" fill="#07080b" />
+          <ellipse cx="420" cy="210" rx="260" ry="140" fill="url(#night-thumb-{{ forloop.index }})" />
+          <circle cx="170" cy="120" r="2.5" fill="#fffaf0" />
+          <circle cx="260" cy="82" r="1.8" fill="#fffaf0" />
+          <circle cx="542" cy="104" r="1.9" fill="#fffaf0" />
+          <circle cx="590" cy="274" r="2.2" fill="#fffaf0" />
+          <circle cx="110" cy="300" r="1.7" fill="#fffaf0" />
+          <path d="M 470 286 C 452 258, 463 228, 496 220 C 508 198, 534 190, 552 196 C 569 184, 596 188, 604 208 C 622 212, 636 232, 630 250 C 646 266, 648 292, 634 308 C 638 330, 620 352, 596 352 L 596 392 L 482 392 Z" fill="#0a0b0f" />
+        </svg>
+        {% endif %}
+      </div>
+      <div class="feed-meta">
+        <div class="row"><span class="k">int</span><span>{% if post.capture and post.capture.integration %}{{ post.capture.integration }}{% else %}—{% endif %}</span></div>
+        <div class="row"><span class="k">subs</span><span>{% if post.capture and post.capture.frames %}{{ post.capture.frames | split: " " | first }}{% else %}—{% endif %}</span></div>
+        <div class="row"><span class="k">b°</span><span>{% if post.capture and post.capture.bortle %}{{ post.capture.bortle | split: " " | first }}{% else %}—{% endif %}</span></div>
+        <div class="row"><span class="k">when</span><span>{% if post.capture and post.capture.date %}{{ post.capture.date }}{% else %}{{ post.date | date: "%b %Y" }}{% endif %}</span></div>
+      </div>
+    </a>
+    {% endfor %}
+    {% if total_sessions == 0 %}
+    <div class="feed-row" style="cursor:default;">
+      <div class="idx">— —</div>
+      <div>
+        <div class="feed-title">No sessions logged yet</div>
+        <div class="feed-desig">Archive waiting for the first frame.</div>
+      </div>
+      <div class="feed-thumb">
+        <svg viewBox="0 0 720 440" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="720" height="440" fill="#07080b" />
+        </svg>
+      </div>
+      <div class="feed-meta">
+        <div class="row"><span class="k">int</span><span>—</span></div>
+        <div class="row"><span class="k">subs</span><span>—</span></div>
+        <div class="row"><span class="k">b°</span><span>—</span></div>
+        <div class="row"><span class="k">when</span><span>—</span></div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="night-feed-rule"></div>
+  </div>
+
+  <footer class="night-footer">
+    <span>© {{ site.time | date: "%Y" }} · Chaitanya Khoje</span>
+    <span>↓ scroll for archive</span>
+    <span>built on a balcony</span>
+  </footer>
+</section>
 
 <div class="astro-listing-wrap">
   <div class="al-scene-bg" aria-hidden="true"></div>

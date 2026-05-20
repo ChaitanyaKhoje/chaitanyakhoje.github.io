@@ -2,6 +2,185 @@
 layout: default
 ---
 
+{% assign astro_posts = site.posts | where: "layout", "astro-workflow" | sort: "date" | reverse %}
+{% assign total_sessions = astro_posts.size %}
+{% assign current_index = 0 %}
+{% assign previous_post = nil %}
+{% assign next_post = nil %}
+{% assign previous_candidate = nil %}
+{% assign last_index = astro_posts.size | minus: 1 %}
+{% for post in astro_posts %}
+  {% if post.url == page.url %}
+    {% assign current_index = forloop.index %}
+    {% assign previous_post = previous_candidate %}
+    {% if forloop.index0 < last_index %}
+      {% assign next_post = astro_posts[forloop.index] %}
+    {% endif %}
+  {% endif %}
+  {% assign previous_candidate = post %}
+{% endfor %}
+{% assign current_number = current_index | prepend: "00" | slice: -3, 3 %}
+
+<section class="night-post">
+  <div class="night-scene-bg" aria-hidden="true"></div>
+
+  <header class="night-mast">
+    <div class="night-brand">Khoje · <em>after dark</em></div>
+    <div class="night-nav">
+      <a href="{{ '/astrophotography/' | relative_url }}">← Back</a>
+      <a href="{{ '/astrophotography/' | relative_url }}">Index</a>
+      <span class="is-active">Session {{ current_number }}</span>
+      {% if next_post %}
+      <a href="{{ next_post.url | relative_url }}">Next →</a>
+      {% else %}
+      <span>Next →</span>
+      {% endif %}
+      <button id="astro-theme-toggle" class="al-theme-toggle night-theme-toggle" aria-label="Switch astrophotography theme"></button>
+    </div>
+  </header>
+
+  <div class="night-hero">
+    <div class="night-hero-media" aria-hidden="true">
+      {% if page.hero_image %}
+      <img src="{{ page.hero_image | relative_url }}" alt="{{ page.title }}" draggable="false" oncontextmenu="return false" />
+      {% else %}
+      <svg viewBox="0 0 1200 430" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="night-ha" cx="50%" cy="55%" r="65%">
+            <stop offset="0%" stop-color="#d4a76a" stop-opacity="0.55" />
+            <stop offset="30%" stop-color="#a04a2e" stop-opacity="0.5" />
+            <stop offset="70%" stop-color="#3a1a18" stop-opacity="0.3" />
+            <stop offset="100%" stop-color="#07080b" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="night-alnitak" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff8e0" stop-opacity="0.95" />
+            <stop offset="35%" stop-color="#f4dca8" stop-opacity="0.5" />
+            <stop offset="100%" stop-color="#d4a76a" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="night-oiii" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#6fc7d4" stop-opacity="0.35" />
+            <stop offset="100%" stop-color="#6fc7d4" stop-opacity="0" />
+          </radialGradient>
+          <filter id="grain">
+            <feTurbulence baseFrequency="0.9" numOctaves="2" />
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 0.95   0 0 0 0 0.85   0 0 0 0.08 0" />
+          </filter>
+        </defs>
+        <rect width="1200" height="430" fill="#07080b" />
+        <ellipse cx="700" cy="240" rx="600" ry="240" fill="url(#night-ha)" />
+        <ellipse cx="380" cy="180" rx="180" ry="110" fill="url(#night-oiii)" />
+        <circle cx="280" cy="210" r="90" fill="url(#night-alnitak)" />
+        <circle cx="280" cy="210" r="4" fill="#fff" />
+        <line x1="180" y1="210" x2="380" y2="210" stroke="#fff" strokeWidth="0.7" opacity="0.6" />
+        <line x1="280" y1="120" x2="280" y2="300" stroke="#fff" strokeWidth="0.7" opacity="0.6" />
+        <path d="M 660 320 C 650 290, 666 260, 700 252 C 712 220, 740 204, 760 208 C 776 188, 808 188, 818 212 C 844 216, 862 240, 854 264 C 880 280, 884 312, 866 332 C 874 360, 850 396, 814 396 L 814 480 L 670 480 Z" fill="#07080b" />
+        <circle cx="140" cy="80" r="5.4" fill="#fffaf0" />
+        <circle cx="230" cy="120" r="3.9" fill="#fffaf0" />
+        <circle cx="460" cy="60" r="6" fill="#fffaf0" />
+        <circle cx="560" cy="90" r="4.4" fill="#fffaf0" />
+        <circle cx="640" cy="130" r="3.6" fill="#fffaf0" />
+        <circle cx="820" cy="70" r="7.5" fill="#fffaf0" />
+        <circle cx="920" cy="140" r="4.8" fill="#fffaf0" />
+        <circle cx="1030" cy="80" r="4.2" fill="#fffaf0" />
+        <circle cx="1090" cy="200" r="6" fill="#fffaf0" />
+        <circle cx="120" cy="260" r="3.6" fill="#fffaf0" />
+        <circle cx="200" cy="340" r="4.8" fill="#fffaf0" />
+        <circle cx="480" cy="380" r="3.6" fill="#fffaf0" />
+        <circle cx="940" cy="320" r="5.4" fill="#fffaf0" />
+        <circle cx="1070" cy="360" r="4.2" fill="#fffaf0" />
+        <rect width="1200" height="430" filter="url(#grain)" opacity="0.4" />
+      </svg>
+      {% endif %}
+    </div>
+
+    <div class="night-hero-floats" aria-hidden="true">
+      <div>RA · {% if page.ra %}{{ page.ra }}{% else %}—{% endif %} · DEC · {% if page.dec %}{{ page.dec }}{% else %}—{% endif %}</div>
+      <div class="plate">● Plate {{ current_number }}</div>
+    </div>
+
+    <div class="night-hero-title">
+      <h1 class="night-hero-h1">
+        {{ page.title }}<br /><em>in the stack.</em>
+      </h1>
+      <div class="night-hero-scale">
+        ─── 10 arcmin ─── <br />
+        North ↑ &nbsp; East ←
+      </div>
+    </div>
+  </div>
+
+  <div class="night-body">
+    <main class="night-prose" id="main-content" tabindex="-1">
+      {% if page.description %}
+      <p class="intro">{{ page.description }}</p>
+      {% endif %}
+      <div>
+        {{ content }}
+      </div>
+    </main>
+
+    <aside class="night-side" id="night-sidebar">
+      {% if page.margin_note %}
+      <div class="night-note">
+        <div class="night-side-label">↳ Session note</div>
+        <div class="night-side-block">{{ page.margin_note }}</div>
+        {% if page.margin_note_date %}
+        <div class="night-note-date">{{ page.margin_note_date }}</div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if page.gear %}
+      <div class="night-side-block">
+        <div class="night-side-title">── Apparatus</div>
+        <div class="night-side-label">↳ Optic</div>
+        <div>{{ page.gear.telescope | default: "—" }}</div>
+        <div class="night-side-label" style="margin-top: 12px;">↳ Camera</div>
+        <div>{{ page.gear.camera | default: "—" }}</div>
+        <div class="night-side-label" style="margin-top: 12px;">↳ Mount</div>
+        <div>{{ page.gear.mount | default: "—" }}</div>
+        <div class="night-side-label" style="margin-top: 12px;">↳ Filter</div>
+        <div>{{ page.gear.filter | default: "—" }}</div>
+      </div>
+      {% endif %}
+
+      {% if page.capture %}
+      <div class="night-side-block">
+        <div class="night-side-title">── Session</div>
+        <div class="night-side-label">↳ Integration</div>
+        <div>{{ page.capture.integration | default: "—" }}</div>
+        <div class="night-side-label" style="margin-top: 12px;">↳ Subs</div>
+        <div>{{ page.capture.frames | default: "—" }}</div>
+        <div class="night-side-label" style="margin-top: 12px;">↳ Bortle</div>
+        <div>{{ page.capture.bortle | default: "—" }}</div>
+        <div class="night-side-label" style="margin-top: 12px;">↳ Date</div>
+        <div>
+          {% if page.capture.date %}{{ page.capture.date }}{% else %}{{ page.date | date: "%b %d, %Y" }}{% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if page.capture and page.capture.location %}
+      <div class="night-side-block">
+        <div class="night-side-title">── Pipeline</div>
+        <div class="night-side-label">↳ Site</div>
+        <div>{{ page.capture.location }}</div>
+        {% if page.gear and page.gear.software %}
+        <div class="night-side-label" style="margin-top: 12px;">↳ Software</div>
+        <div>{{ page.gear.software }}</div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </aside>
+  </div>
+
+  <footer class="night-post-footer">
+    <span>{% if previous_post %}← {{ previous_post.target | default: previous_post.title | default: "Archive" }}{% else %}← Archive{% endif %}</span>
+    <span>● Session {{ current_number }}</span>
+    <span>{% if next_post %}{{ next_post.target | default: next_post.title | default: "Next" }} →{% else %}Index →{% endif %}</span>
+  </footer>
+</section>
+
 <div class="db-wrap post">
 
   <div class="db-bg" aria-hidden="true"></div>
