@@ -2,22 +2,6 @@
 layout: default
 ---
 
-<script>
-(function() {
-  var saved;
-  try { saved = localStorage.getItem('astro-theme'); } catch (e) { saved = null; }
-  var theme;
-  if (saved === 'theme-atlas' || saved === 'theme-night') {
-    theme = saved;
-  } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-    theme = 'theme-atlas';
-  } else {
-    theme = 'theme-night';
-  }
-  document.body.classList.add(theme);
-})();
-</script>
-
 <div class="db-wrap post">
 
   <div class="db-bg" aria-hidden="true"></div>
@@ -369,9 +353,9 @@ layout: default
     if (!toggle) return;
 
     function currentTheme() {
-      if (document.body.classList.contains('theme-atlas')) return 'theme-atlas';
-      if (document.body.classList.contains('theme-night')) return 'theme-night';
-      document.body.classList.add('theme-night');
+      if (document.documentElement.classList.contains('theme-atlas')) return 'theme-atlas';
+      if (document.documentElement.classList.contains('theme-night')) return 'theme-night';
+      document.documentElement.classList.add('theme-night');
       return 'theme-night';
     }
 
@@ -384,8 +368,8 @@ layout: default
     toggle.addEventListener('click', function() {
       var current = currentTheme();
       var next = current === 'theme-atlas' ? 'theme-night' : 'theme-atlas';
-      document.body.classList.remove(current);
-      document.body.classList.add(next);
+      document.documentElement.classList.remove(current);
+      document.documentElement.classList.add(next);
       try { localStorage.setItem('astro-theme', next); } catch (e) {}
       toggle.textContent = labelFor(next);
     });

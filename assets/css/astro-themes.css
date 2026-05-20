@@ -2,9 +2,9 @@
 
 /* ──────────────────────────────────────────────────────────────
    THEME 1 · ATLAS — Field Atlas (light, cartographic cream)
-   Usage: <body class="theme-atlas">
+   Usage: <html class="theme-atlas"> (set from <head> script)
    ────────────────────────────────────────────────────────────── */
-body.theme-atlas {
+html.theme-atlas {
   --paper:      #ede6d3;
   --paper-d:    #ddd4be;
   --bg:         #ede6d3;   /* alias for --paper */
@@ -26,9 +26,9 @@ body.theme-atlas {
 
 /* ──────────────────────────────────────────────────────────────
    THEME 2 · NIGHT — After Dark (dark, cinematic near-black)
-   Usage: <body class="theme-night">
+   Usage: <html class="theme-night"> (set from <head> script)
    ────────────────────────────────────────────────────────────── */
-body.theme-night {
+html.theme-night {
   --bg:         #07080b;
   --bg-2:       #0d0f14;
   --paper:      #07080b;   /* alias for --bg */
@@ -45,6 +45,7 @@ body.theme-night {
   --sans:       "Space Grotesk", -apple-system, sans-serif;
   --body:       "Manrope", -apple-system, sans-serif;
   --mono:       "JetBrains Mono", ui-monospace, monospace;
+  --serif:      "Newsreader", "Times New Roman", serif;
 }
 
 /* ──────────────────────────────────────────────────────────────

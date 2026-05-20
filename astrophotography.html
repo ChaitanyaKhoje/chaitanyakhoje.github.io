@@ -8,22 +8,6 @@ hide_theme_toggle: true
 body_class: astro-page
 ---
 
-<script>
-(function() {
-  var saved;
-  try { saved = localStorage.getItem('astro-theme'); } catch (e) { saved = null; }
-  var theme;
-  if (saved === 'theme-atlas' || saved === 'theme-night') {
-    theme = saved;
-  } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-    theme = 'theme-atlas';
-  } else {
-    theme = 'theme-night';
-  }
-  document.body.classList.add(theme);
-})();
-</script>
-
 {% assign astro_posts = site.posts | where: "layout", "astro-workflow" | sort: "date" | reverse %}
 {% assign total_sessions = astro_posts.size %}
 {% assign total_frames = 0 %}
@@ -329,9 +313,9 @@ body_class: astro-page
   if (!toggle) return;
 
   function currentTheme() {
-    if (document.body.classList.contains('theme-atlas')) return 'theme-atlas';
-    if (document.body.classList.contains('theme-night')) return 'theme-night';
-    document.body.classList.add('theme-night');
+    if (document.documentElement.classList.contains('theme-atlas')) return 'theme-atlas';
+    if (document.documentElement.classList.contains('theme-night')) return 'theme-night';
+    document.documentElement.classList.add('theme-night');
     return 'theme-night';
   }
 
@@ -344,8 +328,8 @@ body_class: astro-page
   toggle.addEventListener('click', function() {
     var current = currentTheme();
     var next = current === 'theme-atlas' ? 'theme-night' : 'theme-atlas';
-    document.body.classList.remove(current);
-    document.body.classList.add(next);
+    document.documentElement.classList.remove(current);
+    document.documentElement.classList.add(next);
     try { localStorage.setItem('astro-theme', next); } catch (e) {}
     toggle.textContent = labelFor(next);
   });
