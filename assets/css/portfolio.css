@@ -720,17 +720,18 @@ body.astro-page .article-shell {
   min-height: 100vh;
 }
 
-/* ── Scanline bg ── */
+/* ── Scene bg ── */
 .db-bg {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background-image:
-    radial-gradient(rgba(255,220,180,0.4) 0.5px, transparent 0.5px),
-    repeating-linear-gradient(0deg, rgba(217,132,80,0.03) 0 1px, transparent 1px 4px);
-  background-size: 220px 220px, 100% 100%;
-  opacity: 0.65;
+  background:
+    radial-gradient(rgba(255,200,140,0.06) 0.5px, transparent 0.5px),
+    radial-gradient(900px 600px at 12% -10%, rgba(255,138,66,0.10), transparent 70%),
+    radial-gradient(900px 700px at 88% 110%, rgba(159,199,255,0.08), transparent 70%),
+    repeating-linear-gradient(0deg, rgba(255,200,140,0.02) 0 1px, transparent 1px 4px);
+  background-size: 220px 220px, 100% 100%, 100% 100%, 100% 100%;
 }
 
 /* ── Mission bar ── */
@@ -752,7 +753,7 @@ body.astro-page .article-shell {
   height: 7px;
   border-radius: 50%;
   background: var(--db-a1);
-  box-shadow: 0 0 8px var(--db-a1);
+  box-shadow: 0 0 10px var(--db-a1);
   flex-shrink: 0;
   animation: db-pulse 2.4s ease-in-out infinite;
 }
@@ -937,36 +938,38 @@ body.astro-page .article-shell {
 .db-telem-designation .db-telem-big-serif {
   font-family: var(--db-serif);
   font-style: italic;
-  font-size: 38px;
+  font-size: clamp(22px, 2.4vw, 30px);
   line-height: 1.05;
-  color: #f0f3f9;
+  color: var(--db-ink);
+  letter-spacing: -0.4px;
   margin-top: 2px;
 }
 
 .db-telem-designation .db-telem-sub {
   font-size: 10px;
-  letter-spacing: 1.5px;
-  color: var(--db-a3);
-  margin-top: 4px;
+  letter-spacing: 1.6px;
+  color: var(--db-a1);
+  margin-top: 5px;
+  text-transform: uppercase;
 }
 
 .db-telem-val {
   font-family: var(--db-mono);
   font-weight: 500;
-  font-size: 26px;
+  font-size: clamp(16px, 1.8vw, 22px);
   font-variant-numeric: tabular-nums;
-  color: #e7ecf6;
+  color: var(--db-ink);
   margin-top: 2px;
 }
 
 .db-telem-val--teal   { color: var(--db-a2); }
-.db-telem-val--blue   { color: var(--db-a2); }
+.db-telem-val--blue   { color: var(--db-a3); }
 .db-telem-val--red    { color: var(--db-a1); }
-.db-telem-val--amber  { color: var(--db-a3); }
+.db-telem-val--amber  { color: var(--db-a2); }
 .db-telem-val--orange { color: var(--db-a1); }
-.db-sval--amber  { color: var(--db-a3); }
+.db-sval--amber  { color: var(--db-a2); }
 .db-sval--orange { color: var(--db-a1); }
-.db-sval--blue   { color: var(--db-a2); }
+.db-sval--blue   { color: var(--db-a3); }
 
 /* ── Title row ── */
 .db-title-row {
@@ -979,22 +982,23 @@ body.astro-page .article-shell {
 }
 
 .db-h1 {
-  margin: 0 0 14px;
+  margin: 0 0 10px;
   font-family: var(--db-serif);
+  font-style: italic;
   font-weight: 400;
-  font-size: clamp(28px, 3.5vw, 48px);
-  line-height: 1.05;
+  font-size: clamp(22px, 2.6vw, 36px);
+  line-height: 1.06;
   letter-spacing: -0.4px;
-  color: #f0f3f9;
+  color: var(--db-ink);
 }
 
 .db-subtitle {
   margin: 0;
   font-family: var(--db-serif);
-  font-size: 17px;
+  font-size: 15.5px;
   line-height: 1.5;
-  color: #aeb8cc;
-  max-width: 740px;
+  color: var(--db-ink-sub);
+  max-width: 760px;
 }
 
 .db-title-right { text-align: right; }
@@ -1052,14 +1056,7 @@ body.astro-page .article-shell {
   color: var(--db-a3);
 }
 
-.db-hero-desc {
-  font-family: var(--db-serif);
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--db-ink-sub);
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--db-rule);
-}
+.db-hero-desc { display: none; }
 
 .db-hero-img {
   width: 100%;
@@ -1137,10 +1134,10 @@ body.astro-page .article-shell {
   height: 22px;
 }
 
-.db-corner--tl { top: 8px; left: 8px; border-top: 1.5px solid var(--db-a2); border-left: 1.5px solid var(--db-a2); }
-.db-corner--tr { top: 8px; right: 8px; border-top: 1.5px solid var(--db-a2); border-right: 1.5px solid var(--db-a2); }
-.db-corner--bl { bottom: 8px; left: 8px; border-bottom: 1.5px solid var(--db-a2); border-left: 1.5px solid var(--db-a2); }
-.db-corner--br { bottom: 8px; right: 8px; border-bottom: 1.5px solid var(--db-a2); border-right: 1.5px solid var(--db-a2); }
+.db-corner--tl { top: 8px; left: 8px; border-top: 1.5px solid var(--db-a1); border-left: 1.5px solid var(--db-a1); }
+.db-corner--tr { top: 8px; right: 8px; border-top: 1.5px solid var(--db-a1); border-right: 1.5px solid var(--db-a1); }
+.db-corner--bl { bottom: 8px; left: 8px; border-bottom: 1.5px solid var(--db-a1); border-left: 1.5px solid var(--db-a1); }
+.db-corner--br { bottom: 8px; right: 8px; border-bottom: 1.5px solid var(--db-a1); border-right: 1.5px solid var(--db-a1); }
 
 .db-hud-ra,
 .db-hud-dec {
@@ -1351,20 +1348,21 @@ body.astro-page .article-shell {
 }
 
 .db-sw-pill {
-  padding: 4px 10px;
+  padding: 5px 10px;
   border: 1px solid var(--db-rule);
-  font-size: 10px;
+  font-family: var(--db-mono);
+  font-size: 11px;
   letter-spacing: 1.4px;
-  color: #c8d3e6;
+  color: var(--db-ink);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
 }
 
 .db-sw-dot {
   width: 6px;
   height: 6px;
-  background: var(--db-a2);
+  background: var(--db-a1);
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -1372,60 +1370,65 @@ body.astro-page .article-shell {
 /* ── Prose ── */
 .db-prose {
   font-family: var(--db-serif);
-  font-size: 17px;
-  line-height: 1.72;
-  color: #c8d0e0;
-  max-width: 760px;
+  font-size: 18px;
+  line-height: 1.78;
+  color: var(--db-ink-sub);
+  max-width: 780px;
 }
 
 .db-prose h2 {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 14px;
-  margin: 48px 0 8px;
-  padding-bottom: 9px;
-  border-bottom: 1px dashed var(--db-a3);
-  font-family: var(--db-mono);
-  font-weight: 500;
-  font-size: 13px;
-  letter-spacing: 2.5px;
-  color: #f0f3f9;
-  text-transform: uppercase;
+  margin: 48px 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--db-a1);
+  font-family: var(--db-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(22px, 2.6vw, 30px);
+  line-height: 1.15;
+  letter-spacing: -0.3px;
+  color: var(--db-ink);
+  text-transform: none;
 }
 
 .db-prose h2::before {
   content: '§';
-  font-size: 11px;
-  color: var(--db-a3);
-  letter-spacing: 2px;
+  font-family: var(--db-mono);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--db-a1);
+  letter-spacing: 1.5px;
+  position: relative;
+  top: -4px;
+  flex-shrink: 0;
 }
 
-.db-prose h2::after {
-  flex: 1;
-  content: '';
-  height: 1px;
-  background: var(--db-rule);
-}
+.db-prose h2::after { display: none; }
 
 .db-prose h3 {
   font-family: var(--db-mono);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 1.8px;
   text-transform: uppercase;
-  color: #e7ecf6;
-  margin: 28px 0 10px;
+  color: var(--db-ink);
+  margin: 30px 0 12px;
+  font-weight: 600;
 }
 
 .db-prose p { margin: 0 0 16px; }
 
-.db-prose strong { color: #e7ecf6; }
+.db-prose strong { color: var(--db-ink); }
 
-.db-prose a { color: var(--db-a3); text-decoration: underline; text-underline-offset: 3px; }
+.db-prose a { color: var(--db-a1); text-decoration: underline; text-underline-offset: 3px; }
+.db-prose a:hover { color: var(--db-a2); }
 
 .db-prose hr {
   border: none;
   border-top: 1px solid var(--db-rule);
-  margin: 40px 0;
+  margin: 32px 0;
 }
 
 .db-prose table {
@@ -1451,7 +1454,7 @@ body.astro-page .article-shell {
   padding: 10px 12px;
   border-bottom: 1px solid var(--db-rule);
   font-variant-numeric: tabular-nums;
-  color: #cfd6e4;
+  color: var(--db-ink-sub);
 }
 
 /* Callout — markdown blockquote */
@@ -1460,11 +1463,11 @@ body.astro-page .article-shell {
   padding: 13px 17px;
   background: var(--db-panel);
   border: 1px solid var(--db-rule);
-  border-left: 3px solid var(--db-a3);
+  border-left: 3px solid var(--db-a1);
   font-family: var(--db-serif);
   font-size: 16px;
   line-height: 1.6;
-  color: #d8dde8;
+  color: var(--db-ink-sub);
 }
 
 .db-prose blockquote p { margin: 0; }
@@ -1473,13 +1476,13 @@ body.astro-page .article-shell {
 .db-prose code {
   font-family: var(--db-mono);
   font-size: 12px;
-  color: #aeb8cc;
+  color: var(--db-ink-sub);
 }
 
 .db-prose pre {
   margin: 18px 0;
   padding: 13px 16px;
-  background: #02040a;
+  background: var(--db-panel);
   border: 1px solid var(--db-rule);
   line-height: 1.6;
   overflow-x: auto;
@@ -1487,7 +1490,7 @@ body.astro-page .article-shell {
 }
 
 .db-prose code {
-  background: rgba(8,12,22,0.8);
+  background: var(--db-panel);
   padding: 1px 5px;
   border: 1px solid var(--db-rule);
 }
@@ -1655,13 +1658,13 @@ body.astro-page .article-shell {
 }
 
 .db-sval {
-  color: #e7ecf6;
+  color: var(--db-ink);
   font-variant-numeric: tabular-nums;
   text-align: right;
   font-size: 11px;
 }
 
-.db-sval--teal { color: var(--db-a2); }
+.db-sval--teal { color: var(--db-a1); }
 
 /* ── Footer ── */
 .db-footer {
